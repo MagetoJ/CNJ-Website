@@ -1,0 +1,427 @@
+{
+  "destinations": [
+    {
+      "slug": "amboseli-national-park",
+      "metadata": {
+        "title": "Amboseli Safari 2026 | Best Views of Kilimanjaro & Giant Elephants",
+        "description": "Book your 2026 Amboseli safari. Experience the best views of Mt. Kilimanjaro and encounter the famous giant elephant herds. Expert local guides and luxury stays.",
+        "keywords": "Amboseli National Park, Kilimanjaro views, giant elephant herds, Kenya safari 2026, Amboseli luxury lodges"
+      },
+      "title": "Amboseli National Park",
+      "subtitle": "The Land of Giants - Best Views of Kilimanjaro",
+      "heroGradient": "bg-gradient-to-br from-blue-900 to-indigo-900",
+      "bestTime": "June - October",
+      "highlights": [
+        {
+          "title": "Kilimanjaro Views",
+          "description": "The most spectacular snow-capped mountain backdrop in Africa.",
+          "icon": "🏔️"
+        },
+        {
+          "title": "Giant Tuskers",
+          "description": "Encounter some of the largest elephant bulls remaining in the wild.",
+          "icon": "🐘"
+        },
+        {
+          "title": "Birding Paradise",
+          "description": "Over 400 species of birds, including massive raptors and water birds.",
+          "icon": "🦅"
+        }
+      ],
+      "description": "Amboseli is world-renowned for providing the most spectacular views of Mount Kilimanjaro, Africa's highest peak. In 2026, we offer exclusive sunrise photography tours where the snow-capped mountain serves as a majestic backdrop to the roaming wildlife. Home to some of Africa's largest 'tuskers,' Amboseli allows for close-up encounters with massive elephant families.",
+      "metaDescription": "Book your 2026 Amboseli safari. Best Kilimanjaro views and giant elephant herds.",
+      "packages": [
+        {
+          "id": "amb-1",
+          "name": "Kilimanjaro View Explorer",
+          "duration": "4 Days / 3 Nights",
+          "price": "$1,100 per person",
+          "highlights": ["Daily sunrise game drives", "Lodge with mountain view", "Professional photography guide", "Maasai cultural visit"]
+        }
+      ],
+      "quickFacts": {
+        "bestTime": "June to October (Dry Season)",
+        "difficulty": "Easy / Family Friendly",
+        "estimatedCost": "Starting from $1,100",
+        "perfectFor": "Photography, Families, Bird Watching"
+      },
+      "trustSection": "CNJ Safaris is a KATO-bonded operator with over 15 years of experience in Amboseli. Our guides are Silver and Gold-level KMMGA certified.",
+      "internalLinking": [
+        "/safaris/maasai-mara",
+        "/comparison/kenya-vs-tanzania",
+        "/niche/photographic-safaris"
+      ]
+    },
+    {
+      "slug": "serengeti-ngorongoro-tanzania",
+      "metadata": {
+        "title": "Serengeti & Ngorongoro Crater Safaris | 2026 Tanzania Tours",
+        "description": "Explore the Serengeti and Ngorongoro Crater. Multi-country cross-border tours available for 2026. Witness the Great Migration and the Big Five in Tanzania.",
+        "keywords": "Serengeti safari, Ngorongoro Crater tour, Tanzania safari 2026, Great Migration, cross-border safari Kenya Tanzania"
+      },
+      "title": "Serengeti & Ngorongoro",
+      "subtitle": "The Ultimate Tanzania Expedition - Multi-Country Tours",
+      "heroGradient": "bg-gradient-to-br from-amber-800 to-orange-900",
+      "bestTime": "Year-round",
+      "highlights": [
+        {
+          "title": "Great Migration",
+          "description": "Witness millions of wildebeest and zebras crossing the plains.",
+          "icon": "🦓"
+        },
+        {
+          "title": "Ngorongoro Crater",
+          "description": "Explore the world's largest intact volcanic caldera teeming with life.",
+          "icon": "🌋"
+        },
+        {
+          "title": "Big Five Paradise",
+          "description": "Unrivaled predator sightings, including tree-climbing lions.",
+          "icon": "🦁"
+        }
+      ],
+      "description": "Experience the sheer scale of the Serengeti. Our 2026 itineraries include mobile tented camps that follow the Great Migration, ensuring you are always in the heart of the action. Descend 600 meters into the world's largest intact volcanic caldera. The crater floor is a self-contained ecosystem teeming with lions, black rhinos, and flamingos.",
+      "metaDescription": "Explore the Serengeti and Ngorongoro Crater with CNJ Safaris. Multi-country 2026 tours available.",
+      "packages": [
+        {
+          "id": "tz-1",
+          "name": "Tanzania Classic",
+          "duration": "7 Days / 6 Nights",
+          "price": "$2,400 per person",
+          "highlights": ["Serengeti game drives", "Ngorongoro Crater tour", "Luxury tented camps", "All transfers included"]
+        }
+      ],
+      "quickFacts": {
+        "bestTime": "Year-round (Migration peaks June-July & Jan-Feb)",
+        "difficulty": "Moderate",
+        "estimatedCost": "Starting from $2,400",
+        "perfectFor": "Big Five, Migration Seekers, Geological Wonders"
+      },
+      "trustSection": "Voted 'Best Multi-Country Operator 2025.' We handle all cross-border logistics, visas, and vehicle swaps internally for a stress-free journey.",
+      "internalLinking": [
+        "/safaris/maasai-mara",
+        "/comparison/mara-vs-serengeti",
+        "/planning/safety-health"
+      ]
+    },
+    {
+      "slug": "bwindi-volcanoes-gorilla-trekking",
+      "metadata": {
+        "title": "Gorilla Trekking Permits 2026 | Bwindi & Volcanoes National Park",
+        "description": "Secure your 2026 Gorilla Trekking permits for Uganda and Rwanda. Expert-led treks in Bwindi Impenetrable Forest and Volcanoes National Park. Limited availability.",
+        "keywords": "Gorilla trekking 2026, Bwindi permits, Volcanoes National Park Rwanda, mountain gorillas Uganda, gorilla safari"
+      },
+      "title": "Gorilla Trekking Expedition",
+      "subtitle": "Bwindi & Volcanoes - Face-to-Face with Great Apes",
+      "heroGradient": "bg-gradient-to-br from-green-900 to-emerald-900",
+      "bestTime": "June - August",
+      "highlights": [
+        {
+          "title": "Gorilla Encounters",
+          "description": "Spend a magical hour with mountain gorillas in their natural habitat.",
+          "icon": "🦍"
+        },
+        {
+          "title": "Misty Forests",
+          "description": "Trek through ancient, high-altitude rainforests of Uganda and Rwanda.",
+          "icon": "🌫️"
+        },
+        {
+          "title": "Primate Diversity",
+          "description": "See golden monkeys, chimpanzees, and various forest bird species.",
+          "icon": "🐵"
+        }
+      ],
+      "description": "Trek through the ancient, misty forests of Uganda. Bwindi is home to half of the world's remaining mountain gorillas. For a more accessible yet luxury experience, Rwanda's Volcanoes National Park offers world-class lodges and shorter treks. Our team handles the entire permit application process to guarantee your spot in 2026.",
+      "metaDescription": "Secure your 2026 Gorilla Trekking permits for Bwindi and Volcanoes. Expert-led safaris.",
+      "packages": [
+        {
+          "id": "gor-1",
+          "name": "Primate Odyssey",
+          "duration": "5 Days / 4 Nights",
+          "price": "$3,200 per person",
+          "highlights": ["Gorilla permit included", "Golden monkey trek", "Eco-luxury lodge", "Professional park rangers"]
+        }
+      ],
+      "quickFacts": {
+        "bestTime": "June to August & December to February",
+        "difficulty": "Challenging (High Altitude Trekking)",
+        "estimatedCost": "Starting from $1,500 (Permit only: $700-$1,500)",
+        "perfectFor": "Primate Lovers, Active Travelers, Conservationists"
+      },
+      "trustSection": "CNJ Safaris is an authorized agent for the Uganda Wildlife Authority (UWA) and Rwanda Development Board (RDB).",
+      "internalLinking": [
+        "/planning/packing-list",
+        "/niche/sustainable-eco-tours",
+        "/safaris/serengeti"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "slug": "kenya-vs-tanzania-safari",
+      "metadata": {
+        "title": "Kenya vs. Tanzania Safari: Which is Better for 2026?",
+        "description": "Comparing Kenya and Tanzania for your first safari. A breakdown of costs, wildlife, accessibility, and the best time to visit both countries.",
+        "keywords": "Kenya vs Tanzania safari, best safari for first timers, East Africa safari comparison, Kenya Tanzania travel"
+      },
+      "title": "Kenya vs. Tanzania: Choosing Your First Safari Adventure",
+      "quickFacts": {
+        "bestTime": "July to October",
+        "difficulty": "Easy to Plan",
+        "estimatedCost": "Kenya: $$-$$$, Tanzania: $$$-$$$$",
+        "perfectFor": "First-timers, Families, Honeymooners"
+      },
+      "detailedContent": {
+        "h2_1": "Wildlife & Scenery",
+        "content_1": "Kenya offers more concentrated wildlife in smaller parks like the Mara and Amboseli. Tanzania's parks are vast (Serengeti, Selous), offering a sense of true wilderness but requiring longer travel times.",
+        "h2_2": "Logistics & Costs",
+        "content_2": "Kenya generally has better flight connectivity and more budget-to-midrange options. Tanzania is slightly more expensive due to higher park fees and larger distances, but offers unmatched exclusivity.",
+        "h3_1": "The Verdict",
+        "content_3": "Choose Kenya for accessibility and density; choose Tanzania for scale and a raw, 'untouched' feel. Or, do both with our 2026 cross-border packages!"
+      },
+      "trustSection": "We operate our own fleet in both Nairobi and Arusha, ensuring consistent quality across borders.",
+      "internalLinking": [
+        "/safaris/maasai-mara",
+        "/safaris/serengeti-ngorongoro-tanzania",
+        "/comparison/mara-vs-serengeti"
+      ]
+    },
+    {
+      "slug": "maasai-mara-vs-serengeti",
+      "metadata": {
+        "title": "Maasai Mara vs. Serengeti: Costs & Wildlife Density Comparison",
+        "description": "A detailed 2026 breakdown of Maasai Mara and the Serengeti. Which offers better wildlife viewing? Compare costs, migration timing, and crowds.",
+        "keywords": "Maasai Mara vs Serengeti, wildebeest migration 2026, safari costs Kenya Tanzania, wildlife density"
+      },
+      "title": "Maasai Mara vs. Serengeti: The Battle of the Plains",
+      "quickFacts": {
+        "bestTime": "July-Sept (Mara), Year-round (Serengeti)",
+        "difficulty": "Easy",
+        "estimatedCost": "Mara: $300-$800/day, Serengeti: $400-$1,200/day",
+        "perfectFor": "The Great Migration, Predator Action"
+      },
+      "detailedContent": {
+        "h2_1": "The Great Migration Cycle",
+        "content_1": "In 2026, the migration is expected to hit the Mara by mid-July. While the Mara offers the dramatic river crossings, the Serengeti hosts the migration for 9 months of the year, including the calving season in February.",
+        "h2_2": "Wildlife Density & Crowds",
+        "content_2": "The Mara has a higher density of predators per square kilometer, making sightings almost guaranteed. However, the Serengeti's sheer size allows for more private sightings away from the crowds.",
+        "h3_1": "Photography Comparison",
+        "content_3": "The Mara's open plains are better for long-lens shots, while the Serengeti's kopjes (rocky outcrops) provide iconic 'Lion King' silhouettes."
+      },
+      "trustSection": "Our guides communicate across borders to provide real-time migration tracking for our guests.",
+      "internalLinking": [
+        "/safaris/maasai-mara",
+        "/safaris/serengeti",
+        "/niche/photographic-safaris"
+      ]
+    },
+    {
+      "slug": "safari-van-vs-4x4-land-cruiser",
+      "metadata": {
+        "title": "Safari Van vs. 4x4 Land Cruiser: The Best Vehicle for Photography",
+        "description": "Why the 4x4 Land Cruiser is the superior choice for your 2026 safari. Comparing comfort, off-road capability, and photography features.",
+        "keywords": "safari van vs land cruiser, 4x4 safari vehicle, safari photography gear, Kenya safari transport"
+      },
+      "title": "Safari Van vs. 4x4 Land Cruiser: Choosing Your Ride",
+      "quickFacts": {
+        "bestTime": "Crucial during Rainy Season (April-May)",
+        "difficulty": "Equipment Choice",
+        "estimatedCost": "Cruiser: +$100-$150 per day",
+        "perfectFor": "Photographers, Serious Adventurers"
+      },
+      "detailedContent": {
+        "h2_1": "Off-Road Superiority",
+        "content_1": "The 4x4 Land Cruiser is built for the rugged East African terrain. While vans are limited to main tracks, the Cruiser allows us to navigate muddy patches and steep inclines to get you closer to the action.",
+        "h2_2": "Designed for Photographers",
+        "content_2": "Our 2026 Cruisers come equipped with beanbags, 360-degree pop-up roofs, and built-in charging ports for your cameras and drones. The extra height provides a better angle for lion and leopard sightings.",
+        "h3_1": "Comfort & Reliability",
+        "content_3": "Equipped with heavy-duty suspension, the Cruiser offers a smoother ride over 'African massage' roads (corrugated gravel), reducing fatigue during long game drives."
+      },
+      "trustSection": "CNJ Safaris owns and maintains its own fleet of customized 2024-2026 Land Cruisers.",
+      "internalLinking": [
+        "/niche/photographic-safaris",
+        "/planning/packing-list",
+        "/safaris/amboseli-national-park"
+      ]
+    }
+  ],
+  "blog": [
+    {
+      "slug": "2026-safari-packing-list",
+      "metadata": {
+        "title": "The Ultimate 2026 Safari Packing List | Tech & Essentials",
+        "description": "What to pack for your 2026 East Africa safari. Featuring e-SIM guides for Kenya/Tanzania, drone regulations, and the latest tech essentials.",
+        "keywords": "safari packing list 2026, drone regulations Kenya, e-SIM Tanzania, safari tech gear, what to wear on safari"
+      },
+      "title": "2026 East Africa Safari Packing List: Tech & Essentials",
+      "quickFacts": {
+        "bestTime": "Check your travel dates",
+        "difficulty": "Planning Required",
+        "estimatedCost": "Varies",
+        "perfectFor": "Preparation, Tech-savvy travelers"
+      },
+      "detailedContent": {
+        "h2_1": "The Digital Safari: e-SIMs & Connectivity",
+        "content_1": "In 2026, physical SIM cards are becoming obsolete. We recommend Airalo or local providers like Safaricom (Kenya) and Vodacom (Tanzania) for reliable 5G coverage even in the bush.",
+        "h2_2": "Drone Regulations 2026",
+        "content_2": "Bringing a drone? Kenya and Rwanda require prior registration and permits (allow 2-3 months). Drones are generally prohibited inside National Parks without special commercial permits.",
+        "h3_1": "Clothing & Gear",
+        "content_3": "Neutral colors (khaki, olive) are essential. Avoid dark blue and black as they attract Tsetse flies. Don't forget a high-capacity power bank for long days in the field."
+      },
+      "trustSection": "Our pre-departure team provides a personalized packing consultation for every guest.",
+      "internalLinking": [
+        "/planning/safety-health",
+        "/niche/photographic-safaris",
+        "/comparison/safari-van-vs-4x4-land-cruiser"
+      ]
+    },
+    {
+      "slug": "tipping-guide-east-africa",
+      "metadata": {
+        "title": "Tipping Guide for East Africa Safaris | 2026 Recommendations",
+        "description": "How much to tip your safari guide, lodge staff, and trackers in 2026. A clear guide to tipping etiquette in Kenya, Tanzania, and Uganda.",
+        "keywords": "safari tipping guide, tipping etiquette East Africa, how much to tip safari guide, tipping in Kenya 2026"
+      },
+      "title": "The 2026 Tipping Guide: Etiquette for East African Safaris",
+      "quickFacts": {
+        "bestTime": "End of your trip",
+        "difficulty": "Etiquette",
+        "estimatedCost": "$10 - $20 per day (Standard)",
+        "perfectFor": "Responsible Travelers"
+      },
+      "detailedContent": {
+        "h2_1": "Tipping Your Safari Guide",
+        "content_1": "Your guide is the heartbeat of your safari. The 2026 industry standard is $15-$25 per person per day. If you have a private vehicle, a lump sum at the end of the trip is appreciated.",
+        "h2_2": "Lodge & Camp Staff",
+        "content_2": "Most luxury lodges have a 'communal tip box' in the reception area. $5-$10 per guest per day is a generous way to support the behind-the-scenes team like chefs and cleaners.",
+        "h3_1": "Currency Preferences",
+        "content_3": "While US Dollars are widely accepted (notes must be post-2013), tipping in local currency (KES, TZS, UGX) is often more helpful for staff for their daily expenses."
+      },
+      "trustSection": "CNJ Safaris ensures all staff are paid fair, competitive wages; tips are an optional bonus for exceptional service.",
+      "internalLinking": [
+        "/planning/safety-health",
+        "/niche/honeymoon-romantic-escapes",
+        "/safaris/bwindi-volcanoes-gorilla-trekking"
+      ]
+    },
+    {
+      "slug": "safety-health-safari-2026",
+      "metadata": {
+        "title": "2026 Safari Safety & Health | Female Travel & Vaccination Guide",
+        "description": "Stay safe and healthy on your 2026 safari. Solo female travel tips, Yellow Fever requirements, and malaria prevention for East Africa.",
+        "keywords": "safari safety 2026, yellow fever requirements, solo female travel Kenya, malaria prevention Africa, safari health tips"
+      },
+      "title": "Safety & Health: Your Guide to a Worry-Free 2026 Safari",
+      "quickFacts": {
+        "bestTime": "Plan 3 months ahead",
+        "difficulty": "Health & Safety",
+        "estimatedCost": "Vaccinations: $100-$300",
+        "perfectFor": "Solo Travelers, Families, First-timers"
+      },
+      "detailedContent": {
+        "h2_1": "Solo Female Travel in East Africa",
+        "content_1": "Kenya and Tanzania are among the safest destinations for solo female travelers in Africa. Our 2026 'Female-Friendly' packages include female guides upon request and vetted, secure accommodations.",
+        "h2_2": "Health & Vaccinations 2026",
+        "content_2": "Yellow Fever certification is mandatory if entering from an endemic country. Malaria prophylaxis is strongly recommended for most parks. Always consult a travel clinic 6-8 weeks before departure.",
+        "h3_1": "Travel Insurance",
+        "content_3": "Comprehensive insurance including 'Flying Doctors' (AMREF) evacuation is included in all CNJ Safari bookings for 2026."
+      },
+      "trustSection": "We are members of AMREF Flying Doctors, providing 24/7 emergency medical evacuation for all our clients.",
+      "internalLinking": [
+        "/planning/packing-list",
+        "/planning/tipping-guide-east-africa",
+        "/safaris/maasai-mara"
+      ]
+    }
+  ],
+  "niche": [
+    {
+      "slug": "photographic-safaris",
+      "metadata": {
+        "title": "2026 Photographic Safaris | Pro Gear & Expert Guides",
+        "description": "Master wildlife photography with our 2026 specialized safaris. Includes beanbags, camera charging, and Gold-level guides who understand lighting and angles.",
+        "keywords": "photographic safari 2026, wildlife photography Kenya, safari for photographers, camera gear safari, photography workshops Africa"
+      },
+      "title": "Photographic Safaris: Capture the Heart of the Wild",
+      "quickFacts": {
+        "bestTime": "Dry Season (Visibility) or Green Season (Colors)",
+        "difficulty": "Technical / Enthusiast",
+        "estimatedCost": "Starting from $3,500",
+        "perfectFor": "Amateur & Pro Photographers"
+      },
+      "detailedContent": {
+        "h2_1": "Equipment-Ready Vehicles",
+        "content_1": "Our 4x4 Land Cruisers are modified for photographers, featuring lower window sills, removable roof hatches, and floor-level ports for low-angle shots. In-vehicle 220V charging ensures you never miss a shot.",
+        "h2_2": "Gold-Level Photography Guides",
+        "content_2": "Work with guides who understand the 'Golden Hour.' They position the vehicle based on light direction and animal behavior, anticipating the action before it happens.",
+        "h3_1": "Post-Processing Hubs",
+        "content_3": "Our 2026 partner camps feature 'Media Suites' with high-speed internet and color-calibrated monitors for nightly editing sessions."
+      },
+      "trustSection": "Official partner of several world-renowned wildlife photographers for their 2025/2026 workshops.",
+      "internalLinking": [
+        "/comparison/safari-van-vs-4x4-land-cruiser",
+        "/safaris/amboseli-national-park",
+        "/safaris/maasai-mara"
+      ]
+    },
+    {
+      "slug": "honeymoon-romantic-escapes",
+      "metadata": {
+        "title": "Romantic Safari Honeymoons 2026 | Private Sundowners & Bush Dinners",
+        "description": "The ultimate romantic escape. 2026 safari honeymoons featuring private sundowners, candlelit bush dinners, and luxury star-beds in the wilderness.",
+        "keywords": "safari honeymoon 2026, romantic safari Kenya, bush dinners, private sundowners, luxury safari for couples"
+      },
+      "title": "Honeymoon & Romantic Escapes: Love in the Wild",
+      "quickFacts": {
+        "bestTime": "Year-round (September is Peak)",
+        "difficulty": "Relaxed / Luxury",
+        "estimatedCost": "Starting from $5,000 per couple",
+        "perfectFor": "Honeymooners, Anniversaries, Proposals"
+      },
+      "detailedContent": {
+        "h2_1": "Private Sundowners",
+        "content_1": "End your game drive with a private bar set up in a scenic clearing. Watch the sun dip below the horizon with premium champagne and gourmet appetizers, just for the two of you.",
+        "h2_2": "Candlelit Bush Dinners",
+        "content_2": "Dine under the vast African sky. In 2026, we've expanded our 'Starlit Dining' experiences, where a private chef prepares a multi-course meal in a secluded location near your camp.",
+        "h3_1": "The Star-Bed Experience",
+        "content_3": "Spend a night on an elevated wooden platform with only a mosquito net between you and the stars. A truly immersive and romantic way to experience the night sounds of the bush."
+      },
+      "trustSection": "Voted 'Most Romantic Tour Operator 2024' by East Africa Travel Awards.",
+      "internalLinking": [
+        "/niche/sustainable-eco-tours",
+        "/safaris/serengeti-ngorongoro-tanzania",
+        "/planning/tipping-guide-east-africa"
+      ]
+    },
+    {
+      "slug": "sustainable-eco-tours",
+      "metadata": {
+        "title": "Sustainable & Eco-Friendly Safaris 2026 | Carbon-Offset Travel",
+        "description": "Travel with purpose. Our 2026 sustainable safaris focus on Maasai & Samburu community partnerships, carbon-offsetting, and plastic-free travel.",
+        "keywords": "sustainable safari 2026, eco-tours Kenya, carbon offset travel Africa, community-based tourism, plastic-free safari"
+      },
+      "title": "Sustainable & Eco-Tours: Travel for a Better Future",
+      "quickFacts": {
+        "bestTime": "Year-round",
+        "difficulty": "Conscious Travel",
+        "estimatedCost": "Includes $50/day conservation fee",
+        "perfectFor": "Eco-conscious travelers, Philanthropists"
+      },
+      "detailedContent": {
+        "h2_1": "Community Partnerships",
+        "content_1": "We work directly with Maasai and Samburu conservancies. A significant portion of your booking fee goes directly to local schools and water projects, ensuring that wildlife conservation benefits the people.",
+        "h2_2": "Carbon-Offsetting Your Journey",
+        "content_2": "For 2026, CNJ Safaris has partnered with 'Carbon Africa' to calculate and offset the footprint of your entire trip, from international flights to your 4x4 game drives.",
+        "h3_1": "Plastic-Free Initiative",
+        "content_3": "We provide every guest with a high-quality reusable stainless steel water bottle. Our vehicles are equipped with large mineral water dispensers to eliminate single-use plastics."
+      },
+      "trustSection": "Gold-level certification from Eco-Tourism Kenya. We are committed to a 'Leave No Trace' policy.",
+      "internalLinking": [
+        "/safaris/bwindi-volcanoes-gorilla-trekking",
+        "/planning/safety-health",
+        "/niche/honeymoon-romantic-escapes"
+      ]
+    }
+  ]
+}

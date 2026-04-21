@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Disallow: /api
+Disallow: /admin
+Disallow: /_next
+Disallow: /.next
+
+# Sitemap location
+Sitemap: https://cnjsafaris.com/sitemap.xml
+
+# Crawl delay to prevent overloading the server
+Crawl-delay: 1
+
+# Google specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0

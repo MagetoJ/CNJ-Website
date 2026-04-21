@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   name: 'CNJ Safaris',
   description: 'Premium East African Safari Tours for International Travelers. Award-winning custom itineraries to Kenya, Tanzania, & Uganda. Trusted by travelers from USA, Europe, and Asia for safe, luxury, and authentic wildlife adventures.',
   url: 'https://cnjsafaris.com',
-  image: 'https://cnjsafaris.com/Cnj%20new%20logo.jpg',
+  image: 'https://cnjsafaris.com/Cnj%20new%20logo.jpg', // Ensure this matches your production logo path
   twitterHandle: '@cnjsafaris',
 }
 

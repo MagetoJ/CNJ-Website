@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { MessageCircle, Mail, MapPin, Phone } from 'lucide-react'
 
 export default function WhatsAppFooter() {
-  const whatsappNumber = '+254712345678' // Replace with your actual WhatsApp number
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254721246414'
   const whatsappMessage = 'Hi CNJ Safaris, I would like to book a safari adventure!'
   const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
 

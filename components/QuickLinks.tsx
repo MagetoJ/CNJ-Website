@@ -7,18 +7,20 @@ import { MapPin, Users, Calendar } from 'lucide-react'
 const quickLinks = [
   {
     id: 1,
-    title: 'Maasai Mara Big Five',
-    description: 'Experience Kenya\'s iconic wildlife in the world\'s most famous safari destination',
-    icon: MapPin,
-    image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop',
+    title: '8-Day Ultimate East Africa',
+    description: 'Our most selected traveler\'s choice: A comprehensive 8-day journey through the heart of the savannah.',
+    icon: Users, // Changed icon to Users as it's a popular choice
+    image: '/kenya-welcome-safari.jpg',
     href: '/safaris/maasai-mara',
+    badge: 'Most Popular',
+    price: '$1,500',
   },
   {
     id: 2,
     title: 'Gorilla Trekking',
     description: 'Trek through mist-covered mountains to encounter endangered mountain gorillas',
     icon: Users,
-    image: 'https://images.unsplash.com/photo-1581281863883-2469417a1668?q=80&w=800&auto=format&fit=crop',
+    image: '/#BwindiImpenetrableNationalPark #Uganda #gorilla….jpeg',
     href: '/safaris/gorilla-trekking',
   },
   {
@@ -26,7 +28,7 @@ const quickLinks = [
     title: 'Serengeti Migration',
     description: 'Witness the greatest spectacle on Earth - the annual wildebeest migration',
     icon: Calendar,
-    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
+    image: '/Why you should visit Kenya — Style for Wanderlust.jpeg',
     href: '/safaris/serengeti',
   },
 ]
@@ -66,6 +68,11 @@ export default function QuickLinks() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+                  {link.badge && (
+                    <div className="absolute top-4 right-4 bg-leaf-green text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
+                      {link.badge}
+                    </div>
+                  )}
                   <div className="absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center text-jungle-dark shadow-sm group-hover:bg-leaf-green group-hover:text-white transition-colors duration-300">
                     <Icon size={20} />
                   </div>
@@ -76,6 +83,9 @@ export default function QuickLinks() {
                 <h3 className="font-serif text-2xl font-bold text-jungle-dark mb-3">
                   {link.title}
                 </h3>
+                {link.price && (
+                  <p className="text-leaf-green font-bold text-lg mb-2">{link.price} per person</p>
+                )}
                 <p className="text-gray-600 mb-4">
                   {link.description}
                 </p>
@@ -94,7 +104,7 @@ export default function QuickLinks() {
           <p className="text-gray-600 mb-6">
             Don&apos;t see what you&apos;re looking for?
           </p>
-          <button className="px-8 py-3 bg-jungle-dark text-white font-semibold rounded-lg hover:bg-jungle-dark/90 transition">
+          <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
             Create Custom Safari
           </button>
         </div>

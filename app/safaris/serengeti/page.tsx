@@ -68,6 +68,7 @@ export default function SerengetiPage() {
     <DestinationPage
       title="Serengeti National Park"
       subtitle="The Endless Plains of Tanzania"
+      heroImage="/📍Serengeti National Park on days 2 & 3 of the….jpeg"
       heroGradient="bg-gradient-to-br from-jungle-dark to-amber-900"
       bestTime="Late June to October"
       highlights={highlights}

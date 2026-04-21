@@ -13,7 +13,7 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=2068&auto=format&fit=crop"
+          src="/Experience an unforgettable Big 5 safari at….jpeg"
           alt="African Safari Landscape"
           fill
           priority

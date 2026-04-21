@@ -4,9 +4,9 @@
 
 export const SITE_CONFIG = {
   name: 'CNJ Safaris',
-  description: 'Discover Kenya, Tanzania, Uganda & Rwanda with CNJ Safaris. Custom safari itineraries, real-time pricing, and seamless bookings for unforgettable East African adventures.',
+  description: 'Premium East African Safari Tours for International Travelers. Award-winning custom itineraries to Kenya, Tanzania, & Uganda. Trusted by travelers from USA, Europe, and Asia for safe, luxury, and authentic wildlife adventures.',
   url: 'https://cnjsafaris.com',
-  image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1200&h=630&auto=format&fit=crop',
+  image: 'https://cnjsafaris.com/Cnj%20new%20logo.jpg',
   twitterHandle: '@cnjsafaris',
 }
 
@@ -15,14 +15,14 @@ export const destinations = [
     id: 'kenya',
     name: 'Kenya',
     slug: 'kenya',
-    title: 'Kenya Safari Tours | CNJ Safaris',
+    title: 'Best Kenya Safari Tours 2026 | Top Rated for US & EU Travelers',
     image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop',
   },
   {
     id: 'tanzania',
     name: 'Tanzania',
     slug: 'tanzania',
-    title: 'Tanzania Safari Tours | CNJ Safaris',
+    title: 'Luxury Tanzania Safaris | Serengeti & Ngorongoro Expedition',
     image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?q=80&w=800&auto=format&fit=crop',
   },
   {
@@ -72,12 +72,15 @@ export function generateMetaTags(props: {
   return {
     title: props.title,
     description: props.description,
+    icons: {
+      icon: '/Cnj new logo.jpg',
+    },
     openGraph: {
       title: props.title,
       description: props.description,
       images: [
         {
-          url: props.image || SITE_CONFIG.image,
+          url: props.image ? (props.image.startsWith('http') ? props.image : `${SITE_CONFIG.url}${props.image}`) : SITE_CONFIG.image,
           width: 1200,
           height: 630,
         },
@@ -92,6 +95,46 @@ export function generateMetaTags(props: {
       images: [props.image || SITE_CONFIG.image],
       creator: SITE_CONFIG.twitterHandle,
     },
+  }
+}
+
+/**
+ * Generate International TouristTrip JSON-LD
+ */
+export function generateTouristTripSchema(props: {
+  name: string
+  description: string
+  image?: string
+  url: string
+  destinationName: string
+  offers?: { name: string; price: string; currency: string }[]
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    "name": props.name,
+    "description": props.description,
+    "image": props.image || SITE_CONFIG.image,
+    "url": props.url,
+    "touristType": ["International Travelers", "Luxury Wildlife Enthusiasts", "Eco-Tourists from USA, Europe, and Asia"],
+    "itinerary": {
+      "@type": "City",
+      "name": props.destinationName
+    },
+    "offers": props.offers?.map(offer => ({
+      "@type": "Offer",
+      "name": offer.name,
+      "price": offer.price.replace(/[^0-9.]/g, ''),
+      "priceCurrency": offer.currency,
+      "availability": "https://schema.org/InStock",
+      "url": props.url,
+      "eligibleRegion": ["US", "GB", "EU", "AS"],
+      "offeredBy": {
+        "@type": "Organization",
+        "name": SITE_CONFIG.name,
+        "url": SITE_CONFIG.url
+      }
+    }))
   }
 }
 

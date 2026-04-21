@@ -4,6 +4,7 @@ import { Playfair_Display, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/seo/JsonLdSchemas'
 import Navbar from '@/components/Navbar'
+import { QuizProvider } from '@/context/QuizContext'
 import './globals.css'
 
 const playfair = Playfair_Display({ 
@@ -26,21 +27,8 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   keywords: ['safari', 'Kenya', 'Tanzania', 'Uganda', 'Rwanda', 'Maasai Mara', 'Serengeti', 'gorilla trekking'],
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/Cnj new logo.jpg',
+    apple: '/Cnj new logo.jpg',
   },
 }
 
@@ -63,9 +51,11 @@ export default function RootLayout({
         <LocalBusinessSchema />
       </head>
       <body className="font-sans antialiased bg-white text-jungle-dark" suppressHydrationWarning>
-        <Navbar />
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <QuizProvider>
+          <Navbar />
+          {children}
+          {process.env.NODE_ENV === 'production' && <Analytics />}
+        </QuizProvider>
       </body>
     </html>
   )

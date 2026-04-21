@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Download, Loader2, AlertCircle } from 'lucide-react'
+import { X, Download, Loader2, AlertCircle, MessageCircle, Mail } from 'lucide-react'
 import { QuizData } from '../AdventureQuiz'
 import { generateItinerary } from '@/lib/api-client'
 
@@ -34,6 +34,37 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [downloadingPDF, setDownloadingPDF] = useState(false)
+  const [proposedBudget, setProposedBudget] = useState<string>('')
+
+  const calculateDynamicPrice = () => {
+    const start = new Date(quizData.startDate)
+    const end = new Date(quizData.endDate)
+    const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+    
+    let baseRate = 0
+    switch (quizData.budget) {
+      case 'budget': baseRate = 155; break
+      case 'mid-range': baseRate = 300; break
+      case 'luxury': baseRate = 600; break
+      default: baseRate = 200
+    }
+
+    const startMonth = start.getMonth() + 1
+    const isPeak = startMonth >= 7 && startMonth <= 10
+    const multiplier = isPeak ? 1.3 : 0.7
+
+    const totalPerPerson = baseRate * nights * multiplier
+    
+    return {
+      total: totalPerPerson,
+      accommodation: totalPerPerson * 0.5,
+      activities: totalPerPerson * 0.2,
+      transport: totalPerPerson * 0.2,
+      parkFees: totalPerPerson * 0.1
+    }
+  }
+
+  const dynamicPrice = calculateDynamicPrice()
 
   useEffect(() => {
     const fetchItinerary = async () => {
@@ -123,7 +154,7 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
 
           {error && (
             <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex gap-3 mb-6">
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
               <div>
                 <h3 className="font-semibold text-red-900">Error</h3>
                 <p className="text-sm text-red-800">{error}</p>
@@ -153,11 +184,33 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                   </div>
                   <div className="text-center">
                     <p className="text-3xl font-bold text-leaf-green">
-                      ${Math.round(itinerary.estimatedPrice).toLocaleString()}
+                      ${Math.round(dynamicPrice.total).toLocaleString()}
                     </p>
                     <p className="text-sm text-gray-600 mt-1">Est. Total</p>
                   </div>
                 </div>
+              </div>
+
+              {/* Proposed Budget */}
+              <div className="mb-8 p-4 bg-jungle-dark/5 rounded-lg border border-jungle-dark/10">
+                <label className="block text-sm font-semibold text-jungle-dark mb-2">
+                  Have a specific budget in mind?
+                </label>
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <span className="absolute left-3 top-2.5 text-gray-500">$</span>
+                    <input
+                      type="number"
+                      value={proposedBudget}
+                      onChange={(e) => setProposedBudget(e.target.value)}
+                      placeholder="Enter your proposed budget"
+                      className="w-full pl-7 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-leaf-green"
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  This helps us tailor the experience to your specific needs.
+                </p>
               </div>
 
               {/* Price Breakdown */}
@@ -169,31 +222,31 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Accommodation</span>
                     <span className="font-semibold text-jungle-dark">
-                      ${Math.round(itinerary.priceBreakdown.accommodation).toLocaleString()}
+                      ${Math.round(dynamicPrice.accommodation).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Activities & Guides</span>
                     <span className="font-semibold text-jungle-dark">
-                      ${Math.round(itinerary.priceBreakdown.activities).toLocaleString()}
+                      ${Math.round(dynamicPrice.activities).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Transport</span>
                     <span className="font-semibold text-jungle-dark">
-                      ${Math.round(itinerary.priceBreakdown.transport).toLocaleString()}
+                      ${Math.round(dynamicPrice.transport).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Park Fees</span>
                     <span className="font-semibold text-jungle-dark">
-                      ${Math.round(itinerary.priceBreakdown.parkFees).toLocaleString()}
+                      ${Math.round(dynamicPrice.parkFees).toLocaleString()}
                     </span>
                   </div>
                   <div className="border-t border-gray-300 pt-3 flex justify-between items-center font-bold">
                     <span className="text-jungle-dark">Total per person</span>
                     <span className="text-leaf-green text-lg">
-                      ${Math.round(itinerary.estimatedPrice).toLocaleString()}
+                      ${Math.round(dynamicPrice.total).toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -235,33 +288,63 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <button
-              onClick={handleDownloadPDF}
-              disabled={!itinerary || downloadingPDF}
-              className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition ${
-                itinerary && !downloadingPDF
-                  ? 'bg-leaf-green text-white hover:bg-green-600'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
-            >
-              {downloadingPDF ? (
-                <>
-                  <Loader2 size={20} className="animate-spin" />
-                  Generating PDF...
-                </>
-              ) : (
-                <>
-                  <Download size={20} />
-                  Download Itinerary
-                </>
-              )}
-            </button>
-            <button
-              className="flex-1 px-6 py-3 border-2 border-jungle-dark text-jungle-dark font-semibold rounded-lg hover:bg-jungle-dark/5 transition"
-            >
-              Proceed to Booking
-            </button>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={handleDownloadPDF}
+                disabled={!itinerary || downloadingPDF}
+                className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition flex-1 ${
+                  itinerary && !downloadingPDF
+                    ? 'bg-sage-light text-jungle-dark hover:bg-sage-light/80'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}
+              >
+                {downloadingPDF ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    Generating PDF...
+                  </>
+                ) : (
+                  <>
+                    <Download size={20} />
+                    Download PDF
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <a
+                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254721246414'}?text=${encodeURIComponent(
+                  `Hi CNJ Safaris,\n\nI've just built a custom safari itinerary on your website!\n\n` +
+                  `*Trip Details:*\n` +
+                  `- Destination: ${quizData.destination.charAt(0).toUpperCase() + quizData.destination.slice(1)}\n` +
+                  `- Experience: ${quizData.experience.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}\n` +
+                  `- Budget Tier: ${quizData.budget.charAt(0).toUpperCase() + quizData.budget.slice(1)}\n` +
+                  `- Dates: ${quizData.startDate} to ${quizData.endDate}\n\n` +
+                  `*Pricing:*\n` +
+                  `- Estimated Total: $${Math.round(dynamicPrice.total).toLocaleString()}\n` +
+                  (proposedBudget ? `- My Proposed Budget: $${proposedBudget}\n\n` : `\n`) +
+                  `Can we finalize this adventure?`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#22c35e] transition"
+              >
+                <MessageCircle size={20} />
+                Book via WhatsApp
+              </a>
+              
+              <a
+                href={`mailto:info@cnjsafaris.com?subject=Safari Booking Inquiry: ${quizData.destination}&body=${encodeURIComponent(
+                  `Hi CNJ Safaris,\n\nI'm interested in booking a safari to ${quizData.destination}.\n\nTrip Details:\n- Destination: ${quizData.destination}\n- Experience: ${quizData.experience}\n- Proposed Budget: $${proposedBudget || Math.round(dynamicPrice.total)}\n- Dates: ${quizData.startDate} to ${quizData.endDate}\n\nPlease let me know the next steps.\n\nBest regards.`
+                )}`}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition"
+              >
+                <Mail size={20} />
+                Book via Email
+              </a>
+            </div>
           </div>
         </div>
       </div>

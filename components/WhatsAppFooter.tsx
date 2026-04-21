@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { MessageCircle, Mail, MapPin, Phone } from 'lucide-react'
 
 export default function WhatsAppFooter() {
@@ -34,9 +35,13 @@ export default function WhatsAppFooter() {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-leaf-green rounded-lg flex items-center justify-center">
-                  <span className="text-jungle-dark font-serif font-bold text-lg">CNJ</span>
-                </div>
+                <Image
+                  src="/Cnj new logo.jpg"
+                  alt="CNJ Safaris Logo"
+                  width={40}
+                  height={40}
+                  className="rounded-lg object-contain bg-white p-0.5"
+                />
                 <span className="font-serif font-bold text-xl">CNJ Safaris</span>
               </div>
               <p className="text-gray-400 text-sm">
@@ -109,7 +114,7 @@ export default function WhatsAppFooter() {
               <div className="space-y-3 text-gray-400 text-sm">
                 <div className="flex items-start gap-3">
                   <Phone size={16} className="mt-1 shrink-0 text-leaf-green" />
-                  <span>+254 (0) 712 345 678</span>
+                  <span>0768 396 296 / 0721 246 414</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <Mail size={16} className="mt-1 shrink-0 text-leaf-green" />

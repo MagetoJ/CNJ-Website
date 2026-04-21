@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
@@ -12,9 +13,13 @@ export default function Header() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-jungle-dark rounded-lg flex items-center justify-center">
-            <span className="text-white font-serif font-bold text-lg">CNJ</span>
-          </div>
+          <Image
+            src="/Cnj new logo.jpg"
+            alt="CNJ Safaris Logo"
+            width={40}
+            height={40}
+            className="rounded-lg object-contain"
+          />
           <span className="hidden sm:inline font-serif font-bold text-jungle-dark text-xl">
             CNJ Safaris
           </span>
@@ -22,7 +27,7 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="#explore" className="text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/#explore" className="text-jungle-dark hover:text-leaf-green transition">
             Explore Safaris
           </Link>
           <Link href="/about" className="text-jungle-dark hover:text-leaf-green transition">
@@ -38,7 +43,7 @@ export default function Header() {
 
         {/* CTA Button & Mobile Menu */}
         <div className="flex items-center gap-4">
-          <button className="hidden sm:inline-block px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+          <button className="px-4 sm:px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition text-sm sm:text-base">
             Book Now
           </button>
 
@@ -55,7 +60,7 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-4">
-          <Link href="#explore" className="block text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/#explore" className="block text-jungle-dark hover:text-leaf-green transition">
             Explore Safaris
           </Link>
           <Link href="/about" className="block text-jungle-dark hover:text-leaf-green transition">

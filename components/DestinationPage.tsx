@@ -1,7 +1,9 @@
 'use client'
 
 import WhatsAppFooter from './WhatsAppFooter'
+import Image from 'next/image'
 import { MapPin, Users, Clock, DollarSign, ChevronRight } from 'lucide-react'
+import { generateTouristTripSchema, SITE_CONFIG } from '@/lib/seo'
 
 interface Highlight {
   title: string
@@ -39,6 +41,7 @@ interface DestinationPageProps {
 export default function DestinationPage({
   title,
   subtitle,
+  heroImage,
   heroGradient,
   bestTime,
   highlights,
@@ -48,12 +51,43 @@ export default function DestinationPage({
   quickFacts,
   trustSection,
 }: DestinationPageProps) {
+  // Generate International SEO Schema for the destination
+  const jsonLd = generateTouristTripSchema({
+    name: title,
+    description: metaDescription,
+    image: heroImage,
+    url: `${SITE_CONFIG.url}/safaris/${title.toLowerCase().replace(/\s+/g, '-')}`,
+    destinationName: title,
+    offers: packages.map(pkg => ({
+      name: pkg.name,
+      price: pkg.price,
+      currency: 'USD'
+    }))
+  })
+
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* Hero Section */}
       <section className={`relative w-full h-96 flex items-center justify-center overflow-hidden ${heroGradient}`}>
-        <div className="absolute inset-0 opacity-30"></div>
+        {heroImage ? (
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={heroImage}
+              alt={title}
+              fill
+              priority
+              className="object-cover brightness-50"
+              sizes="100vw"
+            />
+          </div>
+        ) : (
+          <div className="absolute inset-0 opacity-30"></div>
+        )}
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="font-serif text-5xl sm:text-6xl font-bold mb-4">
             {title}
@@ -186,7 +220,7 @@ export default function DestinationPage({
             Our travel experts are ready to customize the perfect safari experience for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-white text-jungle-dark font-semibold rounded-lg hover:bg-gray-100 transition">
+            <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
               Chat with an Expert
             </button>
             <button className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition">

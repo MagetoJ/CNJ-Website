@@ -68,6 +68,7 @@ export default function GorillaTrekkingPage() {
     <DestinationPage
       title="Gorilla Trekking Adventures"
       subtitle="A Once-in-a-Lifetime Primate Encounter"
+      heroImage="/BEYOND OBSERVATION_ THE RISE OF EDUCATIONAL….jpeg"
       heroGradient="bg-gradient-to-br from-emerald-900 to-jungle-dark"
       bestTime="June to August & December to February"
       highlights={highlights}

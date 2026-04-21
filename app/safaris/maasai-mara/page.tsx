@@ -75,6 +75,7 @@ export default function MaasaiMaraPage() {
     <DestinationPage
       title="Maasai Mara National Reserve"
       subtitle="Where the Wild Roam Free - Experience Kenya's Most Iconic Safari"
+      heroImage="/kenya-welcome-safari.jpg"
       heroGradient="bg-gradient-to-br from-jungle-dark to-jungle-green"
       bestTime="June - October"
       highlights={highlights}

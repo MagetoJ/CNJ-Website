@@ -84,6 +84,13 @@
       "metaDescription": "Explore the Serengeti and Ngorongoro Crater with CNJ Safaris. Multi-country 2026 tours available.",
       "packages": [
         {
+          "id": "tz-8day-ultimate",
+          "name": "Ultimate 8-Day East Africa",
+          "duration": "8 Days / 7 Nights",
+          "price": "$1,500 per person",
+          "highlights": ["Traveler's Most Picked", "Full Big Five Safari", "Serengeti & Ngorongoro", "Luxury Tented Accommodation"]
+        },
+        {
           "id": "tz-1",
           "name": "Tanzania Classic",
           "duration": "7 Days / 6 Nights",

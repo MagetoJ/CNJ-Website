@@ -1,21 +1,29 @@
 'use client'
 
 import * as React from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import * as NavigationMenu from '@radix-ui/react-navigation-menu'
 import { ChevronDown, Menu, X } from 'lucide-react'
+import AdventureQuiz from './AdventureQuiz'
+import { useQuiz } from '@/context/QuizContext'
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+  const { isOpen: isQuizOpen, openQuiz, closeQuiz } = useQuiz()
 
   return (
     <NavigationMenu.Root className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-jungle-dark rounded-lg flex items-center justify-center">
-            <span className="text-white font-serif font-bold text-lg">CNJ</span>
-          </div>
+          <Image
+            src="/Cnj new logo.jpg"
+            alt="CNJ Safaris Logo"
+            width={40}
+            height={40}
+            className="rounded-lg object-contain"
+          />
           <span className="hidden sm:inline font-serif font-bold text-jungle-dark text-xl">
             CNJ Safaris
           </span>
@@ -32,6 +40,13 @@ export default function Navbar() {
           <NavigationMenu.Item>
             <Link href="/about" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
               About Us
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </NavigationMenu.Item>
+
+          <NavigationMenu.Item>
+            <Link href="/careers" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
+              Careers
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </NavigationMenu.Item>
@@ -61,20 +76,24 @@ export default function Navbar() {
             </Link>
           </NavigationMenu.Item>
 
-          <NavigationMenu.Item>
-            <button className="px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
-              Book Now
-            </button>
-          </NavigationMenu.Item>
         </NavigationMenu.List>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-jungle-dark"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* CTA Button & Mobile Menu Button */}
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={openQuiz}
+            className="px-4 sm:px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition text-sm sm:text-base"
+          >
+            Book Now
+          </button>
+
+          <button
+            className="md:hidden p-2 text-jungle-dark"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -82,12 +101,23 @@ export default function Navbar() {
         <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-4">
           <Link href="/#explore" className="block text-jungle-dark hover:text-leaf-green transition">Explore Safaris</Link>
           <Link href="/about" className="block text-jungle-dark hover:text-leaf-green transition">About Us</Link>
+          <Link href="/careers" className="block text-jungle-dark hover:text-leaf-green transition">Careers</Link>
           <Link href="/partnerships" className="block text-jungle-dark hover:text-leaf-green transition">Partnerships</Link>
           <Link href="/contact" className="block text-jungle-dark hover:text-leaf-green transition">Contact</Link>
-          <button className="w-full px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+          <button 
+            onClick={() => {
+              openQuiz()
+              setMobileMenuOpen(false)
+            }}
+            className="w-full px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition"
+          >
             Book Now
           </button>
         </div>
+      )}
+
+      {isQuizOpen && (
+        <AdventureQuiz onClose={closeQuiz} />
       )}
     </NavigationMenu.Root>
   )

@@ -89,7 +89,7 @@ export default function DestinationPage({
           <div className="absolute inset-0 opacity-30"></div>
         )}
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold mb-4">
+          <h1 className="font-serif text-4xl sm:text-6xl font-bold mb-4">
             {title}
           </h1>
           <p className="text-xl text-gray-100 max-w-2xl mx-auto">

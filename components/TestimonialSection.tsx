@@ -82,7 +82,7 @@ export default function TestimonialSection() {
 
         {/* Social Proof */}
         <div className="mt-16 bg-white p-8 rounded-2xl border border-gray-200">
-          <div className="grid grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
               <p className="text-4xl font-bold text-leaf-green">500+</p>
               <p className="text-gray-600 mt-2">Happy Travelers</p>

@@ -169,7 +169,7 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                 <h3 className="text-lg font-semibold text-jungle-dark mb-4">
                   {itinerary.title}
                 </h3>
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                   <div className="text-center">
                     <p className="text-3xl font-bold text-leaf-green">
                       {getTripDuration()}

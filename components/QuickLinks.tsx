@@ -20,7 +20,7 @@ const quickLinks = [
     title: 'Gorilla Trekking',
     description: 'Trek through mist-covered mountains to encounter endangered mountain gorillas',
     icon: Users,
-    image: '/#BwindiImpenetrableNationalPark #Uganda #gorilla….jpeg',
+    image: '/gorilla.jpeg',
     href: '/safaris/gorilla-trekking',
   },
   {

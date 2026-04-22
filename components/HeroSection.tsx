@@ -72,7 +72,7 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
           </div>
           <div className="hidden sm:block h-6 border-r border-white/30"></div>
           <div className="flex items-center gap-2">
-            <span className="text-leaf-green text-2xl font-bold">20+</span>
+            <span className="text-leaf-green text-2xl font-bold">5+</span>
             <span>Years Experience</span>
           </div>
         </div>

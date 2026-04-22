@@ -31,7 +31,7 @@ export default function AboutPage() {
   ]
 
   const stats = [
-    { label: 'Global Travelers', value: '5000+', icon: Award },
+    { label: 'Years Experience', value: '5+', icon: Award },
     { label: 'Countries Covered', value: '4 Countries', icon: Map },
     { label: 'Expert Guides', value: '25+', icon: Users },
     { label: 'Trust Rating', value: '4.9/5', icon: Heart },

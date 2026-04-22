@@ -53,7 +53,7 @@ export default function AboutPage() {
         <div className="relative z-10 text-center px-4 max-w-4xl">
           <div className="mb-6 inline-flex items-center gap-3 justify-center w-full">
             <div className="h-px w-8 bg-leaf-green"></div>
-            <span className="text-leaf-green font-semibold text-sm uppercase tracking-[0.3em]">Globally Trusted Since 2004</span>
+            <span className="text-leaf-green font-semibold text-sm uppercase tracking-[0.3em]">Globally Trusted Since 2019</span>
             <div className="h-px w-8 bg-leaf-green"></div>
           </div>
           <h1 className="font-serif text-5xl md:text-8xl font-bold text-white mb-6 leading-tight">

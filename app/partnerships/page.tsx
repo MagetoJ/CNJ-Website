@@ -1,83 +1,85 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import WhatsAppFooter from '@/components/WhatsAppFooter'
-import { Handshake, Globe, TrendingUp, Users } from 'lucide-react'
+import { Handshake, Globe, BarChart3, ShieldCheck } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Partnerships | CNJ Safaris',
-  description: 'Partner with East Africa\'s leading boutique safari operator. We offer competitive rates for travel agents and unique collaborations for influencers.',
+  description: 'Join our network of global travel partners. We collaborate with agents, tour operators, and conservationists to deliver world-class African safaris.',
 }
 
-export default function PartnershipPage() {
+export default function PartnershipsPage() {
   const benefits = [
-    {
-      title: 'Competitive Commissions',
-      desc: 'Industry-leading rates for travel agents and tour operators globally.',
-      icon: TrendingUp,
-    },
-    {
-      title: 'Local Ground Handling',
-      desc: 'White-label ground handling services in Kenya, Tanzania, and Uganda.',
-      icon: Globe,
-    },
-    {
-      title: 'Dedicated Support',
-      desc: '24/7 concierge support for your clients while they are on the ground.',
-      icon: Users,
-    },
+    { title: 'Global Reach', desc: 'Partner with a brand trusted across US, Europe, and Asia.', icon: Globe },
+    { title: 'Reliable Operations', desc: '5+ years of seamless ground handling and logistics.', icon: ShieldCheck },
+    { title: 'Growth Potential', desc: 'Access exclusive rates and high-conversion safari packages.', icon: BarChart3 },
   ]
 
   return (
-    <main className="bg-white">
-      
-      <section className="bg-jungle-dark py-24 px-4 text-center">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex p-3 bg-leaf-green/20 rounded-full text-leaf-green mb-6">
-            <Handshake size={32} />
-          </div>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">Partner With Us</h1>
-          <p className="text-xl text-white opacity-80 leading-relaxed">
-            Expand your portfolio with high-end, sustainable East African safaris. 
-            We partner with travel agencies, lifestyle brands, and influencers to bring the magic of Africa to more people.
+    <main className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/handshake.jpeg"
+          alt="Luxury Safari Partnership"
+          fill
+          priority
+          className="object-cover brightness-50"
+        />
+        <div className="relative z-10 text-center text-white px-4">
+          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">Partner With Us</h1>
+          <p className="text-xl max-w-2xl mx-auto opacity-90 font-light">
+            Building sustainable and successful safari experiences together.
           </p>
         </div>
       </section>
 
-      <section className="py-20 px-4 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-8">
-          {benefits.map((benefit, i) => (
-            <div key={i} className="p-8 border border-gray-100 rounded-2xl bg-cream/30 hover:bg-white hover:shadow-xl transition-all duration-300">
-              <div className="w-12 h-12 bg-jungle-dark text-white rounded-lg flex items-center justify-center mb-6">
-                <benefit.icon size={24} />
-              </div>
-              <h3 className="text-xl font-bold text-jungle-dark mb-4">{benefit.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{benefit.desc}</p>
+      {/* Content Section */}
+      <section className="py-24 px-4 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
+          <div>
+            <span className="text-leaf-green font-semibold uppercase tracking-widest text-sm">B2B Collaboration</span>
+            <h2 className="font-serif text-4xl font-bold text-jungle-dark mt-4 mb-6">For Travel Agents & Operators</h2>
+            <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              We provide comprehensive ground handling services in Kenya, Tanzania, Uganda, and Rwanda. 
+              Our partners benefit from our deep local knowledge, Silver/Gold certified guides, and 
+              our own fleet of customized 4x4 Land Cruisers.
+            </p>
+            <div className="grid gap-6">
+              {benefits.map((b, i) => (
+                <div key={i} className="flex gap-4 p-4 rounded-xl bg-sage-light/30 border border-gray-100">
+                  <b.icon className="text-leaf-green shrink-0" size={24} />
+                  <div>
+                    <h4 className="font-bold text-jungle-dark">{b.title}</h4>
+                    <p className="text-sm text-gray-600">{b.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="relative h-125 rounded-2xl overflow-hidden shadow-2xl">
+            <Image 
+              src="/Experience an unforgettable Big 5 safari at….jpeg" 
+              alt="Safari Collaboration" 
+              fill 
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="bg-jungle-dark rounded-3xl p-12 text-center text-white">
+          <Handshake size={48} className="mx-auto mb-6 text-leaf-green" />
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-4">Start a Partnership</h2>
+          <p className="max-w-xl mx-auto opacity-80 mb-8">
+            Ready to offer your clients the adventure of a lifetime? Get in touch to discuss commission structures and tailored packages.
+          </p>
+          <button className="px-10 py-4 bg-leaf-green text-white font-bold rounded-lg hover:bg-green-600 transition">
+            Inquire Now
+          </button>
         </div>
       </section>
 
-      <section className="py-20 bg-sage-light px-4">
-        <div className="max-w-3xl mx-auto bg-white p-10 md:p-16 rounded-3xl shadow-sm text-center">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-jungle-dark mb-6">Start a Collaboration</h2>
-          <p className="text-gray-600 mb-10 text-lg">
-            Interested in working together? Drop us a line with your proposal or company profile.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="mailto:partners@cnjsafaris.com" 
-              className="px-8 py-4 bg-jungle-dark text-white font-bold rounded-lg hover:bg-black transition shadow-lg"
-            >
-              Agent Inquiries
-            </a>
-            <a 
-              href="/contact" 
-              className="px-8 py-4 border-2 border-jungle-dark text-jungle-dark font-bold rounded-lg hover:bg-jungle-dark hover:text-white transition"
-            >
-              Influencer Media Kit
-            </a>
-          </div>
-        </div>
-      </section>
       <WhatsAppFooter />
     </main>
   )

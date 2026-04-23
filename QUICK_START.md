@@ -179,6 +179,16 @@ Edit package pricing in destination pages or implement dynamic pricing endpoint.
 
 ### Deploy to Vercel (Recommended)
 
+1. **Push your code** to a GitHub, GitLab, or Bitbucket repository.
+2. **Import the project** in the Vercel Dashboard.
+3. **Configure Environment Variables** in the Vercel project settings:
+   - `NEXT_PUBLIC_SITE_URL`: Set this to your production domain.
+   - `NEXT_PUBLIC_API_URL`: Your backend endpoint.
+   - `NEXT_PUBLIC_WHATSAPP_NUMBER`: The business WhatsApp number.
+4. **Click Deploy**. Vercel will handle the `pnpm` installation and build automatically.
+
+Alternatively, use the Vercel CLI:
+
 ```bash
 # Push to GitHub
 git push origin main

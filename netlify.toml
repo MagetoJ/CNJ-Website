@@ -8,6 +8,7 @@
 [build.environment]
   NODE_VERSION = "20"
   PNPM_FLAGS = "--no-frozen-lockfile"
+  NEXT_SHARP_PATH = "/opt/build/repo/node_modules/sharp"
 
 [build.processing]
   skip_processing = false

@@ -224,6 +224,17 @@ Works with any Node.js hosting (Heroku, Railway, AWS, etc.)
 
 ## Troubleshooting
 
+### Deployment Errors (Netlify)
+
+**Invalid Filename Error:**
+If your deploy fails with `Invalid filename '...'`, it is because an asset (usually in the `public/` folder) contains spaces, `#`, or `?`.
+- **Requirement:** All filenames must be URL-safe.
+- **Best Practice:** Use lowercase letters, numbers, and hyphens (e.g., `maasai-mara-sunset.jpg`).
+- **Fix:** Rename the file locally, update all references in your code, and push the changes.
+
+**Outdated Lockfile:**
+If the build fails due to a "frozen-lockfile" error, ensure `netlify.toml` contains `PNPM_FLAGS = "--no-frozen-lockfile"` or run `pnpm install` locally and commit the updated `pnpm-lock.yaml`.
+
 ### "Cannot find module" errors
 ```bash
 pnpm install

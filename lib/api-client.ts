@@ -164,3 +164,19 @@ export async function createBooking(bookingData: any) {
     throw error
   }
 }
+
+/**
+ * Fetch all products for the marketplace
+ */
+export async function getProducts() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/products`);
+    if (!response.ok) {
+      throw new Error(`API error: ${response.statusText}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+}

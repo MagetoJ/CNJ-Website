@@ -94,6 +94,12 @@ app.post('/api/itinerary/generate', async (req, res) => {
 
 ### 5. Add Images
 
+**⚠️ Asset Naming Rules (Crucial for Netlify):**
+All files in the `public/` folder must use URL-safe names.
+- **NO** spaces (use hyphens instead)
+- **NO** special characters like `#`, `?`, or `%`
+- **Recommendation:** Use lowercase only (e.g., `maasai-mara-sunset.jpg`)
+
 The site uses placeholder copy. Add real images for:
 
 - Hero background images
@@ -227,7 +233,7 @@ Works with any Node.js hosting (Heroku, Railway, AWS, etc.)
 ### Deployment Errors (Netlify)
 
 **Invalid Filename Error:**
-If your deploy fails with `Invalid filename '...'`, it is because an asset (usually in the `public/` folder) contains spaces, `#`, or `?`.
+If your deploy fails with `Invalid filename '...'`, it is because an asset (usually in the `public/` folder) contains spaces, `#`, or `?`. Netlify's CDN will reject these files.
 - **Requirement:** All filenames must be URL-safe.
 - **Best Practice:** Use lowercase letters, numbers, and hyphens (e.g., `maasai-mara-sunset.jpg`).
 - **Fix:** Rename the file locally, update all references in your code, and push the changes.

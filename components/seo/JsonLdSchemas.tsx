@@ -197,3 +197,44 @@ export function ReviewSchema({
     />
   )
 }
+
+export function ProductSchema({
+  name,
+  description,
+  image,
+  price,
+  category
+}: {
+  name: string
+  description: string
+  image: string
+  price: number
+  category: string
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: name,
+    image: image,
+    description: description,
+    category: category,
+    brand: {
+      '@type': 'Brand',
+      name: 'CNJ Safaris'
+    },
+    offers: {
+      '@type': 'Offer',
+      url: 'https://cnjsafaris.com/shop',
+      priceCurrency: 'USD',
+      price: price.toString(),
+      availability: 'https://schema.org/InStock'
+    }
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}

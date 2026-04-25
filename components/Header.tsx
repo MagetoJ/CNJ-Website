@@ -36,6 +36,9 @@ export default function Header() {
           <Link href="/partnerships" className="text-jungle-dark hover:text-leaf-green transition">
             Partnerships
           </Link>
+          <Link href="/shop" className="text-jungle-dark hover:text-leaf-green transition font-semibold">
+            Shop Gear
+          </Link>
           <Link href="/contact" className="text-jungle-dark hover:text-leaf-green transition">
             Contact
           </Link>
@@ -68,6 +71,9 @@ export default function Header() {
           </Link>
           <Link href="/partnerships" className="block text-jungle-dark hover:text-leaf-green transition">
             Partnerships
+          </Link>
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block text-jungle-dark hover:text-leaf-green transition font-semibold">
+            Shop Gear
           </Link>
           <Link href="/contact" className="block text-jungle-dark hover:text-leaf-green transition">
             Contact

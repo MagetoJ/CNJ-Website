@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { MapPin, Users, Calendar } from 'lucide-react'
+import { MapPin, Users, Calendar, ShoppingBag } from 'lucide-react'
 
 const quickLinks = [
   {
@@ -102,11 +102,20 @@ export default function QuickLinks() {
         {/* CTA */}
         <div className="mt-16 text-center">
           <p className="text-gray-600 mb-6">
-            Don&apos;t see what you&apos;re looking for?
+            Explore our curated safari gear or plan your own custom adventure.
           </p>
-          <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
-            Create Custom Safari
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+              Create Custom Safari
+            </button>
+            <Link 
+              href="/shop" 
+              className="flex items-center gap-2 px-8 py-3 border-2 border-leaf-green text-leaf-green font-semibold rounded-lg hover:bg-leaf-green hover:text-white transition"
+            >
+              <ShoppingBag size={20} />
+              Shop Official Gear
+            </Link>
+          </div>
         </div>
       </div>
     </section>

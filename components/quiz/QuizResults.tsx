@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { X, Download, Loader2, AlertCircle, MessageCircle, Mail } from 'lucide-react'
 import { QuizData } from '../AdventureQuiz'
-import { generateItinerary } from '@/lib/api-client'
+import { generateItinerary, generatePDF } from '@/lib/api-client'
 
 interface QuizResultsProps {
   quizData: QuizData
@@ -36,36 +36,6 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
   const [downloadingPDF, setDownloadingPDF] = useState(false)
   const [proposedBudget, setProposedBudget] = useState<string>('')
 
-  const calculateDynamicPrice = () => {
-    const start = new Date(quizData.startDate)
-    const end = new Date(quizData.endDate)
-    const nights = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
-    
-    let baseRate = 0
-    switch (quizData.budget) {
-      case 'budget': baseRate = 155; break
-      case 'mid-range': baseRate = 300; break
-      case 'luxury': baseRate = 600; break
-      default: baseRate = 200
-    }
-
-    const startMonth = start.getMonth() + 1
-    const isPeak = startMonth >= 7 && startMonth <= 10
-    const multiplier = isPeak ? 1.3 : 0.7
-
-    const totalPerPerson = baseRate * nights * multiplier
-    
-    return {
-      total: totalPerPerson,
-      accommodation: totalPerPerson * 0.5,
-      activities: totalPerPerson * 0.2,
-      transport: totalPerPerson * 0.2,
-      parkFees: totalPerPerson * 0.1
-    }
-  }
-
-  const dynamicPrice = calculateDynamicPrice()
-
   useEffect(() => {
     const fetchItinerary = async () => {
       try {
@@ -89,22 +59,8 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
     
     try {
       setDownloadingPDF(true)
-      // Call your backend PDF generation endpoint
-      const response = await fetch('/api/generate-pdf', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          quizData,
-          itinerary,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to generate PDF')
-      }
-
-      // Download the PDF
-      const blob = await response.blob()
+      const blob = await generatePDF(quizData, itinerary)
+      
       const url = window.URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
@@ -128,16 +84,16 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"> {/* Overlay */}
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-screen flex flex-col"> {/* Modal content, now a flex container */}
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 sticky top-0 bg-white z-10">
           <h2 className="text-2xl font-serif font-bold text-jungle-dark">
             Your Safari Itinerary
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition"
+            className="p-2 hover:bg-gray-100 rounded-lg transition shrink-0"
           >
             <X size={24} className="text-jungle-dark" />
           </button>
@@ -163,7 +119,7 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
           )}
 
           {itinerary && (
-            <>
+            <div className="p-6 grow overflow-y-auto"> {/* This div will now scroll */}
               {/* Trip Summary */}
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-jungle-dark mb-4">
@@ -184,7 +140,7 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                   </div>
                   <div className="text-center">
                     <p className="text-3xl font-bold text-leaf-green">
-                      ${Math.round(dynamicPrice.total).toLocaleString()}
+                      ${Math.round(itinerary.estimatedPrice).toLocaleString()}
                     </p>
                     <p className="text-sm text-gray-600 mt-1">Est. Total</p>
                   </div>
@@ -221,32 +177,32 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Accommodation</span>
-                    <span className="font-semibold text-jungle-dark">
-                      ${Math.round(dynamicPrice.accommodation).toLocaleString()}
+                    <span className="font-semibold text-jungle-dark text-right">
+                      ${Math.round(itinerary.priceBreakdown.accommodation).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Activities & Guides</span>
-                    <span className="font-semibold text-jungle-dark">
-                      ${Math.round(dynamicPrice.activities).toLocaleString()}
+                    <span className="font-semibold text-jungle-dark text-right">
+                      ${Math.round(itinerary.priceBreakdown.activities).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Transport</span>
-                    <span className="font-semibold text-jungle-dark">
-                      ${Math.round(dynamicPrice.transport).toLocaleString()}
+                    <span className="font-semibold text-jungle-dark text-right">
+                      ${Math.round(itinerary.priceBreakdown.transport).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Park Fees</span>
-                    <span className="font-semibold text-jungle-dark">
-                      ${Math.round(dynamicPrice.parkFees).toLocaleString()}
+                    <span className="font-semibold text-jungle-dark text-right">
+                      ${Math.round(itinerary.priceBreakdown.parkFees).toLocaleString()}
                     </span>
                   </div>
                   <div className="border-t border-gray-300 pt-3 flex justify-between items-center font-bold">
                     <span className="text-jungle-dark">Total per person</span>
-                    <span className="text-leaf-green text-lg">
-                      ${Math.round(dynamicPrice.total).toLocaleString()}
+                    <span className="text-leaf-green text-lg text-right">
+                      ${Math.round(itinerary.estimatedPrice).toLocaleString()}
                     </span>
                   </div>
                 </div>
@@ -284,68 +240,70 @@ export default function QuizResults({ quizData, onClose }: QuizResultsProps) {
                   </details>
                 ))}
               </div>
-            </>
+            </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="flex flex-col gap-4">
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={handleDownloadPDF}
-                disabled={!itinerary || downloadingPDF}
-                className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition flex-1 ${
-                  itinerary && !downloadingPDF
-                    ? 'bg-sage-light text-jungle-dark hover:bg-sage-light/80'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                {downloadingPDF ? (
-                  <>
-                    <Loader2 size={20} className="animate-spin" />
-                    Generating PDF...
-                  </>
-                ) : (
-                  <>
-                    <Download size={20} />
-                    Download PDF
-                  </>
-                )}
-              </button>
-            </div>
+          {/* Action Buttons - Only visible when itinerary is loaded */}
+          {itinerary && (
+            <div className="flex flex-col gap-4 mt-6">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleDownloadPDF}
+                  disabled={downloadingPDF}
+                  className={`flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition flex-1 ${
+                    !downloadingPDF
+                      ? 'bg-sage-light text-jungle-dark hover:bg-sage-light/80'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  {downloadingPDF ? (
+                    <>
+                      <Loader2 size={20} className="animate-spin" />
+                      Generating PDF...
+                    </>
+                  ) : (
+                    <>
+                      <Download size={20} />
+                      Download PDF
+                    </>
+                  )}
+                </button>
+              </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <a
-                href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254721246414'}?text=${encodeURIComponent(
-                  `Hi CNJ Safaris,\n\nI've just built a custom safari itinerary on your website!\n\n` +
-                  `*Trip Details:*\n` +
-                  `- Destination: ${quizData.destination.charAt(0).toUpperCase() + quizData.destination.slice(1)}\n` +
-                  `- Experience: ${quizData.experience.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}\n` +
-                  `- Budget Tier: ${quizData.budget.charAt(0).toUpperCase() + quizData.budget.slice(1)}\n` +
-                  `- Dates: ${quizData.startDate} to ${quizData.endDate}\n\n` +
-                  `*Pricing:*\n` +
-                  `- Estimated Total: $${Math.round(dynamicPrice.total).toLocaleString()}\n` +
-                  (proposedBudget ? `- My Proposed Budget: $${proposedBudget}\n\n` : `\n`) +
-                  `Can we finalize this adventure?`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#22c35e] transition"
-              >
-                <MessageCircle size={20} />
-                Book via WhatsApp
-              </a>
-              
-              <a
-                href={`mailto:info@cnjsafaris.com?subject=Safari Booking Inquiry: ${quizData.destination}&body=${encodeURIComponent(
-                  `Hi CNJ Safaris,\n\nI'm interested in booking a safari to ${quizData.destination}.\n\nTrip Details:\n- Destination: ${quizData.destination}\n- Experience: ${quizData.experience}\n- Proposed Budget: $${proposedBudget || Math.round(dynamicPrice.total)}\n- Dates: ${quizData.startDate} to ${quizData.endDate}\n\nPlease let me know the next steps.\n\nBest regards.`
-                )}`}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition"
-              >
-                <Mail size={20} />
-                Book via Email
-              </a>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a
+                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254721246414'}?text=${encodeURIComponent(
+                    `Hi CNJ Safaris,\n\nI've just built a custom safari itinerary on your website!\n\n` +
+                    `*Trip Details:*\n` +
+                    `- Destination: ${quizData.destination.charAt(0).toUpperCase() + quizData.destination.slice(1)}\n` +
+                    `- Experience: ${quizData.experience.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}\n` + 
+                    `- Budget Tier: ${quizData.budget.charAt(0).toUpperCase() + quizData.budget.slice(1)}\n` +
+                    `- Dates: ${quizData.startDate} to ${quizData.endDate}\n\n` +
+                    `*Pricing:*\n` +
+                    `- Estimated Total: $${Math.round(itinerary.estimatedPrice).toLocaleString()}\n` +
+                    (proposedBudget ? `- My Proposed Budget: $${proposedBudget}\n\n` : `\n`) +
+                    `Can we finalize this adventure?`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-[#25D366] text-white font-semibold rounded-lg hover:bg-[#22c35e] transition"
+                >
+                  <MessageCircle size={20} />
+                  Book via WhatsApp
+                </a>
+                
+                <a
+                  href={`mailto:info@cnjsafaris.com?subject=Safari Booking Inquiry: ${quizData.destination}&body=${encodeURIComponent(
+                    `Hi CNJ Safaris,\n\nI'm interested in booking a safari to ${quizData.destination}.\n\nTrip Details:\n- Destination: ${quizData.destination}\n- Experience: ${quizData.experience}\n- Proposed Budget: $${proposedBudget || Math.round(itinerary.estimatedPrice)}\n- Dates: ${quizData.startDate} to ${quizData.endDate}\n\nPlease let me know the next steps.\n\nBest regards.`
+                  )}`}
+                  className="flex items-center justify-center gap-2 px-6 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition"
+                >
+                  <Mail size={20} />
+                  Book via Email
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

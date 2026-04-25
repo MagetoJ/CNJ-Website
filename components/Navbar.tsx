@@ -72,6 +72,12 @@ export default function Navbar() {
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
+            <Link href="/shop" className="text-jungle-dark hover:text-leaf-green transition font-semibold">
+              Shop Gear
+            </Link>
+          </NavigationMenu.Item>
+
+          <NavigationMenu.Item>
             <Link href="/contact" className="text-jungle-dark hover:text-leaf-green transition font-medium">
               Contact
             </Link>
@@ -106,6 +112,7 @@ export default function Navbar() {
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">About Us</Link>
           <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Careers</Link>
           <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Partnerships</Link>
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-jungle-dark hover:text-leaf-green">Shop Gear</Link>
           <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Contact</Link>
           <button 
             onClick={() => {

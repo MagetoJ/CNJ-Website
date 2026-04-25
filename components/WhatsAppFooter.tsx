@@ -69,6 +69,11 @@ export default function WhatsAppFooter() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/shop" className="hover:text-leaf-green transition font-semibold">
+                    Shop Gear
+                  </Link>
+                </li>
+                <li>
                   <Link href="/about" className="hover:text-leaf-green transition">
                     About Us
                   </Link>

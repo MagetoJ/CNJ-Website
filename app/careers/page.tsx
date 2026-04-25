@@ -1,19 +1,98 @@
-import type { Metadata } from 'next'
+'use client'
+
+import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import WhatsAppFooter from '@/components/WhatsAppFooter'
 import { Briefcase, Map, Heart, Compass } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'Careers | CNJ Safaris',
-  description: 'Join the pride. Explore career opportunities in safari guiding, travel design, and wildlife conservation with CNJ Safaris.',
+// Define the Job interface for type safety
+interface Job {
+  id: number;
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  description: string;
+  requirements: string[]; // Assuming it's parsed into an array
+  status: string;
 }
 
 export default function CareersPage() {
-  const positions = [
-    { title: 'Safari Travel Designer', type: 'Full-time', location: 'Nairobi' },
-    { title: 'Senior Wildlife Guide', type: 'Contract', location: 'Maasai Mara' },
-    { title: 'Conservation Coordinator', type: 'Full-time', location: 'Remote/Field' },
-  ]
+  const [positions, setPositions] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Sanitize the API URL to remove trailing slashes and default to 127.0.0.1 for stability
+  const apiUrl = (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:3001').replace(/\/$/, '');
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        setLoading(true);
+        console.log(`Fetching jobs from: ${apiUrl}/api/jobs`);
+        const response = await fetch(`${apiUrl}/api/jobs`, {
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!response.ok) {
+          // Try to get JSON error, fallback to text if backend sent plain string
+          const contentType = response.headers.get("content-type");
+          const errorText = contentType?.includes("application/json") 
+            ? (await response.json()).error 
+            : await response.text();
+          throw new Error(errorText || `Server Error (${response.status})`);
+        }
+        setPositions(await response.json());
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An unknown error occurred');
+        console.error('Failed to fetch job positions:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, [apiUrl]);
+
+  // JSON-LD for JobPosting Schema
+  const jobPostingSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage", // Or WebPage if it's a single page
+    "name": "Careers at CNJ Safaris",
+    "description": "Explore career opportunities in safari guiding, travel design, and wildlife conservation with CNJ Safaris.",
+    "url": "https://cnjsafaris.com/careers", // Replace with your actual domain
+    "mainEntity": positions.map(job => ({
+      "@type": "JobPosting",
+      "title": job.title,
+      "description": job.description, // Consider adding full description here
+      "employmentType": job.type.toUpperCase(),
+      "datePosted": new Date().toISOString().split('T')[0], // Dynamically set or fetch from DB
+      "validThrough": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0], // Example: valid for 1 year
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": "CNJ Safaris",
+        "sameAs": "https://cnjsafaris.com" // Replace with your actual domain
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": job.location,
+          "addressCountry": "KE" // Assuming Kenya for most jobs
+        }
+      },
+      "baseSalary": { // Example, adjust as needed
+        "@type": "MonetaryAmount",
+        "currency": "USD",
+        "value": {
+          "@type": "QuantitativeValue",
+          "minValue": 1000,
+          "maxValue": 5000,
+          "unitText": "MONTH"
+        }
+      }
+    }))
+  }), [positions]);
 
   return (
     <main className="min-h-screen bg-white">
@@ -25,6 +104,7 @@ export default function CareersPage() {
           fill
           priority
           className="object-cover brightness-50"
+          sizes="100vw"
         />
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">Join the Pride</h1>
@@ -43,6 +123,7 @@ export default function CareersPage() {
               alt="Adventure Careers" 
               fill 
               className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
           <div className="order-1 md:order-2">
@@ -72,12 +153,31 @@ export default function CareersPage() {
           <p className="text-gray-600 mt-4">We&apos;re always looking for talented explorers.</p>
         </div>
 
+        {loading && (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-leaf-green"></div>
+          </div>
+        )}
+
+        {error && (
+          <div className="max-w-3xl mx-auto p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-center mb-8">
+            <p>Unable to load job positions: {error}</p>
+            <p className="text-sm mt-2">Please ensure the backend server is running and API URL is configured.</p>
+          </div>
+        )}
+
         <div className="max-w-3xl mx-auto space-y-4">
-          {positions.map((job, i) => (
-            <div key={i} className="group p-6 border border-gray-200 rounded-2xl flex items-center justify-between hover:border-leaf-green hover:shadow-md transition cursor-pointer">
-              <div>
-                <h4 className="text-xl font-bold text-jungle-dark group-hover:text-leaf-green transition">{job.title}</h4>
-                <p className="text-gray-500 text-sm">{job.location} • {job.type}</p>
+          {!loading && positions.length === 0 && !error && (
+            <p className="text-center text-gray-500 py-8">No open positions at the moment. Check back soon!</p>
+          )}
+          
+          {!loading && positions.map((job) => (
+            <div key={job.id} className="group p-6 border border-gray-200 rounded-2xl flex items-center justify-between hover:border-leaf-green hover:shadow-md transition cursor-pointer">
+              <div className="flex-1">
+                <h4 className="text-xl font-bold text-jungle-dark group-hover:text-leaf-green transition">
+                  {job.title}
+                </h4>
+                <p className="text-gray-500 text-sm">{job.location} • {job.type} • {job.department}</p>
               </div>
               <Briefcase className="text-gray-300 group-hover:text-leaf-green" />
             </div>
@@ -85,6 +185,10 @@ export default function CareersPage() {
         </div>
       </section>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingSchema) }}
+      />
       <WhatsAppFooter />
     </main>
   )

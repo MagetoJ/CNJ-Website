@@ -23,7 +23,7 @@ export default function Page() {
             <a
               href="https://v0.app/templates"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-neutral-300 underline underline-offset-4 hover:text-white"
             >
               Community

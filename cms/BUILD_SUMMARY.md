@@ -95,9 +95,13 @@ app/
 │   │   ├── products/
 │   │   │   ├── route.ts
 │   │   │   └── [id]/route.ts
-│   └── gallery/
-│       ├── route.ts
-│       └── [id]/route.ts
+│   ├── gallery/
+│   │   ├── route.ts
+│   │   └── [id]/route.ts
+│   ├── itinerary/
+│   │   └── generate/route.ts
+│   └── quiz/
+│       └── submissions/route.ts
 └── lib/
     └── supabase/
         ├── client.ts

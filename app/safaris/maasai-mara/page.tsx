@@ -3,9 +3,9 @@ import DestinationPage from '@/components/DestinationPage'
 import { Zap, Eye, Compass } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Maasai Mara Big Five Safari | CNJ Safaris',
-  description: 'Experience Kenya\'s iconic Maasai Mara. See the Big Five, witness the wildebeest migration, and immerse yourself in Maasai culture. Book your adventure today.',
-  keywords: 'Maasai Mara safari, Big Five Kenya, safari tour, Kenya wildlife',
+  title: 'Affordable Maasai Mara Tours | Big Five Safari Kenya | CNJ Safaris',
+  description: 'Experience Kenya\'s iconic Maasai Mara with our affordable Maasai Mara tours. See the Big Five, witness the wildebeest migration, and immerse yourself in Maasai culture. Book your adventure today.',
+  keywords: 'Affordable Maasai Mara tours, Maasai Mara safari, Big Five Kenya, safari tour, Kenya wildlife, Nairobi family safari',
 }
 
 export default function MaasaiMaraPage() {

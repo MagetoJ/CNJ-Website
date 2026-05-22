@@ -25,6 +25,7 @@ A **complete, production-ready frontend** for a premium East African safari tour
 🎨 **Premium Design** - Jungle green theme, professional aesthetics  
 📚 **Well Documented** - 6 guides + comprehensive code comments  
 
+
 ---
 
 ## 🚀 Quick Start

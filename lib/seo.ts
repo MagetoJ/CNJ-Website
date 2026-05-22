@@ -7,18 +7,26 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const SITE_CONFIG = {
   name: 'CNJ Safaris',
-  description: 'Premium East African Safari Tours for International Travelers. Award-winning custom itineraries to Kenya, Tanzania, & Uganda. Trusted by travelers from USA, Europe, and Asia for safe, luxury, and authentic wildlife adventures.',
+  description: 'Premium East African Safari Tours. Best Kenya safaris, Nairobi family safari, and affordable Maasai Mara tours for international travelers. Award-winning custom itineraries to Kenya, Tanzania, & Uganda.',
   url: siteUrl,
   image: `${siteUrl}/Cnj%20new%20logo.jpg`, // Ensure this matches your production logo path
   twitterHandle: '@cnjsafaris',
 }
 
-export const destinations = [
+export interface Destination {
+  id: string
+  name: string
+  slug: string
+  title: string
+  image: string
+}
+
+export const destinations: Destination[] = [
   {
     id: 'kenya',
     name: 'Kenya',
     slug: 'kenya',
-    title: 'Best Kenya Safari Tours 2026 | Top Rated for US & EU Travelers',
+    title: 'Best Kenya Safari Tours 2026 | Nairobi Family Safari & Maasai Mara',
     image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop',
   },
   {
@@ -44,7 +52,12 @@ export const destinations = [
   },
 ]
 
-export const experiences = [
+export interface Experience {
+  id: string
+  name: string
+}
+
+export const experiences: Experience[] = [
   {
     id: 'big-five',
     name: 'Big Five Safari',
@@ -61,6 +74,10 @@ export const experiences = [
     id: 'mountain-climb',
     name: 'Mountain Climbing',
   },
+  {
+    id: 'educational',
+    name: 'Educational Partnerships',
+  },
 ]
 
 /**
@@ -71,7 +88,7 @@ export function generateMetaTags(props: {
   description: string
   image?: string
   url?: string
-}) {
+}): Record<string, any> {
   return {
     title: props.title,
     description: props.description,
@@ -111,7 +128,7 @@ export function generateTouristTripSchema(props: {
   url: string
   destinationName: string
   offers?: { name: string; price: string; currency: string }[]
-}) {
+}): Record<string, any> {
   return {
     "@context": "https://schema.org",
     "@type": "TouristTrip",

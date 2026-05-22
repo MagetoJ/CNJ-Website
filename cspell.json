@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Maasai",
+    "Ngorongoro",
+    "cnjsafaris",
+    "Supabase",
+    "Imgur",
+    "Vercel",
+    "Nextjs",
+    "Lucide",
+    "pnpm",
+    "v0",
+    "KATO",
+    "KMMGA",
+    "Amboseli",
+    "Bwindi",
+    "AMREF",
+    "Safaricom",
+    "Vodacom",
+    "Airalo",
+    "IGCSE",
+    "UWA",
+    "RDB",
+    "Tsetse",
+    "Wildebeest"
+  ],
+  "ignorePaths": ["node_modules", ".next", "package-lock.json"]
+}

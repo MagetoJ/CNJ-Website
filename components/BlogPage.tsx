@@ -1,6 +1,5 @@
 'use client'
 
-import Header from './Header'
 import WhatsAppFooter from './WhatsAppFooter'
 import { BookOpen, Calendar, ShieldCheck, Map } from 'lucide-react'
 
@@ -37,8 +36,6 @@ export default function BlogPage({
 }: BlogPageProps) {
   return (
     <main className="min-h-screen bg-white">
-      <Header />
-      
       <article>
         <header className="bg-sage-light py-24 px-4">
           <div className="max-w-4xl mx-auto text-center">

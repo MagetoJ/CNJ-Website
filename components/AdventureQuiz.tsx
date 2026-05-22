@@ -17,10 +17,11 @@ export interface QuizData {
 }
 
 interface AdventureQuizProps {
+  isOpen: boolean
   onClose: () => void
 }
 
-export default function AdventureQuiz({ onClose }: AdventureQuizProps) {
+export default function AdventureQuiz({ isOpen, onClose }: AdventureQuizProps) {
   const [currentStep, setCurrentStep] = useState(1)
   const [quizData, setQuizData] = useState<QuizData>({
     destination: '',
@@ -63,6 +64,8 @@ export default function AdventureQuiz({ onClose }: AdventureQuizProps) {
         return false
     }
   }
+
+  if (!isOpen) return null;
 
   if (showResults) {
     return <QuizResults quizData={quizData} onClose={onClose} />

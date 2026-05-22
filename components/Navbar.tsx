@@ -16,21 +16,26 @@ export default function Navbar() {
     <NavigationMenu.Root className="sticky top-0 z-50 w-full bg-white shadow-md">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity" aria-label="Home">
           <Image
             src="/Cnj new logo.jpg"
             alt="CNJ Safaris Logo"
-            width={40}
+            width={45}
             height={40}
             className="rounded-lg object-contain w-10 h-10"
           />
-          <span className="hidden lg:inline font-serif font-bold text-jungle-dark text-xl">
+          <span className="hidden sm:inline font-serif font-bold text-jungle-dark text-xl">
             CNJ Safaris
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <NavigationMenu.List className="hidden md:flex list-none items-center gap-6 lg:gap-8 text-sm lg:text-base">
+          <NavigationMenu.Item>
+            <Link href="/" className="text-jungle-dark hover:text-leaf-green transition font-medium">
+              Home
+            </Link>
+          </NavigationMenu.Item>
           <NavigationMenu.Item>
             <Link href="/#explore" className="text-jungle-dark hover:text-leaf-green transition font-medium">
               Explore Safaris
@@ -40,6 +45,13 @@ export default function Navbar() {
           <NavigationMenu.Item>
             <Link href="/about" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
               About Us
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+          </NavigationMenu.Item>
+
+          <NavigationMenu.Item>
+            <Link href="/gallery" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
+              Gallery
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </NavigationMenu.Item>
@@ -106,10 +118,12 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 flex flex-col p-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Home</Link>
           <Link href="/#explore" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Explore Safaris</Link>
           <Link href="/safaris/maasai-mara" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Maasai Mara</Link>
           <Link href="/safaris/amboseli-national-park" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Amboseli</Link>
           <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">About Us</Link>
+          <Link href="/gallery" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Gallery</Link>
           <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Careers</Link>
           <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Partnerships</Link>
           <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-jungle-dark hover:text-leaf-green">Shop Gear</Link>
@@ -126,9 +140,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {isQuizOpen && (
-        <AdventureQuiz onClose={closeQuiz} />
-      )}
+      <AdventureQuiz isOpen={isQuizOpen} onClose={closeQuiz} />
     </NavigationMenu.Root>
   )
 }

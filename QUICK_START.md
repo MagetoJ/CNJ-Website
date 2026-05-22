@@ -46,17 +46,17 @@ NEXT_PUBLIC_EMAIL=your@email.com
 
 Update these files with your actual information:
 
-**Company Info:**
+#### Company Info
 - `components/WhatsAppFooter.tsx` - WhatsApp number, email, address, socials
 - `components/Header.tsx` - Logo, navigation links
 - `lib/seo.ts` - Company name, description, URL
 
-**Homepage:**
+#### Homepage
 - `components/QuickLinks.tsx` - Featured destinations
 - `components/TestimonialSection.tsx` - Customer testimonials
 - `components/HeroSection.tsx` - Hero copy and messaging
 
-**Destination Pages:**
+#### Destination Pages
 - `app/safaris/maasai-mara/page.tsx` - Maasai Mara details
 - `app/safaris/serengeti/page.tsx` - Serengeti details
 - `app/safaris/gorilla-trekking/page.tsx` - Gorilla trekking details
@@ -271,10 +271,10 @@ Your backend isn't connected. Check:
 
 ## Support Resources
 
-- **Next.js Docs:** https://nextjs.org/docs
-- **Tailwind CSS:** https://tailwindcss.com/docs
-- **Lucide Icons:** https://lucide.dev
-- **TypeScript:** https://www.typescriptlang.org/docs
+- **Next.js Docs:** <https://nextjs.org/docs>
+- **Tailwind CSS:** <https://tailwindcss.com/docs>
+- **Lucide Icons:** <https://lucide.dev>
+- **TypeScript:** <https://www.typescriptlang.org/docs>
 
 ---
 

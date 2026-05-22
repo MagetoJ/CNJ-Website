@@ -39,13 +39,13 @@ export default function QuickLinks() {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-leaf-green font-semibold text-sm uppercase tracking-widest">
+          <span className="text-accent-green font-semibold text-sm uppercase tracking-widest">
             Popular Destinations
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-jungle-dark mt-4 mb-6">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-primary-dark mt-4 mb-6">
             Explore Our Top Safaris
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-text-muted text-lg max-w-2xl mx-auto">
             From the legendary Maasai Mara to the misty gorilla forests, discover the safaris that capture hearts
           </p>
         </div>
@@ -69,27 +69,27 @@ export default function QuickLinks() {
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   {link.badge && (
-                    <div className="absolute top-4 right-4 bg-leaf-green text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
+                    <div className="absolute top-4 right-4 bg-accent-green text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg z-10 animate-pulse">
                       {link.badge}
                     </div>
                   )}
-                  <div className="absolute top-4 left-4 w-10 h-10 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center text-jungle-dark shadow-sm group-hover:bg-leaf-green group-hover:text-white transition-colors duration-300">
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-background-light/90 backdrop-blur rounded-lg flex items-center justify-center text-primary-dark shadow-sm group-hover:bg-accent-green group-hover:text-white transition-colors duration-300">
                     <Icon size={20} />
                   </div>
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>
                 </div>
                 
                 <div className="p-6">
-                <h3 className="font-serif text-2xl font-bold text-jungle-dark mb-3">
+                <h3 className="font-serif text-2xl font-bold text-primary-dark mb-3">
                   {link.title}
                 </h3>
                 {link.price && (
-                  <p className="text-leaf-green font-bold text-lg mb-2">{link.price} per person</p>
+                  <p className="text-accent-green font-bold text-lg mb-2">{link.price} per person</p>
                 )}
-                <p className="text-gray-600 mb-4">
+                <p className="text-text-muted mb-4">
                   {link.description}
                 </p>
-                <div className="flex items-center gap-2 text-leaf-green font-semibold group-hover:gap-3 transition-all">
+                <div className="flex items-center gap-2 text-accent-green font-semibold group-hover:gap-3 transition-all">
                   Learn More
                   <span className="text-xl">→</span>
                 </div>
@@ -101,16 +101,16 @@ export default function QuickLinks() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6">
+          <p className="text-text-muted mb-6">
             Explore our curated safari gear or plan your own custom adventure.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+            <button className="px-8 py-3 bg-accent-green text-white font-semibold rounded-lg hover:bg-primary-light transition">
               Create Custom Safari
             </button>
             <Link 
               href="/shop" 
-              className="flex items-center gap-2 px-8 py-3 border-2 border-leaf-green text-leaf-green font-semibold rounded-lg hover:bg-leaf-green hover:text-white transition"
+              className="flex items-center gap-2 px-8 py-3 border-2 border-accent-green text-accent-green font-semibold rounded-lg hover:bg-accent-green hover:text-white transition"
             >
               <ShoppingBag size={20} />
               Shop Official Gear

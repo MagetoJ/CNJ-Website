@@ -11,6 +11,17 @@ export default function WhatsAppFooter() {
 
   return (
     <>
+      {/* Floating WhatsApp Button - Desktop & Mobile */}
+      <a
+        href={whatsappURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-24 right-6 z-50 p-4 bg-green-500 text-white rounded-full shadow-2xl hover:bg-green-600 transition-all duration-300 hover:scale-110 md:bottom-10"
+        aria-label="Chat on WhatsApp"
+      >
+        <MessageCircle size={32} />
+      </a>
+
       {/* Sticky WhatsApp & Build Trip Buttons - Mobile */}
       <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 p-3 space-y-2 z-40">
         <a
@@ -152,6 +163,7 @@ export default function WhatsAppFooter() {
                 <a href="#" className="hover:text-leaf-green transition">Facebook</a>
                 <a href="#" className="hover:text-leaf-green transition">Instagram</a>
                 <a href="#" className="hover:text-leaf-green transition">Twitter</a>
+                <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" target="_blank" rel="noopener noreferrer" className="hover:text-leaf-green transition">Google Reviews</a>
               </div>
             </div>
           </div>

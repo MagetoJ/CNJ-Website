@@ -37,6 +37,29 @@ export default function AboutPage() {
     { label: 'Trust Rating', value: '4.9/5', icon: Heart },
   ]
 
+  const team = [
+    {
+      name: 'James Mwangi',
+      role: 'Head Guide & Founder',
+      image: '/safari-park-giraffe.jpeg', // Using an existing image as placeholder
+    },
+    {
+      name: 'Sarah Chen',
+      role: 'Travel Consultant',
+      image: '/South African Safari _ GORAH ELEPHANT CAMP, Addo….jpeg',
+    },
+    {
+      name: 'David Ochieng',
+      role: 'Lead Tracker',
+      image: '/gorilla.jpeg',
+    },
+    {
+      name: 'Linda Mbeki',
+      role: 'Customer Success',
+      image: '/Enjoying an evening cruise searching for hippos in….jpeg',
+    },
+  ]
+
   return (
     <main className="min-h-screen bg-white selection:bg-leaf-green/30">
       
@@ -122,6 +145,38 @@ export default function AboutPage() {
                 </div>
                 <h3 className="text-2xl font-bold text-jungle-dark mb-4">{v.title}</h3>
                 <p className="text-gray-600">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <span className="text-leaf-green font-semibold uppercase tracking-widest text-sm">Our People</span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-jungle-dark mt-4">Meet Our Expert Team</h2>
+            <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
+              Behind every great safari is a team of dedicated professionals who know every corner of the African wilderness.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            {team.map((member, i) => (
+              <div key={i} className="group">
+                <div className="relative h-80 w-full mb-6 rounded-2xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-jungle-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </div>
+                <h3 className="text-xl font-bold text-jungle-dark mb-1">{member.name}</h3>
+                <p className="text-leaf-green font-medium uppercase tracking-wider text-sm">{member.role}</p>
               </div>
             ))}
           </div>

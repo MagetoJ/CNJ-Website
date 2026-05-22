@@ -1,6 +1,6 @@
 'use client'
 
-import { Star } from 'lucide-react'
+import { Star, ExternalLink } from 'lucide-react'
 
 const testimonials = [
   {
@@ -95,6 +95,18 @@ export default function TestimonialSection() {
               <p className="text-4xl font-bold text-leaf-green">98%</p>
               <p className="text-gray-600 mt-2">Would Recommend</p>
             </div>
+          </div>
+
+          <div className="mt-10 pt-8 border-t border-gray-100 text-center">
+            <a 
+              href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-leaf-green text-leaf-green font-bold rounded-full hover:bg-leaf-green hover:text-white transition-all shadow-lg group"
+            >
+              See more on Google Reviews
+              <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
+            </a>
           </div>
         </div>
       </div>

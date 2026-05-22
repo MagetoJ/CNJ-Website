@@ -34,12 +34,12 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
 
         {/* Main Heading */}
         <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          Unforgettable Safari Adventures
+          Best Kenya Safaris & East African Adventures
         </h1>
 
         {/* Subheading */}
         <p className="text-white text-lg sm:text-xl max-w-2xl mx-auto mb-8 opacity-95">
-          Custom-crafted itineraries. Real-time pricing. Book your East African adventure in minutes.
+          Custom-crafted Nairobi family safaris and affordable Maasai Mara tours. Real-time pricing. Book your adventure in minutes.
         </p>
 
         {/* CTA Buttons */}
@@ -66,10 +66,15 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
             <span>Happy Travelers</span>
           </div>
           <div className="hidden sm:block h-6 border-r border-white/30"></div>
-          <div className="flex items-center gap-2">
+          <a 
+            href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <span className="text-leaf-green text-2xl font-bold">4.8★</span>
             <span>Average Rating</span>
-          </div>
+          </a>
           <div className="hidden sm:block h-6 border-r border-white/30"></div>
           <div className="flex items-center gap-2">
             <span className="text-leaf-green text-2xl font-bold">5+</span>

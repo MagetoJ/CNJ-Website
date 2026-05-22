@@ -429,6 +429,37 @@
         "/planning/safety-health",
         "/niche/honeymoon-romantic-escapes"
       ]
+    },
+    {
+      "slug": "educational-school-partnerships",
+      "metadata": {
+        "title": "Educational Safaris & School Partnerships 2026 | CNJ Safaris",
+        "description": "Transforming travel into education. Explore our curriculum-aligned field trips, junior conservationist programs, and service learning for schools in East Africa.",
+        "keywords": "educational safaris, school field trips Kenya, junior conservationist, service learning Africa, geography field trips, student travel Kenya"
+      },
+      "title": "Educational Safaris: The World is Your Classroom",
+      "quickFacts": {
+        "bestTime": "Term Dates / Academic Year",
+        "difficulty": "Educational / Interactive",
+        "estimatedCost": "Tiered pricing available for schools",
+        "perfectFor": "Schools, Universities, Youth Clubs"
+      },
+      "detailedContent": {
+        "h2_1": "Curriculum-Aligned Learning",
+        "content_1": "Our 'Living Geography' and 'Ecology Immersion' packages turn the Rift Valley and Maasai Mara into open-air classrooms. We align our itineraries with international and local curricula (IGCSE, IB, CBC).",
+        "h2_2": "Junior Conservationist Certification",
+        "content_2": "Students engage with rangers at Ol Pejeta or Sheldrick Wildlife Trust to learn about anti-poaching tech. Successful participants receive a 'CNJ Junior Conservationist' certificate.",
+        "h3_1": "Service Learning & Community",
+        "content_3": "We facilitate meaningful community service projects, from building predator-proof bomas to resource-sharing programs with local schools in the Amboseli region.",
+        "h2_3": "Career Mentorship & Specialized Clubs",
+        "content_4": "Our mentorship programs allow students to shadow professionals in tourism and hospitality. We also offer specialized masterclasses for photography and environmental clubs."
+      },
+      "trustSection": "Safety and logistics are our top priorities. All school trips feature first-aid certified guides and comprehensive insurance. We also offer a 'Teacher Goes Free' model to incentivize educators.",
+      "internalLinking": [
+        "/niche/sustainable-eco-tours",
+        "/safaris/maasai-mara",
+        "/planning/safety-health"
+      ]
     }
   ]
 }

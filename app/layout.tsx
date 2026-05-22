@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: 'CNJ Safaris | East African Adventure Tours',
   description: 'The world is a book, discover every page. Custom safari itineraries, real-time pricing, and seamless bookings for unforgettable East African adventures in Kenya, Tanzania, Uganda & Rwanda.',
   generator: 'v0.app',
-  keywords: ['safari', 'Kenya', 'Tanzania', 'Uganda', 'Rwanda', 'Maasai Mara', 'Serengeti', 'gorilla trekking'],
+  keywords: ['Best Kenya safaris', 'Nairobi family safari', 'Affordable Maasai Mara tours', 'safari', 'Kenya', 'Tanzania', 'Uganda', 'Rwanda', 'Maasai Mara', 'Serengeti', 'gorilla trekking'],
   icons: {
     icon: '/Cnj new logo.jpg',
     apple: '/Cnj new logo.jpg',

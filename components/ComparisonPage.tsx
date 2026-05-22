@@ -1,6 +1,5 @@
 'use client'
 
-import Header from './Header'
 import WhatsAppFooter from './WhatsAppFooter'
 import { CheckCircle2, AlertCircle, Scale, Camera, Car } from 'lucide-react'
 
@@ -37,8 +36,6 @@ export default function ComparisonPage({
 }: ComparisonPageProps) {
   return (
     <main className="min-h-screen bg-white">
-      <Header />
-      
       <section className="bg-jungle-dark text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6">{title}</h1>

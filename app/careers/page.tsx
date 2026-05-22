@@ -42,6 +42,14 @@ export default function CareersPage() {
             : await response.text();
           throw new Error(errorText || `Server Error (${response.status})`);
         }
+
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          const text = await response.text();
+          console.error("Non-JSON response received:", text.slice(0, 200));
+          throw new Error(`Expected JSON but received HTML. Ensure your API URL (${apiUrl}) is correct and the backend is running.`);
+        }
+
         setPositions(await response.json());
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');

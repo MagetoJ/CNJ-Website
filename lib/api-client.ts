@@ -222,3 +222,83 @@ export async function submitQuizLead(data: QuizData & { customerEmail: string, c
     throw error
   }
 }
+
+/**
+ * CMS: Fetch all blog posts (including drafts)
+ */
+export async function getCMSBlogPosts(): Promise<any[]> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/blog/posts`, {
+      credentials: 'include'
+    })
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching CMS blog posts:', error)
+    throw error
+  }
+}
+
+/**
+ * CMS: Fetch all career listings
+ */
+export async function getCMSCareers(): Promise<any[]> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/careers`, {
+      credentials: 'include'
+    })
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching CMS careers:', error)
+    throw error
+  }
+}
+
+/**
+ * CMS: Fetch all quiz leads
+ */
+export async function getQuizLeads(): Promise<any[]> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/quiz/submissions`, {
+      credentials: 'include'
+    })
+    if (!response.ok) throw new Error('Failed to fetch leads')
+    return response.json()
+  } catch (error) {
+    console.error('Error fetching leads:', error)
+    throw error
+  }
+}
+
+/**
+ * CMS: Update lead status
+ */
+export async function updateLeadStatus(id: string, status: string): Promise<any> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/quiz/submissions/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status }),
+      credentials: 'include'
+    })
+    return response.json()
+  } catch (error) {
+    console.error('Error updating lead status:', error)
+    throw error
+  }
+}
+
+/**
+ * CMS: Delete an item (Generic)
+ */
+export async function deleteCMSItem(path: string): Promise<void> {
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'DELETE',
+      credentials: 'include'
+    })
+    if (!response.ok) throw new Error(`Delete failed: ${response.statusText}`)
+  } catch (error) {
+    console.error('Error deleting item:', error)
+    throw error
+  }
+}

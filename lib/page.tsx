@@ -1,101 +1,56 @@
-import type { Metadata } from 'next'
-import DestinationPage from '@/components/DestinationPage'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Educational Safaris & School Partnerships | CNJ Safaris',
-  description: 'Specialized safari programs for schools and universities. Curriculum-aligned field trips, conservation certification, and service learning projects in East Africa.',
-}
+import { useEffect, useState } from 'react'
+import { getQuizLeads } from '@/lib/api-client'
+import { Users, TrendingUp, Calendar, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
-export default function EducationalSafarisPage() {
-  const highlights = [
-    {
-      title: 'Curriculum Aligned',
-      description: 'Living Geography and Biology immersion modules tailored for IGCSE, IB, and local curricula.',
-      icon: '📚',
-    },
-    {
-      title: 'Service Learning',
-      description: 'Hands-on community projects like building predator-proof bomas and local school exchanges.',
-      icon: '🤝',
-    },
-    {
-      title: 'Junior Conservationist',
-      description: 'Exclusive certification programs in partnership with leading wildlife conservancies.',
-      icon: '🎓',
-    },
-    {
-      title: 'Career Mentorship',
-      description: 'Behind-the-scenes access to the tourism industry, shadowing professional guides and managers.',
-      icon: '👔',
-    },
-    {
-      title: 'Specialized Clubs',
-      description: 'Customized masterclasses for photography, environmental, and eco-clubs.',
-      icon: '📸',
-    },
-  ]
+export default function CMSPage() {
+  const [leadCount, setLeadCount] = useState(0)
 
-  const packages = [
-    {
-      id: 'edu-1',
-      name: 'Living Geography',
-      duration: '4 Days / 3 Nights',
-      price: 'Tiered Pricing',
-      highlights: [
-        'Great Rift Valley formations',
-        'Geothermal energy site visit',
-        'Soil erosion workshops',
-        'Sustainable land management',
-      ],
-    },
-    {
-      id: 'edu-2',
-      name: 'Junior Conservationist',
-      duration: '5 Days / 4 Nights',
-      price: 'Group Rates',
-      highlights: [
-        'Ol Pejeta Ranger Experience',
-        'Anti-poaching tech workshop',
-        'K9 unit demonstration',
-        'Official CNJ Certification',
-      ],
-    },
-    {
-      id: 'edu-3',
-      name: 'Service Learning',
-      duration: '7 Days / 6 Nights',
-      price: 'Custom Quote',
-      highlights: [
-        'Community boma building',
-        'School exchange program',
-        'Water project assistance',
-        'Cultural sensitivity training',
-      ],
-    },
-    {
-      id: 'edu-4',
-      name: 'Career & Tourism Masterclass',
-      duration: '3 Days / 2 Nights',
-      price: 'Group Rates',
-      highlights: [
-        'Shadow a professional guide',
-        'Sustainable tourism workshop',
-        'Hospitality management basics',
-        'Digital marketing in the wild',
-      ],
-    },
-  ]
+  useEffect(() => {
+    getQuizLeads().then(data => setLeadCount(data.length)).catch(() => {})
+  }, [])
 
   return (
-    <DestinationPage
-      title="Educational Safaris"
-      subtitle="Transforming the Wild into a Classroom"
-      heroGradient="bg-gradient-to-br from-indigo-900 to-jungle-dark"
-      bestTime="Term Dates / Academic Year"
-      highlights={highlights}
-      description="CNJ Safaris is redefining the traditional field trip. Our educational partnerships move beyond leisure, offering students deep dives into geography, biology, and community service. We also offer career mentorship for aspiring professionals and specialized masterclasses for photography and eco-clubs. With a focus on safety, logistics, and our 'Teacher Goes Free' model, we provide an enriching experience for international and local schools alike."
-      packages={packages}
-      metaDescription="Empower your students with CNJ Safaris' Educational Partnerships. Curriculum-aligned field trips and conservation programs in Kenya and Tanzania."
-    />
+    <div className="max-w-6xl mx-auto">
+      <header className="mb-10">
+        <h1 className="text-3xl font-serif font-bold text-jungle-dark">Management Dashboard</h1>
+        <p className="text-gray-500 mt-1">Welcome back. Here is what is happening with CNJ Safaris today.</p>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+          <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center">
+            <Users size={24} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Total Quiz Leads</p>
+            <p className="text-2xl font-bold text-gray-900">{leadCount}</p>
+          </div>
+        </div>
+        
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+          <div className="w-12 h-12 bg-green-50 text-leaf-green rounded-xl flex items-center justify-center">
+            <TrendingUp size={24} />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-gray-500">Active Itineraries</p>
+            <p className="text-2xl font-bold text-gray-900">12</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-jungle-dark rounded-3xl p-10 text-white relative overflow-hidden">
+        <div className="relative z-10 max-w-md">
+          <h2 className="text-2xl font-serif font-bold mb-4">Manage Adventure Leads</h2>
+          <p className="text-gray-300 mb-6">Review the latest custom safari requests and generated itineraries from the website quiz.</p>
+          <Link href="/cms/leads" className="inline-flex items-center gap-2 bg-leaf-green px-6 py-3 rounded-xl font-bold hover:bg-green-600 transition">
+            Go to Leads <ArrowRight size={18} />
+          </Link>
+        </div>
+        <div className="absolute top-0 right-0 w-64 h-full bg-white/5 -skew-x-12 translate-x-10" />
+      </div>
+    </div>
   )
 }

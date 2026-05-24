@@ -24,7 +24,9 @@
     "UWA",
     "RDB",
     "Tsetse",
-    "Wildebeest"
+    "Wildebeest",
+    "cmdk",
+    "vaul"
   ],
   "ignorePaths": ["node_modules", ".next", "package-lock.json"]
 }

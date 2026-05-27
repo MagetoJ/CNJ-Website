@@ -9,7 +9,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
   return (
-    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-jungle-dark">
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-deep-black">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -20,14 +20,14 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
           sizes="100vw"
           className="object-cover brightness-[0.4]"
         />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent to-jungle-dark/60"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-transparent to-deep-black/60"></div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Eyebrow */}
         <div className="mb-6 inline-block">
-          <span className="text-leaf-green font-semibold text-sm uppercase tracking-widest">
+          <span className="text-safari-gold font-semibold text-sm uppercase tracking-widest">
             The world is a book, discover every page
           </span>
         </div>
@@ -46,7 +46,7 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <button
             onClick={onStartQuiz}
-            className="px-8 py-4 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition flex items-center gap-2 text-lg"
+            className="px-8 py-4 bg-safari-gold text-white font-semibold rounded-lg hover:bg-olive-green transition flex items-center gap-2 text-lg"
           >
             Build Your Trip
             <ArrowRight size={20} />

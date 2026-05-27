@@ -4,9 +4,8 @@ import defaultTheme from "tailwindcss/defaultTheme"
 const config = {
   darkMode: "class",
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -16,14 +15,15 @@ const config = {
       },
       colors: {
         // CNJ Safaris Brand Colors
-        "jungle-dark": "#064E3B",
-        "jungle-green": "#0D6B56",
-        "leaf-green": "#22C55E",
-        "sage-light": "#E8F5E9",
-        "cream": "#FFFBF0",
+        "safari-gold": "#C5A02E",
+        "earth-brown": "#3E2723",
+        "deep-black": "#0A0A0A",
+        "warm-beige": "#D7CCC8",
+        "olive-green": "#556B2F",
       },
       backgroundImage: {
-        "gradient-jungle": "linear-gradient(135deg, #064E3B 0%, #0D6B56 100%)",
+        "gradient-safari": "linear-gradient(135deg, #3E2723 0%, #556B2F 100%)",
+        "cinematic-overlay": "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(10,10,12,0.9) 100%)",
       },
     },
   },

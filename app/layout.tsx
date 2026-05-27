@@ -50,7 +50,7 @@ export default function RootLayout({
         <OrganizationSchema />
         <LocalBusinessSchema />
       </head>
-      <body className="font-sans antialiased bg-transparent text-gray-100 min-h-screen" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-deep-black text-gray-100 min-h-screen" suppressHydrationWarning>
         <QuizProvider>
           <Navbar />
           <div className="relative z-10 flex flex-col min-h-screen">

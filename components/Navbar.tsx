@@ -1,146 +1,79 @@
 'use client'
 
 import * as React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
-import * as NavigationMenu from '@radix-ui/react-navigation-menu'
-import { ChevronDown, Menu, X } from 'lucide-react'
-import AdventureQuiz from './AdventureQuiz'
+import { Menu, X } from 'lucide-react'
 import { useQuiz } from '@/context/QuizContext'
+import AdventureQuiz from './AdventureQuiz'
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = React.useState(false)
   const { isOpen: isQuizOpen, openQuiz, closeQuiz } = useQuiz()
 
   return (
-    <NavigationMenu.Root className="sticky top-0 z-50 w-full bg-black/20 backdrop-blur-lg border-b border-white/10">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity" aria-label="Home">
-          <Image
-            src="/Cnj new logo.jpg"
-            alt="CNJ Safaris Logo"
-            width={45}
-            height={40}
-            className="rounded-lg object-contain w-10 h-10"
-          />
-          <span className="hidden sm:inline font-serif font-bold text-white text-xl">
-            CNJ Safaris
-          </span>
+    <nav className="sticky top-0 z-50 w-full bg-black/30 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+        
+        {/* Luxury Brand Typography Logo */}
+        <Link href="/" className="flex flex-col text-white tracking-wider">
+          <span className="font-serif font-black text-2xl uppercase tracking-[0.2em]">CNJ</span>
+          <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1">Luxury Safaris</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <NavigationMenu.List className="hidden md:flex list-none items-center gap-6 lg:gap-8 text-sm lg:text-base">
-          <NavigationMenu.Item>
-            <Link href="/" className="text-white hover:text-leaf-green transition font-medium">
-              Home
-            </Link>
-          </NavigationMenu.Item>
-          <NavigationMenu.Item>
-            <Link href="/#explore" className="text-white hover:text-leaf-green transition font-medium">
-              Explore Safaris
-            </Link>
-          </NavigationMenu.Item>
-          
-          <NavigationMenu.Item>
-            <Link href="/about" className="relative group text-white hover:text-leaf-green transition font-medium">
-              About Us
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          </NavigationMenu.Item>
+        {/* Desktop Navigation Links map */}
+        <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-gray-200">
+          <Link href="/" className="hover:text-safari-gold transition-colors">Home</Link>
+          <Link href="/safaris" className="hover:text-safari-gold transition-colors">Safaris</Link>
+          <Link href="/destinations" className="hover:text-safari-gold transition-colors">Destinations</Link>
+          <Link href="/experiences" className="hover:text-safari-gold transition-colors">Experiences</Link>
+          <Link href="/about" className="hover:text-safari-gold transition-colors">About Us</Link>
+          <Link href="/gallery" className="hover:text-safari-gold transition-colors">Gallery</Link>
+          <Link href="/blog" className="hover:text-safari-gold transition-colors">Blog</Link>
+          <Link href="/contact" className="hover:text-safari-gold transition-colors">Contact</Link>
+        </div>
 
-          <NavigationMenu.Item>
-            <Link href="/gallery" className="relative group text-white hover:text-leaf-green transition font-medium">
-              Gallery
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          </NavigationMenu.Item>
-
-          <NavigationMenu.Item>
-            <Link href="/careers" className="relative group text-white hover:text-leaf-green transition font-medium">
-              Careers
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
-            </Link>
-          </NavigationMenu.Item>
-
-          <NavigationMenu.Item className="relative">
-            <NavigationMenu.Trigger className="group flex items-center gap-1 text-white hover:text-leaf-green transition font-medium outline-none">
-              Destinations <ChevronDown size={16} className="transition-transform group-data-[state=open]:rotate-180" />
-            </NavigationMenu.Trigger>
-            <NavigationMenu.Content className="absolute top-full left-0 mt-2 w-48 rounded-xl bg-black/80 backdrop-blur-xl p-2 shadow-2xl border border-white/10">
-              <ul className="flex flex-col gap-1">
-                <li><Link href="/safaris/maasai-mara" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Maasai Mara</Link></li>
-                <li><Link href="/safaris/amboseli-national-park" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Amboseli</Link></li>
-                <li><Link href="/safaris/serengeti-ngorongoro-tanzania" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Serengeti</Link></li>
-                <li><Link href="/safaris/gorilla-trekking" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Gorilla Trekking</Link></li>
-              </ul>
-            </NavigationMenu.Content>
-          </NavigationMenu.Item>
-
-          <NavigationMenu.Item>
-            <Link href="/partnerships" className="text-white hover:text-leaf-green transition font-medium">
-              Partnerships
-            </Link>
-          </NavigationMenu.Item>
-
-          <NavigationMenu.Item>
-            <Link href="/shop" className="text-white hover:text-leaf-green transition font-semibold">
-              Shop Gear
-            </Link>
-          </NavigationMenu.Item>
-
-          <NavigationMenu.Item>
-            <Link href="/contact" className="text-white hover:text-leaf-green transition font-medium">
-              Contact
-            </Link>
-          </NavigationMenu.Item>
-
-        </NavigationMenu.List>
-
-        {/* CTA Button & Mobile Menu Button */}
+        {/* Cinematic Call To Action Button trigger */}
         <div className="flex items-center gap-4">
           <button 
             onClick={openQuiz}
-            className="px-4 sm:px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition text-sm sm:text-base"
+            className="px-8 py-3 bg-safari-gold text-white text-xs font-bold tracking-widest uppercase rounded-none hover:bg-olive-green transition-all shadow-lg active:scale-95"
           >
-            Book Now
+            Plan Your Route
           </button>
 
           <button
-            className="md:hidden p-2 text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="xl:hidden p-2 text-white"
+            onClick={() => setIsOpen(!isOpen)}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </nav>
+      </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/10 flex flex-col p-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Home</Link>
-          <Link href="/#explore" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Explore Safaris</Link>
-          <Link href="/safaris/maasai-mara" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Maasai Mara</Link>
-          <Link href="/safaris/amboseli-national-park" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Amboseli</Link>
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">About Us</Link>
-          <Link href="/gallery" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Gallery</Link>
-          <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Careers</Link>
-          <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Partnerships</Link>
-          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-white hover:text-leaf-green">Shop Gear</Link>
-          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Contact</Link>
+      {/* Mobile Drawer Overlay navigation */}
+      {isOpen && (
+        <div className="xl:hidden fixed inset-x-0 top-24 bg-black/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 text-center font-medium tracking-widest text-lg text-white">
+          <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Home</Link>
+          <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Safaris</Link>
+          <Link href="/destinations" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Destinations</Link>
+          <Link href="/experiences" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Experiences</Link>
+          <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">About Us</Link>
+          <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Gallery</Link>
+          <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Blog</Link>
+          <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Contact</Link>
           <button 
             onClick={() => {
-              openQuiz()
-              setMobileMenuOpen(false)
+              openQuiz();
+              setIsOpen(false);
             }}
-            className="w-full px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition"
+            className="w-full mt-4 py-4 bg-safari-gold text-white text-xs font-bold uppercase tracking-widest"
           >
-            Book Now
+            Plan Your Route
           </button>
         </div>
       )}
 
       <AdventureQuiz isOpen={isQuizOpen} onClose={closeQuiz} />
-    </NavigationMenu.Root>
+    </nav>
   )
 }

@@ -66,7 +66,7 @@ export default function DestinationPage({
   })
 
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="min-h-screen bg-deep-black">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -102,22 +102,22 @@ export default function DestinationPage({
       <div className="bg-black/40 backdrop-blur-md py-8 px-4 sm:px-6 lg:px-8 border-b border-white/10">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div>
-            <Clock size={24} className="mx-auto mb-2 text-leaf-green" />
+            <Clock size={24} className="mx-auto mb-2 text-safari-gold" />
             <p className="text-sm text-gray-400">Best Time</p>
             <p className="font-semibold text-white">{quickFacts?.bestTime || bestTime}</p>
           </div>
           <div>
-            <MapPin size={24} className="mx-auto mb-2 text-leaf-green" />
+            <MapPin size={24} className="mx-auto mb-2 text-safari-gold" />
             <p className="text-sm text-gray-400">Perfect For</p>
             <p className="font-semibold text-white">{quickFacts?.perfectFor || 'All Levels'}</p>
           </div>
           <div>
-            <Users size={24} className="mx-auto mb-2 text-leaf-green" />
+            <Users size={24} className="mx-auto mb-2 text-safari-gold" />
             <p className="text-sm text-gray-400">Difficulty</p>
             <p className="font-semibold text-white">{quickFacts?.difficulty || 'Moderate'}</p>
           </div>
           <div>
-            <DollarSign size={24} className="mx-auto mb-2 text-leaf-green" />
+            <DollarSign size={24} className="mx-auto mb-2 text-safari-gold" />
             <p className="text-sm text-gray-400">Starting From</p>
             <p className="font-semibold text-white">{quickFacts?.estimatedCost || '$1,200'}</p>
           </div>
@@ -139,7 +139,7 @@ export default function DestinationPage({
           </div>
           
           {trustSection && (
-            <div className="mt-12 p-6 bg-white/5 backdrop-blur-sm border-l-4 border-leaf-green rounded-r-xl">
+            <div className="mt-12 p-6 bg-white/5 backdrop-blur-sm border-l-4 border-safari-gold rounded-r-xl">
               <h3 className="text-xl font-bold text-white mb-2">Why Book With Us?</h3>
               <p className="text-gray-300 italic">{trustSection}</p>
             </div>
@@ -157,9 +157,9 @@ export default function DestinationPage({
             {highlights.map((highlight, idx) => (
               <div
                 key={idx}
-                className="p-6 bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 hover:border-leaf-green transition"
+                className="p-6 bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 hover:border-safari-gold transition"
               >
-                <div className="w-12 h-12 bg-leaf-green rounded-lg flex items-center justify-center mb-4 text-white text-xl">
+                <div className="w-12 h-12 bg-safari-gold rounded-lg flex items-center justify-center mb-4 text-white text-xl">
                   {highlight.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
@@ -184,24 +184,24 @@ export default function DestinationPage({
             {packages.map(pkg => (
               <div
                 key={pkg.id}
-                className="p-8 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl hover:border-leaf-green transition hover:shadow-2xl"
+                className="p-8 bg-black/40 backdrop-blur-md border border-white/10 rounded-xl hover:border-safari-gold transition hover:shadow-2xl"
               >
                 <h3 className="text-2xl font-semibold text-white mb-2">
                   {pkg.name}
                 </h3>
                 <p className="text-gray-400 mb-4">{pkg.duration}</p>
-                <p className="text-3xl font-bold text-leaf-green mb-6">
+                <p className="text-3xl font-bold text-safari-gold mb-6">
                   {pkg.price}
                 </p>
                 <ul className="space-y-2 mb-8">
                   {pkg.highlights.map((highlight, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-gray-300">
-                      <ChevronRight size={20} className="text-leaf-green shrink-0 mt-0.5" />
+                      <ChevronRight size={20} className="text-safari-gold shrink-0 mt-0.5" />
                       <span>{highlight}</span>
                     </li>
                   ))}
                 </ul>
-                <button className="w-full px-6 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+                <button className="w-full px-6 py-3 bg-safari-gold text-white font-semibold rounded-lg hover:bg-olive-green transition">
                   Book This Package
                 </button>
               </div>
@@ -211,7 +211,7 @@ export default function DestinationPage({
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-jungle text-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-safari text-white">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-serif text-4xl font-bold mb-6">
             Ready for Your Adventure?
@@ -220,7 +220,7 @@ export default function DestinationPage({
             Our travel experts are ready to customize the perfect safari experience for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-3 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">
+            <button className="px-8 py-3 bg-safari-gold text-white font-semibold rounded-lg hover:bg-olive-green transition">
               Chat with an Expert
             </button>
             <button className="px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition">

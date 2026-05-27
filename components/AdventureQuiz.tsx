@@ -1,165 +1,74 @@
 'use client'
 
-import { useState } from 'react'
-import { X, ChevronRight, ChevronLeft } from 'lucide-react'
+import React from 'react'
+import { X } from 'lucide-react'
+import { useQuiz } from '@/context/QuizContext'
 import QuizStep1 from './quiz/QuizStep1'
 import QuizStep2 from './quiz/QuizStep2'
 import QuizStep3 from './quiz/QuizStep3'
 import QuizStep4 from './quiz/QuizStep4'
 import QuizResults from './quiz/QuizResults'
 
-export interface QuizData {
-  destination: string
-  experience: string
-  budget: string
-  startDate: string
-  endDate: string
-}
-
-interface AdventureQuizProps {
-  isOpen: boolean
-  onClose: () => void
-}
-
-export default function AdventureQuiz({ isOpen, onClose }: AdventureQuizProps) {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [quizData, setQuizData] = useState<QuizData>({
-    destination: '',
-    experience: '',
-    budget: '',
-    startDate: '',
-    endDate: '',
-  })
-  const [showResults, setShowResults] = useState(false)
-
-  const updateQuizData = (field: keyof QuizData, value: string) => {
-    setQuizData(prev => ({ ...prev, [field]: value }))
-  }
-
-  const handleNext = () => {
-    if (currentStep < 4) {
-      setCurrentStep(prev => prev + 1)
-    } else {
-      setShowResults(true)
-    }
-  }
-
-  const handlePrevious = () => {
-    if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1)
-    }
-  }
-
-  const isStepComplete = () => {
-    switch (currentStep) {
-      case 1:
-        return quizData.destination !== ''
-      case 2:
-        return quizData.experience !== ''
-      case 3:
-        return quizData.budget !== ''
-      case 4:
-        return quizData.startDate !== '' && quizData.endDate !== ''
-      default:
-        return false
-    }
-  }
+export default function AdventureQuiz() {
+  const { currentStep, isOpen, closeQuiz } = useQuiz()
 
   if (!isOpen) return null;
 
-  if (showResults) {
-    return <QuizResults quizData={quizData} onClose={onClose} />
-  }
-
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-black/60 backdrop-blur-xl border border-white/10 text-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-screen overflow-y-auto">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+      {/* Blurring Frosted Glass Overlay */}
+      <div 
+        className="absolute inset-0 bg-black/60 backdrop-blur-xl transition-opacity animate-in fade-in duration-300"
+        onClick={closeQuiz} 
+      />
+
+      {/* Modal Content Window */}
+      <div className="relative w-full max-w-4xl bg-neutral-900 border border-white/10 rounded-none overflow-hidden shadow-2xl z-10 flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+        
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 sticky top-0 bg-transparent">
+        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
           <div>
-            <h2 className="text-2xl font-serif font-bold text-white">Build Your Safari</h2>
-            <p className="text-sm text-gray-400 mt-1">Step {currentStep} of 4</p>
+            <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-safari-gold">CNJ Expedition Blueprint</span>
+            <h3 className="font-serif text-lg font-bold text-white uppercase tracking-wider">Plan Your Custom Route</h3>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded-lg transition"
-            aria-label="Close quiz"
+            className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all active:scale-90"
+            aria-label="Close Modal"
           >
-            <X size={24} className="text-white" />
+            <X size={22} />
           </button>
         </div>
 
-        {/* Progress Bar */}
-        <div className="px-6 pt-4 pb-6">
-          <div className="flex gap-2">
-            {[1, 2, 3, 4].map(step => (
-              <div
-                key={step}
-                className={`h-2 flex-1 rounded-full transition ${
-                  step <= currentStep ? 'bg-leaf-green' : 'bg-white/10'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
         {/* Content */}
-        <div className="px-6 pb-6 min-h-96">
+        <div className="p-6 md:p-8 overflow-y-auto custom-scrollbar bg-gradient-to-b from-neutral-900 via-neutral-900 to-black text-white flex-1">
           {currentStep === 1 && (
             <QuizStep1
-              value={quizData.destination}
-              onChange={(value) => updateQuizData('destination', value)}
+              // value={quizData.destination} // These props are now handled internally by QuizContext
+              // onChange={(value) => updateQuizData('destination', value)}
             />
           )}
           {currentStep === 2 && (
             <QuizStep2
-              value={quizData.experience}
-              onChange={(value) => updateQuizData('experience', value)}
+              // value={quizData.experience}
+              // onChange={(value) => updateQuizData('experience', value)}
             />
           )}
           {currentStep === 3 && (
             <QuizStep3
-              value={quizData.budget}
-              onChange={(value) => updateQuizData('budget', value)}
+              // value={quizData.budget}
+              // onChange={(value) => updateQuizData('budget', value)}
             />
           )}
           {currentStep === 4 && (
             <QuizStep4
-              startDate={quizData.startDate}
-              endDate={quizData.endDate}
-              onStartDateChange={(value) => updateQuizData('startDate', value)}
-              onEndDateChange={(value) => updateQuizData('endDate', value)}
+              // startDate={quizData.startDate}
+              // endDate={quizData.endDate}
+              // onStartDateChange={(value) => updateQuizData('startDate', value)}
+              // onEndDateChange={(value) => updateQuizData('endDate', value)}
             />
           )}
-        </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between p-6 border-t border-white/10 bg-white/5">
-          <button
-            onClick={handlePrevious}
-            disabled={currentStep === 1}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition ${
-              currentStep === 1
-                ? 'text-white/20 cursor-not-allowed'
-                : 'text-white hover:bg-white/10'
-            }`}
-          >
-            <ChevronLeft size={20} />
-            Previous
-          </button>
-
-          <button
-            onClick={handleNext}
-            disabled={!isStepComplete()}
-            className={`flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition ${
-              isStepComplete()
-                ? 'bg-leaf-green text-white hover:bg-green-600'
-                : 'bg-white/10 text-white/30 cursor-not-allowed'
-            }`}
-          >
-            {currentStep === 4 ? 'Get Your Quote' : 'Next'}
-            <ChevronRight size={20} />
-          </button>
+          {currentStep === 5 && <QuizResults />}
         </div>
       </div>
     </div>

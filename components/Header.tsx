@@ -9,7 +9,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-lg border-b border-white/10">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
@@ -20,26 +20,26 @@ export default function Header() {
             height={40}
             className="rounded-lg object-contain"
           />
-          <span className="hidden sm:inline font-serif font-bold text-jungle-dark text-xl">
+          <span className="hidden sm:inline font-serif font-bold text-white text-xl">
             CNJ Safaris
           </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/#explore" className="text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/#explore" className="text-white hover:text-leaf-green transition">
             Explore Safaris
           </Link>
-          <Link href="/about" className="text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/about" className="text-white hover:text-leaf-green transition">
             About Us
           </Link>
-          <Link href="/partnerships" className="text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/partnerships" className="text-white hover:text-leaf-green transition">
             Partnerships
           </Link>
-          <Link href="/shop" className="text-jungle-dark hover:text-leaf-green transition font-semibold">
+          <Link href="/shop" className="text-white hover:text-leaf-green transition font-semibold">
             Shop Gear
           </Link>
-          <Link href="/contact" className="text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/contact" className="text-white hover:text-leaf-green transition">
             Contact
           </Link>
         </div>
@@ -52,7 +52,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-jungle-dark"
+            className="md:hidden p-2 text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -62,20 +62,20 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-4">
-          <Link href="/#explore" className="block text-jungle-dark hover:text-leaf-green transition">
+        <div className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/10 px-4 py-4 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
+          <Link href="/#explore" className="block text-white hover:text-leaf-green transition">
             Explore Safaris
           </Link>
-          <Link href="/about" className="block text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/about" className="block text-white hover:text-leaf-green transition">
             About Us
           </Link>
-          <Link href="/partnerships" className="block text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/partnerships" className="block text-white hover:text-leaf-green transition">
             Partnerships
           </Link>
-          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block text-jungle-dark hover:text-leaf-green transition font-semibold">
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition font-semibold">
             Shop Gear
           </Link>
-          <Link href="/contact" className="block text-jungle-dark hover:text-leaf-green transition">
+          <Link href="/contact" className="block text-white hover:text-leaf-green transition">
             Contact
           </Link>
           <button className="w-full px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">

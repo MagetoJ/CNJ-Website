@@ -73,7 +73,7 @@ export default function QuickLinks() {
                       {link.badge}
                     </div>
                   )}
-                  <div className="absolute top-4 left-4 w-10 h-10 bg-background-light/90 backdrop-blur rounded-lg flex items-center justify-center text-primary-dark shadow-sm group-hover:bg-accent-green group-hover:text-white transition-colors duration-300">
+                  <div className="absolute top-4 left-4 w-10 h-10 bg-black/40 backdrop-blur rounded-lg flex items-center justify-center text-white shadow-sm group-hover:bg-leaf-green transition-colors duration-300">
                     <Icon size={20} />
                   </div>
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500"></div>

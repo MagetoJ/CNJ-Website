@@ -103,7 +103,7 @@ export default function CareersPage() {
   }), [positions]);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="w-full min-h-screen py-24 px-4 bg-transparent">
       {/* Hero Section */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <Image
@@ -115,15 +115,17 @@ export default function CareersPage() {
           sizes="100vw"
         />
         <div className="relative z-10 text-center text-white px-4">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6">Join the Pride</h1>
-          <p className="text-xl max-w-2xl mx-auto opacity-90 font-light">
-            Turn your passion for Africa into a world-class career.
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white uppercase mb-6">
+            Join Our <span className="text-amber-500">Expedition</span>
+          </h1>
+          <p className="text-gray-400 max-w-2xl mx-auto opacity-90 font-light">
+            Discover internal careers and grow your career leading tours and wildlife safaris.
           </p>
         </div>
       </section>
 
       {/* Life at CNJ Section */}
-      <section className="py-24 px-4 max-w-7xl mx-auto">
+      <section className="py-24 px-4 max-w-7xl mx-auto text-white">
         <div className="grid md:grid-cols-2 gap-16 items-center mb-24">
           <div className="order-2 md:order-1 relative h-125 rounded-2xl overflow-hidden shadow-2xl">
             <Image 
@@ -180,14 +182,17 @@ export default function CareersPage() {
           )}
           
           {!loading && positions.map((job) => (
-            <div key={job.id} className="group p-6 border border-gray-200 rounded-2xl flex items-center justify-between hover:border-leaf-green hover:shadow-md transition cursor-pointer">
+            <div 
+              key={job.id} 
+              className="glass-panel glass-card-hover rounded-2xl p-6 flex items-center justify-between cursor-pointer"
+            >
               <div className="flex-1">
-                <h4 className="text-xl font-bold text-jungle-dark group-hover:text-leaf-green transition">
+                <h4 className="text-xl font-bold text-white group-hover:text-amber-500 transition">
                   {job.title}
                 </h4>
-                <p className="text-gray-500 text-sm">{job.location} • {job.type} • {job.department}</p>
+                <p className="text-gray-400 text-sm">{job.location} • {job.type} • {job.department}</p>
               </div>
-              <Briefcase className="text-gray-300 group-hover:text-leaf-green" />
+              <Briefcase className="text-gray-400 group-hover:text-amber-500" />
             </div>
           ))}
         </div>

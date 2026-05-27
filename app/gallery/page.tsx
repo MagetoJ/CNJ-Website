@@ -63,7 +63,7 @@ export default function GalleryPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-white selection:bg-leaf-green/30">
+    <main className="min-h-screen bg-transparent selection:bg-amber-500/30 selection:text-amber-200">
       {/* Hero Section */}
       <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
         <Image
@@ -87,8 +87,8 @@ export default function GalleryPage() {
       {/* Tour Images Grid */}
       <section className="py-20 px-4 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-leaf-green font-semibold uppercase tracking-widest text-sm">Visual Journey</span>
-          <h2 className="font-serif text-4xl font-bold text-jungle-dark mt-4">Tour Highlights</h2>
+          <span className="text-amber-500 font-semibold uppercase tracking-widest text-sm">Visual Journey</span>
+          <h2 className="font-serif text-4xl font-bold text-white mt-4">Tour Highlights</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -110,16 +110,16 @@ export default function GalleryPage() {
       </section>
 
       {/* Packages Section */}
-      <section className="py-20 bg-sage-light">
+      <section className="py-20 bg-transparent">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <span className="text-leaf-green font-semibold uppercase tracking-widest text-sm">Curated Experiences</span>
-            <h2 className="font-serif text-4xl font-bold text-jungle-dark mt-4">Featured Packages</h2>
+            <span className="text-amber-500 font-semibold uppercase tracking-widest text-sm">Curated Experiences</span>
+            <h2 className="font-serif text-4xl font-bold text-white mt-4">Featured Packages</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {packages.map((pkg, i) => (
-              <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+              <div key={i} className="glass-panel glass-card-hover rounded-3xl overflow-hidden flex flex-col h-full">
                 <div className="relative h-64 w-full">
                   <Image
                     src={pkg.image}
@@ -130,11 +130,11 @@ export default function GalleryPage() {
                   />
                 </div>
                 <div className="p-8 flex-grow flex flex-col">
-                  <h3 className="text-2xl font-bold text-jungle-dark mb-4">{pkg.title}</h3>
-                  <p className="text-gray-600 mb-6 flex-grow">{pkg.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{pkg.title}</h3>
+                  <p className="text-gray-300 mb-6 flex-grow">{pkg.description}</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="text-leaf-green font-bold text-xl">{pkg.price}</span>
-                    <button className="text-jungle-dark font-semibold hover:text-leaf-green transition-colors">
+                    <button className="text-white font-semibold hover:text-amber-500 transition-colors">
                       Learn More →
                     </button>
                   </div>

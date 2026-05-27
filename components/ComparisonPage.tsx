@@ -35,7 +35,7 @@ export default function ComparisonPage({
   internalLinking
 }: ComparisonPageProps) {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-transparent">
       <section className="bg-jungle-dark text-white py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6">{title}</h1>
@@ -50,12 +50,12 @@ export default function ComparisonPage({
         </div>
       </section>
 
-      <section className="py-12 bg-sage-light border-b">
+      <section className="py-12 bg-black/40 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(quickFacts).map(([key, value]) => (
             <div key={key} className="text-center">
               <p className="text-xs uppercase tracking-wider text-gray-500 mb-1">{key.replace(/([A-Z])/g, ' $1')}</p>
-              <p className="font-bold text-jungle-dark">{value}</p>
+              <p className="font-bold text-white">{value}</p>
             </div>
           ))}
         </div>
@@ -63,27 +63,27 @@ export default function ComparisonPage({
 
       <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto prose prose-lg">
-          <h2 className="text-3xl font-serif font-bold text-jungle-dark">{detailedContent.h2_1}</h2>
-          <p className="text-gray-700 leading-relaxed mb-10">{detailedContent.content_1}</p>
+          <h2 className="text-3xl font-serif font-bold text-white">{detailedContent.h2_1}</h2>
+          <p className="text-gray-300 leading-relaxed mb-10">{detailedContent.content_1}</p>
           
-          <h2 className="text-3xl font-serif font-bold text-jungle-dark">{detailedContent.h2_2}</h2>
-          <p className="text-gray-700 leading-relaxed mb-10">{detailedContent.content_2}</p>
+          <h2 className="text-3xl font-serif font-bold text-white">{detailedContent.h2_2}</h2>
+          <p className="text-gray-300 leading-relaxed mb-10">{detailedContent.content_2}</p>
           
-          <div className="bg-leaf-green/10 p-8 rounded-2xl border border-leaf-green/20 my-12">
-            <h3 className="text-2xl font-serif font-bold text-jungle-dark mt-0">{detailedContent.h3_1}</h3>
-            <p className="text-gray-700 mb-0">{detailedContent.content_3}</p>
+          <div className="bg-leaf-green/5 backdrop-blur-sm p-8 rounded-2xl border border-leaf-green/30 my-12">
+            <h3 className="text-2xl font-serif font-bold text-white mt-0">{detailedContent.h3_1}</h3>
+            <p className="text-gray-300 mb-0">{detailedContent.content_3}</p>
           </div>
         </div>
       </section>
 
-      <section className="bg-gray-50 py-12 px-4 border-y">
+      <section className="py-12 px-4 border-y border-white/10">
         <div className="max-w-3xl mx-auto flex items-start gap-4">
           <div className="bg-leaf-green p-2 rounded-full text-white">
             <CheckCircle2 size={24} />
           </div>
           <div>
-            <h4 className="font-bold text-jungle-dark text-lg mb-2">Why Trust CNJ Safaris?</h4>
-            <p className="text-gray-600 italic">{trustSection}</p>
+            <h4 className="font-bold text-white text-lg mb-2">Why Trust CNJ Safaris?</h4>
+            <p className="text-gray-400 italic">{trustSection}</p>
           </div>
         </div>
       </section>

@@ -102,7 +102,7 @@ export default function TestimonialSection() {
               href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-white border-2 border-leaf-green text-leaf-green font-bold rounded-full hover:bg-leaf-green hover:text-white transition-all shadow-lg group"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-black/40 backdrop-blur-md border-2 border-leaf-green text-white font-bold rounded-full hover:bg-leaf-green transition-all shadow-lg group"
             >
               See more on Google Reviews
               <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />

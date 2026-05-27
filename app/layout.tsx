@@ -23,7 +23,7 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'CNJ Safaris | East African Adventure Tours',
-  description: 'The world is a book, discover every page. Custom safari itineraries, real-time pricing, and seamless bookings for unforgettable East African adventures in Kenya, Tanzania, Uganda & Rwanda.',
+  description: 'Custom safari itineraries, real-time pricing, and seamless bookings for unforgettable East African adventures.',
   generator: 'v0.app',
   keywords: ['Best Kenya safaris', 'Nairobi family safari', 'Affordable Maasai Mara tours', 'safari', 'Kenya', 'Tanzania', 'Uganda', 'Rwanda', 'Maasai Mara', 'Serengeti', 'gorilla trekking'],
   icons: {
@@ -36,7 +36,7 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  themeColor: '#064E3B',
+  themeColor: '#000000',
 }
 
 export default function RootLayout({
@@ -45,15 +45,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${montserrat.variable} bg-transparent dark`} suppressHydrationWarning>
+    <html lang="en" className={`${playfair.variable} ${montserrat.variable} dark`} suppressHydrationWarning>
       <head>
         <OrganizationSchema />
         <LocalBusinessSchema />
       </head>
-      <body className="font-sans antialiased bg-transparent" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-transparent text-gray-100 min-h-screen" suppressHydrationWarning>
         <QuizProvider>
           <Navbar />
-          {children}
+          <div className="relative z-10 flex flex-col min-h-screen">
+            {children}
+          </div>
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </QuizProvider>
       </body>

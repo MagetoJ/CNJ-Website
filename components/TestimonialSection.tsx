@@ -31,14 +31,14 @@ const testimonials = [
 
 export default function TestimonialSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-sage-light">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="text-leaf-green font-semibold text-sm uppercase tracking-widest">
             What Our Guests Say
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-jungle-dark mt-4 mb-6">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white mt-4 mb-6">
             Hear From Our Travelers
           </h2>
         </div>
@@ -48,7 +48,7 @@ export default function TestimonialSection() {
           {testimonials.map(testimonial => (
             <div
               key={testimonial.id}
-              className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition border border-gray-200"
+              className="bg-black/20 backdrop-blur-sm p-8 rounded-xl shadow-xl hover:shadow-2xl transition border border-white/5 hover:border-white/10"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">
@@ -58,7 +58,7 @@ export default function TestimonialSection() {
               </div>
 
               {/* Quote */}
-              <p className="text-gray-700 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed italic">
                 &quot;{testimonial.text}&quot;
               </p>
 
@@ -68,10 +68,10 @@ export default function TestimonialSection() {
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <p className="font-semibold text-jungle-dark">
+                  <p className="font-semibold text-white">
                     {testimonial.name}
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-400">
                     {testimonial.location}
                   </p>
                 </div>
@@ -81,19 +81,19 @@ export default function TestimonialSection() {
         </div>
 
         {/* Social Proof */}
-        <div className="mt-16 bg-white p-8 rounded-2xl border border-gray-200">
+        <div className="mt-16 bg-black/40 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-2xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
               <p className="text-4xl font-bold text-leaf-green">500+</p>
-              <p className="text-gray-600 mt-2">Happy Travelers</p>
+              <p className="text-gray-400 mt-2">Happy Travelers</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-leaf-green">4.8/5</p>
-              <p className="text-gray-600 mt-2">Average Rating</p>
+              <p className="text-gray-400 mt-2">Average Rating</p>
             </div>
             <div>
               <p className="text-4xl font-bold text-leaf-green">98%</p>
-              <p className="text-gray-600 mt-2">Would Recommend</p>
+              <p className="text-gray-400 mt-2">Would Recommend</p>
             </div>
           </div>
 

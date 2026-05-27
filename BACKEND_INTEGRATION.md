@@ -195,15 +195,14 @@ NEXT_PUBLIC_API_URL=http://localhost:3001  # Your backend URL
 NEXT_PUBLIC_WHATSAPP_NUMBER=+254712345678  # WhatsApp contact
 ```
 
----
 
 ## Testing the Integration
 
 Once you've implemented the endpoints, test with:
 
 ```bash
-# Test itinerary generation
-curl -X POST http://localhost:3001/api/itinerary/generate \
+# Test integrated itinerary generation
+curl -X POST http://localhost:3000/api/itinerary/generate \
   -H "Content-Type: application/json" \
   -d '{
     "destination": "kenya",
@@ -214,7 +213,7 @@ curl -X POST http://localhost:3001/api/itinerary/generate \
   }'
 
 # Test PDF generation
-curl -X POST http://localhost:3001/api/itinerary/pdf \
+curl -X POST http://localhost:3000/api/itinerary/pdf \
   -H "Content-Type: application/json" \
   -d '{...}' \
   --output itinerary.pdf

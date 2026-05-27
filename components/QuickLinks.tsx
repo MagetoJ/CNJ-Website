@@ -35,17 +35,17 @@ const quickLinks = [
 
 export default function QuickLinks() {
   return (
-    <section id="explore" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="explore" className="py-20 px-4 sm:px-6 lg:px-8 bg-transparent">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-accent-green font-semibold text-sm uppercase tracking-widest">
+          <span className="text-leaf-green font-semibold text-sm uppercase tracking-widest">
             Popular Destinations
           </span>
-          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-primary-dark mt-4 mb-6">
+          <h2 className="font-serif text-4xl sm:text-5xl font-bold text-white mt-4 mb-6">
             Explore Our Top Safaris
           </h2>
-          <p className="text-text-muted text-lg max-w-2xl mx-auto">
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             From the legendary Maasai Mara to the misty gorilla forests, discover the safaris that capture hearts
           </p>
         </div>
@@ -58,7 +58,7 @@ export default function QuickLinks() {
               <Link
                 key={link.id}
                 href={link.href}
-                className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-leaf-green transition hover:shadow-xl flex flex-col"
+                className="group bg-black/20 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-leaf-green transition hover:shadow-2xl flex flex-col"
               >
                 <div className="relative h-56 w-full overflow-hidden">
                   <Image

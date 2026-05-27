@@ -5,7 +5,7 @@
  * Replace the endpoint URLs with your actual backend URLs.
  */
 
-import { QuizData } from '@/components/AdventureQuiz'
+import { QuizData } from '@/components/AdventureQuiz';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
 
@@ -79,7 +79,7 @@ export interface BookingResponse {
  */
 export async function generateItinerary(quizData: QuizData): Promise<ItineraryResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/itinerary/generate`, {
+    const response = await fetch(`/api/itinerary/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export async function generateItinerary(quizData: QuizData): Promise<ItineraryRe
  */
 export async function generatePDF(quizData: QuizData, itinerary: ItineraryResponse): Promise<Blob> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/itinerary/pdf`, {
+    const response = await fetch(`/api/itinerary/pdf`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ export async function generatePDF(quizData: QuizData, itinerary: ItineraryRespon
  */
 export async function calculatePricing(quizData: QuizData, numberOfPeople: number = 1): Promise<PricingResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/pricing/calculate`, {
+    const response = await fetch(`/api/pricing/calculate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -157,7 +157,7 @@ export async function calculatePricing(quizData: QuizData, numberOfPeople: numbe
  */
 export async function createBooking(bookingData: BookingData): Promise<BookingResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/bookings/create`, {
+    const response = await fetch(`/api/bookings/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -182,8 +182,8 @@ export async function createBooking(bookingData: BookingData): Promise<BookingRe
 export async function getProducts(category?: string): Promise<Product[]> {
   try {
     const url = category 
-      ? `${API_BASE_URL}/api/shop/products?category=${category}`
-      : `${API_BASE_URL}/api/shop/products`
+      ? `/api/shop/products?category=${category}`
+      : `/api/shop/products`
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`API error: ${response.statusText}`);
@@ -200,7 +200,7 @@ export async function getProducts(category?: string): Promise<Product[]> {
  */
 export async function submitQuizLead(data: QuizData & { customerEmail: string, customerName: string }): Promise<any> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/quiz/submissions`, {
+    const response = await fetch(`/api/quiz/submissions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -228,7 +228,7 @@ export async function submitQuizLead(data: QuizData & { customerEmail: string, c
  */
 export async function getCMSBlogPosts(): Promise<any[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/blog/posts`, {
+    const response = await fetch(`/api/blog/posts`, {
       credentials: 'include'
     })
     return response.json()
@@ -243,7 +243,7 @@ export async function getCMSBlogPosts(): Promise<any[]> {
  */
 export async function getCMSCareers(): Promise<any[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/careers`, {
+    const response = await fetch(`/api/careers`, {
       credentials: 'include'
     })
     return response.json()
@@ -258,7 +258,7 @@ export async function getCMSCareers(): Promise<any[]> {
  */
 export async function getQuizLeads(): Promise<any[]> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/quiz/submissions`, {
+    const response = await fetch(`/api/quiz/submissions`, {
       credentials: 'include'
     })
     if (!response.ok) throw new Error('Failed to fetch leads')
@@ -274,7 +274,7 @@ export async function getQuizLeads(): Promise<any[]> {
  */
 export async function updateLeadStatus(id: string, status: string): Promise<any> {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/quiz/submissions/${id}`, {
+    const response = await fetch(`/api/quiz/submissions/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
@@ -292,7 +292,7 @@ export async function updateLeadStatus(id: string, status: string): Promise<any>
  */
 export async function deleteCMSItem(path: string): Promise<void> {
   try {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
+    const response = await fetch(`${path}`, {
       method: 'DELETE',
       credentials: 'include'
     })

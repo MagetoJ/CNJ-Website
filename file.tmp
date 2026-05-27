@@ -2,7 +2,7 @@
 
 ## What You've Built
 
-A complete, production-ready full-stack platform for an East African safari booking website with:
+A complete, production-ready frontend for an East African safari booking website with:
 
 ✅ **Beautiful UI/UX** - Modern jungle-themed design with premium aesthetic  
 ✅ **4-Step Quiz Engine** - Interactive form to gather customer preferences  
@@ -11,7 +11,6 @@ A complete, production-ready full-stack platform for an East African safari book
 ✅ **Mobile-Responsive** - Fully optimized for all devices  
 ✅ **SEO Ready** - JSON-LD schemas, sitemap, robots.txt  
 ✅ **Performance Optimized** - Image optimization, lazy loading, fast load times  
-✅ **Integrated CMS** - Built-in API for blog, careers, shop, and gallery management  
 ✅ **Backend Integration Points** - Clear API contracts ready for your backend  
 
 ## Getting Started
@@ -257,9 +256,7 @@ pnpm run build
 
 ### Quiz showing loading spinner
 Your backend isn't connected. Check:
-- `NEXT_PUBLIC_API_URL` in `.env.local`
-- Backend is running at that URL
-- CORS is enabled on backend
+- `NEXT_PUBLIC_API_URL` in `.env.local` (Should be http://localhost:3000)
 
 ## Next Steps
 

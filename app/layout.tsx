@@ -45,12 +45,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${montserrat.variable} bg-white`} suppressHydrationWarning>
+    <html lang="en" className={`${playfair.variable} ${montserrat.variable} bg-transparent dark`} suppressHydrationWarning>
       <head>
         <OrganizationSchema />
         <LocalBusinessSchema />
       </head>
-      <body className="font-sans antialiased bg-white text-jungle-dark" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-transparent" suppressHydrationWarning>
         <QuizProvider>
           <Navbar />
           {children}

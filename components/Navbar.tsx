@@ -13,7 +13,7 @@ export default function Navbar() {
   const { isOpen: isQuizOpen, openQuiz, closeQuiz } = useQuiz()
 
   return (
-    <NavigationMenu.Root className="sticky top-0 z-50 w-full bg-white shadow-md">
+    <NavigationMenu.Root className="sticky top-0 z-50 w-full bg-black/20 backdrop-blur-lg border-b border-white/10">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0 hover:opacity-80 transition-opacity" aria-label="Home">
@@ -24,7 +24,7 @@ export default function Navbar() {
             height={40}
             className="rounded-lg object-contain w-10 h-10"
           />
-          <span className="hidden sm:inline font-serif font-bold text-jungle-dark text-xl">
+          <span className="hidden sm:inline font-serif font-bold text-white text-xl">
             CNJ Safaris
           </span>
         </Link>
@@ -32,65 +32,65 @@ export default function Navbar() {
         {/* Desktop Navigation */}
         <NavigationMenu.List className="hidden md:flex list-none items-center gap-6 lg:gap-8 text-sm lg:text-base">
           <NavigationMenu.Item>
-            <Link href="/" className="text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/" className="text-white hover:text-leaf-green transition font-medium">
               Home
             </Link>
           </NavigationMenu.Item>
           <NavigationMenu.Item>
-            <Link href="/#explore" className="text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/#explore" className="text-white hover:text-leaf-green transition font-medium">
               Explore Safaris
             </Link>
           </NavigationMenu.Item>
           
           <NavigationMenu.Item>
-            <Link href="/about" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/about" className="relative group text-white hover:text-leaf-green transition font-medium">
               About Us
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/gallery" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/gallery" className="relative group text-white hover:text-leaf-green transition font-medium">
               Gallery
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/careers" className="relative group text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/careers" className="relative group text-white hover:text-leaf-green transition font-medium">
               Careers
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item className="relative">
-            <NavigationMenu.Trigger className="group flex items-center gap-1 text-jungle-dark hover:text-leaf-green transition font-medium outline-none">
+            <NavigationMenu.Trigger className="group flex items-center gap-1 text-white hover:text-leaf-green transition font-medium outline-none">
               Destinations <ChevronDown size={16} className="transition-transform group-data-[state=open]:rotate-180" />
             </NavigationMenu.Trigger>
-            <NavigationMenu.Content className="absolute top-full left-0 mt-2 w-48 rounded-md bg-white p-2 shadow-lg border border-gray-100">
+            <NavigationMenu.Content className="absolute top-full left-0 mt-2 w-48 rounded-xl bg-black/80 backdrop-blur-xl p-2 shadow-2xl border border-white/10">
               <ul className="flex flex-col gap-1">
-                <li><Link href="/safaris/maasai-mara" className="block p-2 hover:bg-sage-light rounded text-sm">Maasai Mara</Link></li>
-                <li><Link href="/safaris/amboseli-national-park" className="block p-2 hover:bg-sage-light rounded text-sm">Amboseli</Link></li>
-                <li><Link href="/safaris/serengeti-ngorongoro-tanzania" className="block p-2 hover:bg-sage-light rounded text-sm">Serengeti</Link></li>
-                <li><Link href="/safaris/gorilla-trekking" className="block p-2 hover:bg-sage-light rounded text-sm">Gorilla Trekking</Link></li>
+                <li><Link href="/safaris/maasai-mara" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Maasai Mara</Link></li>
+                <li><Link href="/safaris/amboseli-national-park" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Amboseli</Link></li>
+                <li><Link href="/safaris/serengeti-ngorongoro-tanzania" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Serengeti</Link></li>
+                <li><Link href="/safaris/gorilla-trekking" className="block p-2 hover:bg-white/10 rounded-lg text-sm text-gray-200">Gorilla Trekking</Link></li>
               </ul>
             </NavigationMenu.Content>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/partnerships" className="text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/partnerships" className="text-white hover:text-leaf-green transition font-medium">
               Partnerships
             </Link>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/shop" className="text-jungle-dark hover:text-leaf-green transition font-semibold">
+            <Link href="/shop" className="text-white hover:text-leaf-green transition font-semibold">
               Shop Gear
             </Link>
           </NavigationMenu.Item>
 
           <NavigationMenu.Item>
-            <Link href="/contact" className="text-jungle-dark hover:text-leaf-green transition font-medium">
+            <Link href="/contact" className="text-white hover:text-leaf-green transition font-medium">
               Contact
             </Link>
           </NavigationMenu.Item>
@@ -107,7 +107,7 @@ export default function Navbar() {
           </button>
 
           <button
-            className="md:hidden p-2 text-jungle-dark"
+            className="md:hidden p-2 text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -117,17 +117,17 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 flex flex-col p-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
-          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Home</Link>
-          <Link href="/#explore" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Explore Safaris</Link>
-          <Link href="/safaris/maasai-mara" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Maasai Mara</Link>
-          <Link href="/safaris/amboseli-national-park" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Amboseli</Link>
-          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">About Us</Link>
-          <Link href="/gallery" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Gallery</Link>
-          <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Careers</Link>
-          <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Partnerships</Link>
-          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-jungle-dark hover:text-leaf-green">Shop Gear</Link>
-          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-jungle-dark hover:text-leaf-green">Contact</Link>
+        <div className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/10 flex flex-col p-6 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Home</Link>
+          <Link href="/#explore" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Explore Safaris</Link>
+          <Link href="/safaris/maasai-mara" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Maasai Mara</Link>
+          <Link href="/safaris/amboseli-national-park" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Amboseli</Link>
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">About Us</Link>
+          <Link href="/gallery" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Gallery</Link>
+          <Link href="/careers" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Careers</Link>
+          <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Partnerships</Link>
+          <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-lg font-semibold text-white hover:text-leaf-green">Shop Gear</Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-lg font-medium text-white hover:text-leaf-green">Contact</Link>
           <button 
             onClick={() => {
               openQuiz()

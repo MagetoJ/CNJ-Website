@@ -23,7 +23,7 @@ export default function WhatsAppFooter() {
       </a>
 
       {/* Sticky WhatsApp & Build Trip Buttons - Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 p-3 space-y-2 z-40">
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-black/60 backdrop-blur-md border-t border-white/10 p-3 space-y-2 z-40">
         <a
           href={whatsappURL}
           target="_blank"

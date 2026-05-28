@@ -1,44 +1,43 @@
 import Link from 'next/link'
-import seoData from '@/seo-content.json'
+import Image from 'next/image'
+import { ArrowUpRight } from 'lucide-react'
 
-export default function BlogListingPage() {
-  // Safe array conversion if structure is nested
-  const articles = Array.isArray(seoData) ? seoData : []
+const collections = [
+  { slug: 'luxury-safaris', title: 'Luxury Safaris', desc: 'Elite private charter flights and five-star wilderness villas.', img: '/kenya-welcome-safari.jpg' },
+  { slug: 'family-safaris', title: 'Family Safaris', desc: 'Curated child-safe tracking loops and multi-room suites.', img: '/safari-park-giraffe.jpeg' },
+  { slug: 'migration-safaris', title: 'Great Migration Safaris', desc: 'Front-row river crossing tracking at the Mara & Serengeti plains.', img: '/Why you should visit Kenya — Style for Wanderlust.jpeg' },
+]
 
+export default function SafarisMasterPage() {
   return (
-    <main className="min-h-screen bg-black text-white pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="border-b border-white/10 pb-12 mb-12 space-y-4">
-          <span className="text-xs uppercase font-bold tracking-[0.3em] text-leaf-green">SEO Content Engine</span>
-          <h1 className="font-serif text-5xl md:text-7xl font-bold uppercase">Field Journals & Guides</h1>
+    <main className="min-h-screen bg-deep-black text-white pt-32 pb-24 px-4">
+      <div className="max-w-7xl mx-auto">
+        <div className="max-w-3xl mb-16 space-y-4">
+          <span className="text-xs text-safari-gold font-bold tracking-[0.3em] uppercase">Expeditions Portfolio</span>
+          <h1 className="font-serif text-5xl md:text-7xl font-bold uppercase tracking-tight">Our Safari Collections</h1>
+          <p className="text-gray-400 text-lg font-light">Select a tailored category signature style. Every blueprint is highly customizable.</p>
         </div>
 
-        {articles.length === 0 ? (
-          <div className="text-center py-20 border border-dashed border-white/10">
-            <p className="text-gray-400 font-light">Articles are currently being prepared by the field desk. Check back shortly.</p>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((post: any, index: number) => (
-              <article key={index} className="bg-neutral-950 border border-white/10 p-8 flex flex-col justify-between group hover:bg-neutral-900 transition-all">
-                <div className="space-y-4">
-                  <span className="text-[10px] uppercase font-bold tracking-widest text-leaf-green bg-leaf-green/10 px-3 py-1 rounded-none">
-                    {post.category || 'Expert Advice'}
-                  </span>
-                  <h3 className="font-serif text-2xl font-bold leading-snug group-hover:text-green-400 transition-colors">
-                    {post.title || post.heading}
-                  </h3>
-                  <p className="text-gray-400 text-sm font-light line-clamp-3 leading-relaxed">
-                    {post.metaDescription || post.excerpt || 'Read our deep dive analysis map directly from our expert guides operating on the ground.'}
-                  </p>
-                </div>
-                <Link href={`/blog/${post.slug || index}`} className="inline-flex items-center gap-1 text-xs uppercase tracking-wider font-semibold text-white pt-6 group-hover:text-leaf-green transition-colors">
-                  Read Article Details →
-                </Link>
-              </article>
-            ))}
-          </div>
-        )}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {collections.map((item) => (
+            <Link key={item.slug} href={`/safaris/${item.slug}`} className="group relative h-[450px] flex flex-col justify-end p-8 border border-white/10 overflow-hidden bg-neutral-950">
+              <Image 
+                src={item.img} 
+                alt={item.title} 
+                fill 
+                className="object-cover brightness-50 group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+              <div className="relative z-10 space-y-3">
+                <h3 className="font-serif text-3xl font-bold tracking-wide group-hover:text-safari-gold transition-colors">{item.title}</h3>
+                <p className="text-gray-300 text-sm font-light leading-relaxed line-clamp-2">{item.desc}</p>
+                <span className="inline-flex items-center gap-1 text-xs uppercase tracking-widest text-safari-gold font-semibold pt-2">
+                  View Collection <ArrowUpRight size={14} />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   )

@@ -8,7 +8,7 @@ import AdventureQuiz from './AdventureQuiz'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
-  const { isOpen: isQuizOpen, openQuiz, closeQuiz } = useQuiz()
+  const { openQuiz } = useQuiz()
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-black/30 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
@@ -73,7 +73,7 @@ export default function Navbar() {
         </div>
       )}
 
-      <AdventureQuiz isOpen={isQuizOpen} onClose={closeQuiz} />
+      <AdventureQuiz />
     </nav>
   )
 }

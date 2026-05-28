@@ -53,20 +53,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   const supabase = await createClient();
   const { id } = params;
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  const { error } = await supabase
-    .from('gallery_images')
-    .delete()
-    .eq('id', id);
-
-  if (error) {
-    console.error('Error deleting gallery image:', error);
-    return NextResponse.json({ error: 'Failed to delete gallery image' }, { status: 500 });
-  }
-  return NextResponse.json({ message: 'Gallery image deleted successfully' }, { status: 204 });
+  const { error } = await supabase.from('gallery_images').delete().eq('id', id);
+  if (error) return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
+  return NextResponse.json({ message: 'Deleted' }, { status: 204 });
 }

@@ -32,7 +32,7 @@ export default function AdventureQuiz() {
             <h3 className="font-serif text-lg font-bold text-white uppercase tracking-wider">Plan Your Custom Route</h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={closeQuiz}
             className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all active:scale-90"
             aria-label="Close Modal"
           >

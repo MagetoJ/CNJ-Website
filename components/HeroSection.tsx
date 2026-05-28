@@ -62,7 +62,7 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
         {/* Trust Indicators */}
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 text-white text-sm">
           <div className="flex items-center gap-2">
-            <span className="text-leaf-green text-2xl font-bold">500+</span>
+            <span className="text-safari-gold text-2xl font-bold">500+</span>
             <span>Happy Travelers</span>
           </div>
           <div className="hidden sm:block h-6 border-r border-white/30"></div>
@@ -72,12 +72,12 @@ export default function HeroSection({ onStartQuiz }: HeroSectionProps) {
             rel="noopener noreferrer" 
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <span className="text-leaf-green text-2xl font-bold">4.8★</span>
+            <span className="text-safari-gold text-2xl font-bold">4.8★</span>
             <span>Average Rating</span>
           </a>
           <div className="hidden sm:block h-6 border-r border-white/30"></div>
           <div className="flex items-center gap-2">
-            <span className="text-leaf-green text-2xl font-bold">5+</span>
+            <span className="text-safari-gold text-2xl font-bold">5+</span>
             <span>Years Experience</span>
           </div>
         </div>

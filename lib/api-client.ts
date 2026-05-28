@@ -4,7 +4,7 @@
  * Features built-in premium luxury fallback pipelines to prevent page crashes.
  */
 
-import { QuizData } from '@/components/AdventureQuiz';
+import { QuizAnswers } from '@/context/QuizContext';
 
 export interface ItineraryDay {
   day: number
@@ -39,7 +39,7 @@ export interface Product {
 export interface BookingData {
   customerName: string
   customerEmail: string
-  quizData: QuizData
+  quizData: QuizAnswers
   itinerary: ItineraryResponse
   [key: string]: unknown
 }
@@ -132,7 +132,7 @@ const PRESETS = {
 /**
  * Generate a custom safari itinerary based on quiz data
  */
-export async function generateItinerary(quizData: QuizData): Promise<ItineraryResponse> {
+export async function generateItinerary(quizData: QuizAnswers): Promise<ItineraryResponse> {
   try {
     const response = await fetch(`/api/itinerary/generate`, {
       method: 'POST',
@@ -160,7 +160,7 @@ export async function generateItinerary(quizData: QuizData): Promise<ItineraryRe
 /**
  * Generate PDF itinerary
  */
-export async function generatePDF(quizData: QuizData, itinerary: ItineraryResponse): Promise<Blob> {
+export async function generatePDF(quizData: QuizAnswers, itinerary: ItineraryResponse): Promise<Blob> {
   try {
     const response = await fetch(`/api/itinerary/pdf`, {
       method: 'POST',
@@ -179,7 +179,7 @@ export async function generatePDF(quizData: QuizData, itinerary: ItineraryRespon
 /**
  * Calculate pricing with seasonal adjustment parameters
  */
-export async function calculatePricing(quizData: QuizData, numberOfPeople: number = 1): Promise<PricingResponse> {
+export async function calculatePricing(quizData: QuizAnswers, numberOfPeople: number = 1): Promise<PricingResponse> {
   try {
     const response = await fetch(`/api/pricing/calculate`, {
       method: 'POST',
@@ -258,7 +258,7 @@ export async function getProducts(category?: string): Promise<Product[]> {
 /**
  * Save a quiz result as an active lead within the CMS database ecosystem
  */
-export async function submitQuizLead(data: QuizData & { customerEmail: string, customerName: string }): Promise<any> {
+export async function submitQuizLead(data: QuizAnswers & { customerEmail: string, customerName: string }): Promise<any> {
   try {
     const response = await fetch(`/api/quiz/submissions`, {
       method: 'POST',

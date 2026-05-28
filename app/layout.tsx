@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist_Mono } from 'next/font/google'
 import { Playfair_Display, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/seo/JsonLdSchemas'
@@ -18,8 +17,6 @@ const montserrat = Montserrat({
   variable: '--font-montserrat',
   weight: ['300', '400', '500', '600', '700'],
 });
-
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'CNJ Safaris | East African Adventure Tours',

@@ -18,8 +18,9 @@ export default function QuizStep4() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-gray-300">Target Arrival Date</label>
-          <input 
+          <label htmlFor="startDate" className="text-sm font-semibold text-gray-300">Target Arrival Date</label>
+          <input
+            id="startDate"
             type="date" 
             value={answers?.startDate || ''} 
             onChange={(e) => updateAnswer('startDate', e.target.value)}
@@ -27,8 +28,9 @@ export default function QuizStep4() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-semibold text-gray-300">Target Departure Date (Optional)</label>
-          <input 
+          <label htmlFor="endDate" className="text-sm font-semibold text-gray-300">Target Departure Date (Optional)</label>
+          <input
+            id="endDate"
             type="date" 
             value={answers?.endDate || ''} 
             onChange={(e) => updateAnswer('endDate', e.target.value)}

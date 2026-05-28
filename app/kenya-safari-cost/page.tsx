@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { HelpCircle, DollarSign, ShieldAlert, Sparkles } from 'lucide-react'
-import SafariQuiz from '@/components/SafariQuiz'
-import TrustBadges from '@/components/TrustBadges'
+import SafariQuiz from '@/components/AdventureQuiz'
+import TrustBadges from '@/components/TestimonialSection'
 
 export default function SafariCostPage() {
   return (

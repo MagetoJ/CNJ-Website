@@ -301,7 +301,7 @@ export async function getCMSBlogPosts(): Promise<any[]> {
  */
 export async function getJobs(): Promise<any[]> {
   try {
-    const url = '/api/careers'; 
+    const url = '/careers/api'; 
     const response = await fetch(url);
     if (!response.ok) {
       console.warn(`CMS Careers returned ${response.status}. Serving curated position fallbacks.`);

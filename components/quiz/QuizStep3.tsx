@@ -1,87 +1,66 @@
 'use client'
 
-interface QuizStep3Props {
-  value: string
-  onChange: (value: string) => void
-}
+import { useQuiz } from '@/context/QuizContext'
 
-const budgetTiers = [
+const budgets = [
   {
-    id: 'budget',
-    name: 'Budget',
-    description: 'Comfortable accommodations and meals',
-    range: '$800 - $1,500 per person',
-    features: ['Standard lodges', 'Group tours', 'Local transport'],
+    id: 'value',
+    name: 'Classic Luxury Tier',
+    description: 'Premium curated boutique accommodations with comprehensive game driver outings.',
   },
   {
-    id: 'mid-range',
-    name: 'Mid-Range',
-    description: 'Quality hotels and experiences',
-    range: '$1,500 - $3,500 per person',
-    features: ['4-star lodges', 'Small groups', 'Guiding included'],
+    id: 'signature',
+    name: 'Signature Elite Tier',
+    description: 'Private reserve entry, fine dining configurations, and charter flight transfers.',
   },
   {
-    id: 'luxury',
-    name: 'Luxury',
-    description: 'Premium accommodations and exclusive access',
-    range: '$3,500+ per person',
-    features: ['5-star resorts', 'Private guides', 'VIP experiences'],
+    id: 'ultra',
+    name: 'Ultra-Luxury Private Estate',
+    description: 'Exclusively private sanctuaries, fully dedicated butler teams, and absolute custom itineraries.',
   },
 ]
 
-export default function QuizStep3({ value, onChange }: QuizStep3Props) {
+export default function QuizStep3() {
+  const { answers, updateAnswer } = useQuiz()
+  const currentValue = answers?.budget || ''
+
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-2xl font-serif font-bold text-jungle-dark mb-2">
-          What's your budget range?
+        <h3 className="text-2xl font-serif font-bold text-white mb-2">
+          Select your targeted tier scale
         </h3>
-        <p className="text-gray-600">
-          Prices are per person for 5-7 day trips (peak season)
+        <p className="text-gray-400">
+          This helps calibrate lodge allocations and transport configurations
         </p>
       </div>
 
-      <div className="space-y-3">
-        {budgetTiers.map(tier => (
+      <div className="space-y-4">
+        {budgets.map(tier => (
           <button
             key={tier.id}
-            onClick={() => onChange(tier.id)}
-            className={`w-full p-4 rounded-xl text-left transition border-2 ${
-              value === tier.id
-                ? 'border-leaf-green bg-sage-light'
-                : 'border-gray-200 hover:border-leaf-green'
+            onClick={() => updateAnswer('budget', tier.id)}
+            className={`w-full p-5 rounded-xl text-left transition border-2 ${
+              currentValue === tier.id
+                ? 'border-safari-gold bg-white/5'
+                : 'border-white/10 hover:border-safari-gold bg-black/20'
             }`}
           >
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-4">
               <div
                 className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mt-1 ${
-                  value === tier.id
-                    ? 'border-leaf-green bg-leaf-green'
-                    : 'border-gray-300'
+                  currentValue === tier.id
+                    ? 'border-safari-gold bg-safari-gold'
+                    : 'border-white/30'
                 }`}
               />
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-jungle-dark">
-                    {tier.name}
-                  </h4>
-                  <span className="text-leaf-green font-semibold">
-                    {tier.range}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 mb-2">
+              <div>
+                <h4 className="font-semibold text-white text-lg">
+                  {tier.name}
+                </h4>
+                <p className="text-sm text-gray-400 mt-1">
                   {tier.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {tier.features.map((feature, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </button>

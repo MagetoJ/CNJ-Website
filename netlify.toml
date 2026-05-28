@@ -8,7 +8,7 @@
 [build.environment]
   NODE_VERSION = "20"
   NODE_ENV = "production"
-  PNPM_FLAGS = "--no-frozen-lockfile"
+  PNPM_FLAGS = "--prod=false"
   NEXT_SHARP_PATH = "/opt/build/repo/node_modules/sharp"
 
 [build.processing]

@@ -1,3 +1,3 @@
-import { safariSchema } from './safari'
+import safari from './safari'
 
-export const schemaTypes = [safariSchema]
+export const schemaTypes = [safari]

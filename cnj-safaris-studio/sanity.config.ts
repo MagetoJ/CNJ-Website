@@ -7,14 +7,14 @@ export default defineConfig({
   title: 'CNJ Safaris Backend',
 
   // Your exact successfully generated cloud credentials
-  projectId: 'eywse04q',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'eywse04q',
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
  plugins: [
     structureTool() // Updated tool instantiation
   ],
 
   schema: {
-    types: schemaTypes,
+    types: schemaTypes, // Now includes 'package'
   },
 })

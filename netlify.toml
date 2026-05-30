@@ -1,15 +1,11 @@
+[[plugins]]
+package = "@netlify/plugin-nextjs"
+
 [build]
   command = "pnpm run build"
   publish = ".next"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
 [build.environment]
   NODE_VERSION = "20"
-  NODE_ENV = "production"
-  PNPM_FLAGS = "--prod=false"
-  NEXT_SHARP_PATH = "/opt/build/repo/node_modules/sharp"
-
-[build.processing]
-  skip_processing = false
+  PNPM_FLAGS = "--shamefully-hoist"
+  NEXT_USE_NETLIFY_EDGE = "true"

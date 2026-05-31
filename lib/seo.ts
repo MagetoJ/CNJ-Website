@@ -44,11 +44,18 @@ export const destinations: Destination[] = [
     image: 'https://images.unsplash.com/photo-1581281863883-2469417a1668?q=80&w=800&auto=format&fit=crop',
   },
   {
-    id: 'rwanda',
-    name: 'Rwanda',
-    slug: 'rwanda',
-    title: 'Rwanda Safari Tours | CNJ Safaris',
-    image: 'https://images.unsplash.com/photo-1534149043227-14639f2935a2?q=80&w=800&auto=format&fit=crop',
+    id: 'gorilla-trekking',
+    name: 'Gorilla Trekking',
+    slug: 'gorilla-trekking',
+    title: 'Gorilla Trekking Permits 2026 | Bwindi & Volcanoes National Park',
+    image: 'https://images.unsplash.com/photo-1581281863883-2469417a1668?q=80&w=800&auto=format&fit=crop',
+  },
+  {
+    id: 'family-safaris',
+    name: 'Family Safaris',
+    slug: 'family-safaris',
+    title: 'Family Safari Packages Kenya 2026 | CNJ Safaris',
+    image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop',
   },
 ]
 

@@ -1,80 +1,66 @@
 import type { Metadata } from 'next'
 import DestinationPage from '@/components/DestinationPage'
+import AnimatedSection from '@/components/AnimatedSection'
 
 export const metadata: Metadata = {
-  title: 'Gorilla Trekking Uganda & Rwanda | CNJ Safaris',
-  description: 'Encounter the endangered mountain gorillas in their natural habitat. Expert-led trekking tours in Bwindi and Volcanoes National Park.',
+  title: 'Gorilla Trekking Permits 2026 | Bwindi & Volcanoes National Park',
+  description: 'Secure your 2026 Gorilla Trekking permits for Uganda and Rwanda. Expert-led treks in Bwindi Impenetrable Forest and Volcanoes National Park. Limited availability.',
+  keywords: 'Gorilla trekking 2026, Bwindi permits, Volcanoes National Park Rwanda, mountain gorillas Uganda, gorilla safari',
 }
 
 export default function GorillaTrekkingPage() {
   const highlights = [
     {
-      title: 'Face-to-Face Encounters',
-      description: 'Spend an unforgettable hour with a habituated mountain gorilla family.',
+      title: 'Gorilla Encounters',
+      description: 'Spend a magical hour with mountain gorillas in their natural habitat.',
       icon: '🦍',
     },
     {
-      title: 'Misty Rain Forests',
-      description: 'Trek through the ancient, biodiverse Bwindi Impenetrable Forest.',
-      icon: '🌿',
+      title: 'Misty Forests',
+      description: 'Trek through ancient, high-altitude rainforests of Uganda and Rwanda.',
+      icon: '🌫️',
     },
     {
       title: 'Primate Diversity',
-      description: 'See golden monkeys, chimpanzees, and various bird species.',
-      icon: '🐒',
+      description: 'See golden monkeys, chimpanzees, and various forest bird species.',
+      icon: '🐵',
     },
   ]
 
   const packages = [
     {
       id: 'gor-1',
-      name: 'Bwindi Essential',
-      duration: '3 Days / 2 Nights',
-      price: '$1,500 per person',
-      highlights: [
-        '1 Gorilla tracking permit',
-        'Mountain lodge stay',
-        'Professional guide/tracker',
-        'Local village walk',
-      ],
-    },
-    {
-      id: 'gor-2',
-      name: 'Primate Double',
+      name: 'Primate Odyssey',
       duration: '5 Days / 4 Nights',
-      price: '$2,800 per person',
+      price: '$3,200 per person',
       highlights: [
-        'Gorilla & Chimp tracking',
-        'Kibale Forest visit',
-        'Scenic crater lake tours',
-        'Boutique eco-lodges',
-      ],
-    },
-    {
-      id: 'gor-3',
-      name: 'Rwanda Luxury Trek',
-      duration: '4 Days / 3 Nights',
-      price: '$4,200 per person',
-      highlights: [
-        'Volcanoes National Park',
-        'Ultra-luxury lodge stay',
-        'Helicopter transfers',
-        'Private porter services',
+        'Gorilla permit included',
+        'Golden monkey trek',
+        'Eco-luxury lodge',
+        'Professional park rangers',
       ],
     },
   ]
 
   return (
-    <DestinationPage
-      title="Gorilla Trekking Adventures"
-      subtitle="A Once-in-a-Lifetime Primate Encounter"
-      heroImage="/gorilla.jpeg"
-      heroGradient="bg-gradient-to-br from-emerald-900 to-jungle-dark"
-      bestTime="June to August & December to February"
-      highlights={highlights}
-      description="Trekking mountain gorillas is a truly unique experience. Bwindi Impenetrable National Park in Uganda and Volcanoes National Park in Rwanda are the premier destinations for this adventure. Walking through the dense, mist-covered forests to find a family of gorillas is physically demanding but immensely rewarding, offering a rare glimpse into the lives of our closest relatives."
-      packages={packages}
-      metaDescription="Book your Gorilla trekking permit and safari with CNJ Safaris. Professional guides for Uganda and Rwanda."
-    />
+    <AnimatedSection direction="none">
+      <DestinationPage
+        title="Gorilla Trekking Expedition"
+        subtitle="Bwindi & Volcanoes - Face-to-Face with Great Apes"
+        heroImage="/gorilla-trekking.jpg" // Assuming you have a gorilla-trekking.jpg in public folder
+        heroGradient="bg-gradient-to-br from-green-900 to-emerald-900"
+        bestTime="June - August"
+        highlights={highlights}
+        description="Trek through the ancient, misty forests of Uganda. Bwindi is home to half of the world's remaining mountain gorillas. For a more accessible yet luxury experience, Rwanda's Volcanoes National Park offers world-class lodges and shorter treks. Our team handles the entire permit application process to guarantee your spot in 2026."
+        packages={packages}
+        metaDescription="Secure your 2026 Gorilla Trekking permits for Bwindi and Volcanoes. Expert-led safaris."
+        quickFacts={{
+          bestTime: "June to August & December to February",
+          difficulty: "Challenging (High Altitude Trekking)",
+          estimatedCost: "Starting from $1,500 (Permit only: $700-$1,500)",
+          perfectFor: "Primate Lovers, Active Travelers, Conservationists"
+        }}
+      />
+    </AnimatedSection>
   )
 }

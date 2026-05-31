@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import DestinationPage from '@/components/DestinationPage'
 import { Zap, Eye, Compass } from 'lucide-react'
+import AnimatedSection from '@/components/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Affordable Maasai Mara Tours | Big Five Safari Kenya | CNJ Safaris',
@@ -72,6 +73,7 @@ export default function MaasaiMaraPage() {
   ]
 
   return (
+    <AnimatedSection direction="none">
     <DestinationPage
       title="Maasai Mara National Reserve"
       subtitle="Where the Wild Roam Free - Experience Kenya's Most Iconic Safari"
@@ -84,5 +86,6 @@ export default function MaasaiMaraPage() {
       metaDescription="Book your Maasai Mara safari with CNJ Safaris. See the Big Five and witness the migration with expert guides."
       // Note: If DestinationPage is updated to support images, pass the URL here
     />
+    </AnimatedSection>
   )
 }

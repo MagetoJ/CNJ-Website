@@ -5,6 +5,9 @@
  */
 
 import { QuizAnswers } from '@/context/QuizContext';
+import { sanityFetch } from './sanity';
+
+export type SupportedCurrency = 'USD' | 'EUR' | 'GBP' | 'KES';
 
 export interface ItineraryDay {
   day: number
@@ -47,7 +50,7 @@ export interface BookingData {
 export interface PricingResponse {
   perPersonPrice: number
   groupPrice: number
-  currency: string
+  currency: SupportedCurrency
   breakdown: {
     accommodation: number
     activities: number
@@ -179,12 +182,12 @@ export async function generatePDF(quizData: QuizAnswers, itinerary: ItineraryRes
 /**
  * Calculate pricing with seasonal adjustment parameters
  */
-export async function calculatePricing(quizData: QuizAnswers, numberOfPeople: number = 1): Promise<PricingResponse> {
+export async function calculatePricing(quizData: QuizAnswers, numberOfPeople: number = 1, currency: SupportedCurrency = 'USD'): Promise<PricingResponse> {
   try {
     const response = await fetch(`/api/pricing/calculate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...quizData, numberOfPeople }),
+      body: JSON.stringify({ ...quizData, numberOfPeople, currency }),
     })
 
     if (!response.ok) throw new Error(`Pricing recalculation dropped: ${response.statusText}`);
@@ -195,7 +198,7 @@ export async function calculatePricing(quizData: QuizAnswers, numberOfPeople: nu
     return {
       perPersonPrice: 5400,
       groupPrice: baseUnit,
-      currency: 'USD',
+      currency: currency,
       breakdown: { accommodation: baseUnit * 0.45, activities: baseUnit * 0.25, transport: baseUnit * 0.18, parkFees: baseUnit * 0.12 },
       seasonalAdjustment: 0,
       groupDiscount: numberOfPeople > 3 ? 500 : 0,
@@ -259,19 +262,33 @@ export async function getProducts(category?: string): Promise<Product[]> {
  * Save a quiz result as an active lead within the CMS database ecosystem
  */
 export async function submitQuizLead(data: QuizAnswers & { customerEmail: string, customerName: string }): Promise<any> {
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    console.error('SANITY_API_WRITE_TOKEN is not set. Cannot submit quiz lead to Sanity.');
+    return { success: false, trackingMode: "local_cache_fallback", error: "Sanity write token missing" };
+  }
+
   try {
-    const response = await fetch(`/api/quiz/submissions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    const mutations = [{
+      create: {
+        _type: 'lead', // Ensure you have a 'lead' schema in sanity.config.ts
         ...data,
-        customerEmail: data.customerEmail,
-        customerName: data.customerName,
-      }),
+        createdAt: new Date().toISOString(),
+      }
+    }]
+
+    const response = await fetch(`https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-03-25/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.SANITY_API_WRITE_TOKEN}` },
+      body: JSON.stringify({ mutations }),
     })
 
-    if (!response.ok) throw new Error(`Lead submission failed with status: ${response.status}`);
-    return await response.json()
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Sanity lead submission failed: ${response.statusText} - ${JSON.stringify(errorData)}`);
+    }
+
+    const result = await response.json();
+    return { success: true, trackingMode: "sanity_direct_submission", result };
   } catch (error) {
     console.error('Error caching lead data down server pipes:', error)
     return { success: true, trackingMode: "local_cache_fallback" };
@@ -287,11 +304,14 @@ export async function submitQuizLead(data: QuizAnswers & { customerEmail: string
  */
 export async function getCMSBlogPosts(): Promise<any[]> {
   try {
-    const response = await fetch(`/api/blog/posts`, { credentials: 'include' })
-    if (!response.ok) return [];
-    return await response.json()
+    // Query all posts from Sanity
+    const query = `*[_type == "post"] {
+      _id, title, "slug": slug.current, content, _createdAt
+    } | order(_createdAt desc)`;
+    
+    return await sanityFetch<any[]>({ query });
   } catch (error) {
-    console.error('Error fetching CMS blog posts:', error)
+    console.error('Error fetching Sanity blog posts, returning empty:', error)
     return [];
   }
 }

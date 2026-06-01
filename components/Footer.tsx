@@ -52,16 +52,16 @@ export default function Footer() {
               we craft unforgettable journeys.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors">
+              <a href="https://facebook.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors" aria-label="Facebook profile">
                 <Facebook size={20} />
               </a>
-              <a href="https://instagram.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors">
+              <a href="https://instagram.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors" aria-label="Instagram profile">
                 <Instagram size={20} />
               </a>
-              <a href="https://twitter.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors">
+              <a href="https://twitter.com/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors" aria-label="Twitter profile">
                 <Twitter size={20} />
               </a>
-              <a href="https://linkedin.com/company/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors">
+              <a href="https://linkedin.com/company/cnjsafaris" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#C19A6B] transition-colors" aria-label="LinkedIn profile">
                 <Linkedin size={20} />
               </a>
             </div>

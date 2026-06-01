@@ -262,6 +262,7 @@ export async function getProducts(category?: string): Promise<Product[]> {
  * Save a quiz result as an active lead within the CMS database ecosystem
  */
 export async function submitQuizLead(data: QuizAnswers & { customerEmail: string, customerName: string }): Promise<any> {
+  // SECURITY WARNING: This should be moved to a Server Action. Tokens starting with SANITY_... are NOT safe for the browser.
   if (!process.env.SANITY_API_WRITE_TOKEN) {
     console.error('SANITY_API_WRITE_TOKEN is not set. Cannot submit quiz lead to Sanity.');
     return { success: false, trackingMode: "local_cache_fallback", error: "Sanity write token missing" };
@@ -309,7 +310,7 @@ export async function getCMSBlogPosts(): Promise<any[]> {
       _id, title, "slug": slug.current, content, _createdAt
     } | order(_createdAt desc)`;
     
-    return await sanityFetch<any[]>({ query });
+    return await sanityFetch<any[]>({ query, tags: ['post'] });
   } catch (error) {
     console.error('Error fetching Sanity blog posts, returning empty:', error)
     return [];

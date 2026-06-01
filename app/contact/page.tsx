@@ -1,16 +1,46 @@
-import type { Metadata } from 'next'
-import WhatsAppFooter from '@/components/WhatsAppFooter'
-import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Contact Us | CNJ Safaris',
-  description: 'Get in touch with CNJ Safaris to start planning your dream East African safari adventure.',
-  icons: {
-    icon: '/Cnj new logo.jpg',
-  },
-}
+import type { Metadata } from 'next'
+import { useState } from 'react'
+import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react'
+import Footer from '@/components/Footer'
 
 export default function ContactPage() {
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus('idle');
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="bg-white">
       <section className="bg-jungle-dark py-24 px-4 text-center">
@@ -66,27 +96,35 @@ export default function ContactPage() {
           {/* Contact Form Placeholder */}
           <div className="bg-sage-light/30 p-8 rounded-2xl border border-gray-100">
             <h2 className="font-serif text-2xl font-bold text-jungle-dark mb-6">Send us a Message</h2>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                <input type="text" className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="John Doe" />
+                <input name="name" type="text" required className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="John Doe" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input type="email" className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="john@example.com" />
+                <input name="email" type="email" required className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="john@example.com" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea rows={4} className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="How can we help?"></textarea>
+                <textarea name="message" rows={4} required className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-leaf-green" placeholder="How can we help?"></textarea>
               </div>
-              <button type="submit" className="w-full py-3 bg-leaf-green text-white font-bold rounded-lg hover:bg-green-600 transition">
-                Send Message
+              
+              {status === 'success' && <p className="text-sm text-green-600">Your message has been sent successfully!</p>}
+              {status === 'error' && <p className="text-sm text-red-600">Something went wrong. Please try again.</p>}
+
+              <button 
+                type="submit" 
+                disabled={loading} 
+                className="w-full py-3 bg-leaf-green text-white font-bold rounded-lg hover:bg-green-600 transition disabled:opacity-50"
+              >
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>
         </div>
       </section>
-      <WhatsAppFooter />
+      <Footer />
     </main>
   )
 }

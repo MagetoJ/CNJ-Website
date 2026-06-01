@@ -3,8 +3,8 @@
 import HeroSection from '@/components/HeroSection'
 import QuickLinks from '@/components/QuickLinks'
 import TestimonialSection from '@/components/TestimonialSection'
+import Footer from '@/components/Footer'
 import { useQuiz } from '@/context/QuizContext'
-import WhatsAppFooter from '@/components/WhatsAppFooter'
 
 export default function HomePage() {
   const { openQuiz } = useQuiz()
@@ -14,7 +14,7 @@ export default function HomePage() {
       <HeroSection onStartQuiz={openQuiz} />
       <QuickLinks />
       <TestimonialSection />
-      <WhatsAppFooter />
+      <Footer />
     </main>
   )
 }

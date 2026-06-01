@@ -36,6 +36,9 @@ export interface Product {
   currency: string
   image_url: string
   category: string
+  collection?: string
+  rating?: number
+  shortDescription?: string
   sku?: string
 }
 
@@ -74,6 +77,26 @@ export interface BookingResponse {
   createdAt: string
 }
 
+export interface InquiryLead {
+  name: string
+  email: string
+  phone?: string
+  country?: string
+  interestType: 'tour' | 'product' | 'general'
+  details: string
+  whatsappMessage: string
+}
+
+export interface FooterLink {
+  _id: string
+  title: string
+  slug?: string
+  url?: string
+  category: 'shop' | 'safaris' | 'about' | 'legal' | 'connect'
+  order?: number
+}
+
+
 /* ================================================================================
                           PREMIUM CLIENT-SIDE FALLBACK PORTFOLIOS
    ================================================================================ */
@@ -81,31 +104,52 @@ export interface BookingResponse {
 const PRESETS = {
   products: [
     {
-      id: 'p1',
-      name: 'Premium Canvas Safari Field Jacket',
-      price: '185',
+      id: 'p1-mara-hoodie',
+      name: 'Maasai Mara Explorer Hoodie',
+      price: '85',
       currency: 'USD',
       category: 'Apparel',
-      description: 'Rugged, weather-resistant structural cotton utility coat tailored for variable savanna microclimates.',
+      collection: 'Maasai Mara Collection',
+      rating: 5,
+      description: 'Premium safari-inspired hoodie designed for cool savanna mornings and campfire storytelling. Features triple-brushed organic cotton.',
+      shortDescription: 'The definitive layer for Kenya\'s golden hours.',
       image_url: '/Why you should visit Kenya — Style for Wanderlust.jpeg'
     },
     {
-      id: 'p2',
-      name: 'Elite 10x42 Weatherproof Bush Binoculars',
-      price: '450',
+      id: 'p2-serengeti-cap',
+      name: 'Serengeti Collector Cap',
+      price: '35',
       currency: 'USD',
-      category: 'Travel Gear',
-      description: 'High-dispersion multi-coated glass arrays optimized for close-range low-light predator tracking.',
+      category: 'Apparel',
+      collection: 'Serengeti Collection',
+      rating: 5,
+      description: 'Limited edition high-crown safari cap with embroidered migration routes and climate-adaptive ventilation.',
+      shortDescription: 'Signature headwear for the endless plains.',
       image_url: '/safari-park-giraffe.jpeg'
     },
     {
-      id: 'p3',
-      name: 'Hand-Stitched Full Grain Travel Duffel',
-      price: '320',
+      id: 'p3-explorer-bottle',
+      name: 'CNJ Explorer Insulated Bottle',
+      price: '45',
+      currency: 'USD',
+      category: 'Accessories',
+      collection: 'Adventure Essentials',
+      rating: 4,
+      description: 'Double-walled stainless steel bottle that keeps water ice-cold for 48 hours in the African sun.',
+      shortDescription: 'Stay hydrated from Mara to Serengeti.',
+      image_url: '/A Safari and Beach Getaway in One Perfect Itinerary.jpeg'
+    },
+    {
+      id: 'p4-bigfive-bag',
+      name: 'Big Five Collector Duffel',
+      price: '280',
       currency: 'USD',
       category: 'Travel Gear',
-      description: 'Ultra-durable luggage structured to comply perfectly with local flight cabin constraints.',
-      image_url: '/A Safari and Beach Getaway in One Perfect Itinerary.jpeg'
+      collection: 'Big Five Collection',
+      rating: 5,
+      description: 'A masterpiece of travel utility, this hand-crafted full-grain leather duffel is embossed with the Big Five icons and built for the endurance of the African bush.',
+      shortDescription: 'The definitive luxury expedition bag.',
+      image_url: '/Experience an unforgettable Big 5 safari at….jpeg'
     }
   ],
   careers: [
@@ -125,7 +169,22 @@ const PRESETS = {
       requirements: 'Expert knowledge of elite boutique lodges, experience managing custom travel segments.',
       description: 'Engineer and price complex multi-destination fly-in expeditions for global clients.'
     }
-  ]
+  ],
+  footerLinks: [
+    { _id: 'fl1', title: 'Safari Apparel', url: '/shop/apparel', category: 'shop', order: 1 },
+    { _id: 'fl2', title: 'Travel Accessories', url: '/shop/accessories', category: 'shop', order: 2 },
+    { _id: 'fl3', title: 'Souvenirs', url: '/shop/souvenirs', category: 'shop', order: 3 },
+    { _id: 'fl4', title: 'Maasai Mara Safaris', url: '/safaris/maasai-mara', category: 'safaris', order: 1 },
+    { _id: 'fl5', title: 'Serengeti Expeditions', url: '/safaris/serengeti', category: 'safaris', order: 2 },
+    { _id: 'fl6', title: 'Gorilla Trekking', url: '/safaris/gorilla-trekking', category: 'safaris', order: 3 },
+    { _id: 'fl7', title: 'Our Story', url: '/about', category: 'about', order: 1 },
+    { _id: 'fl8', title: 'Why CNJ Safaris', url: '/about#why-us', category: 'about', order: 2 },
+    { _id: 'fl9', title: 'Contact Us', url: '/contact', category: 'connect', order: 1 },
+    { _id: 'fl10', title: 'Privacy Policy', url: '/legal/privacy', category: 'legal', order: 1 },
+    { _id: 'fl11', title: 'Terms of Service', url: '/legal/terms', category: 'legal', order: 2 },
+    { _id: 'fl12', title: 'Blog', url: '/blog', category: 'connect', order: 2 },
+    { _id: 'fl13', title: 'Careers', url: '/careers', category: 'about', order: 3 },
+  ] satisfies FooterLink[]
 };
 
 /* ================================================================================
@@ -237,6 +296,45 @@ export async function createBooking(bookingData: BookingData): Promise<BookingRe
 }
 
 /**
+ * Submit an inquiry lead to Sanity before redirecting to WhatsApp
+ */
+export async function submitInquiry(data: InquiryLead): Promise<{ success: boolean }> {
+  // In production, this should be a Server Action to protect the SANITY_API_WRITE_TOKEN
+  if (!process.env.SANITY_API_WRITE_TOKEN) {
+    console.warn('Inquiry Lead captured locally (Token Missing). Redirecting to WhatsApp...');
+    return { success: true };
+  }
+
+  try {
+    const mutations = [{
+      create: {
+        _type: 'inquiry',
+        ...data,
+        status: 'new',
+        createdAt: new Date().toISOString(),
+      }
+    }]
+
+    const response = await fetch(`https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-03-25/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json', 
+        Authorization: `Bearer ${process.env.SANITY_API_WRITE_TOKEN}` 
+      },
+      body: JSON.stringify({ mutations }),
+    })
+
+    if (!response.ok) throw new Error('Lead storage failed');
+    
+    return { success: true };
+  } catch (error) {
+    console.error('Lead storage error:', error);
+    // We still return true to ensure the user isn't blocked from opening WhatsApp
+    return { success: true };
+  }
+}
+
+/**
  * Fetch all products for the marketplace (Guarantees zero 404 browser crashes)
  */
 export async function getProducts(category?: string): Promise<Product[]> {
@@ -293,6 +391,26 @@ export async function submitQuizLead(data: QuizAnswers & { customerEmail: string
   } catch (error) {
     console.error('Error caching lead data down server pipes:', error)
     return { success: true, trackingMode: "local_cache_fallback" };
+  }
+}
+
+/**
+ * Fetch footer links from Sanity CMS
+ */
+export async function getFooterLinks(): Promise<FooterLink[]> {
+  try {
+    const query = `*[_type == "footerLink"] | order(category asc, order asc) {
+      _id, title, slug, url, category, order
+    }`;
+    const data = await sanityFetch<FooterLink[]>({ query, tags: ['footerLink'] });
+    if (!data || data.length === 0) {
+      console.warn('No footer links found in Sanity. Using fallback links.');
+      return PRESETS.footerLinks;
+    }
+    return data;
+  } catch (error) {
+    console.error('Error fetching footer links from Sanity. Activating client safe-render state:', error);
+    return PRESETS.footerLinks;
   }
 }
 

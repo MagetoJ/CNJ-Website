@@ -49,7 +49,8 @@
       "internalLinking": [
         "/safaris/maasai-mara",
         "/comparison/kenya-vs-tanzania",
-        "/niche/photographic-safaris"
+        "/niche/photographic-safaris",
+        "/shop"
       ]
     },
     {
@@ -108,7 +109,8 @@
       "internalLinking": [
         "/safaris/maasai-mara",
         "/comparison/mara-vs-serengeti",
-        "/planning/safety-health"
+        "/planning/safety-health",
+        "/shop"
       ]
     },
     {
@@ -160,7 +162,8 @@
       "internalLinking": [
         "/planning/packing-list",
         "/niche/sustainable-eco-tours",
-        "/safaris/serengeti"
+        "/safaris/serengeti",
+        "/shop"
       ]
     }
   ],
@@ -280,7 +283,8 @@
       "internalLinking": [
         "/planning/safety-health",
         "/niche/photographic-safaris",
-        "/comparison/safari-van-vs-4x4-land-cruiser"
+        "/comparison/safari-van-vs-4x4-land-cruiser",
+        "/shop"
       ]
     },
     {
@@ -459,6 +463,28 @@
         "/niche/sustainable-eco-tours",
         "/safaris/maasai-mara",
         "/planning/safety-health"
+      ]
+    },
+    {
+      "slug": "safari-merchandise-marketplace",
+      "metadata": {
+        "title": "CNJ Safari Collection | Luxury Safari Apparel & Merchandise",
+        "description": "Shop the official CNJ Safari Collection. Luxury safari hoodies, adventure gear, and Maasai-inspired souvenirs designed for the modern traveler.",
+        "keywords": "safari clothing, luxury safari apparel, Maasai Mara hoodie, Serengeti merchandise, safari gifts, Africa travel gear"
+      },
+      "title": "CNJ Safari Collection",
+      "subtitle": "Take a Piece of Africa Home",
+      "heroGradient": "bg-gradient-to-br from-[#1A1A1A] to-[#4A3728]",
+      "collections": [
+        "Maasai Mara Collection",
+        "Serengeti Collection",
+        "Big Five Collection",
+        "Limited Edition Heritage"
+      ],
+      "trustSection": "Designed by naturalists, inspired by the savanna. Worldwide shipping with sustainable packaging.",
+      "internalLinking": [
+        "/blog/2026-safari-packing-list",
+        "/safaris/maasai-mara"
       ]
     }
   ]

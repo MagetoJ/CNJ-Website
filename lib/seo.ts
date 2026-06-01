@@ -11,6 +11,7 @@ export const SITE_CONFIG = {
   url: siteUrl,
   image: `${siteUrl}/Cnj%20new%20logo.jpg`, // Ensure this matches your production logo path
   twitterHandle: '@cnjsafaris',
+  shop: `${siteUrl}/shop`,
 }
 
 export interface Destination {
@@ -162,6 +163,56 @@ export function generateTouristTripSchema(props: {
         "url": SITE_CONFIG.url
       }
     }))
+  }
+}
+
+/**
+ * Generate Product JSON-LD for Shopping Rich Results
+ * Optimized for CNJ Luxury Safari Collections
+ */
+export function generateProductSchema(props: {
+  id: string
+  name: string
+  description: string
+  image: string
+  price: string | number
+  currency: string
+  sku?: string
+  rating?: number
+  category?: string
+}): Record<string, any> {
+  const priceString = typeof props.price === 'string' 
+    ? props.price.replace(/[^0-9.]/g, '') 
+    : props.price.toString();
+
+  return {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": props.name,
+    "image": [
+      props.image.startsWith('http') ? props.image : `${SITE_CONFIG.url}${props.image}`
+    ],
+    "description": props.description,
+    "sku": props.sku || props.id,
+    "brand": {
+      "@type": "Brand",
+      "name": SITE_CONFIG.name
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `${SITE_CONFIG.url}/shop`,
+      "priceCurrency": props.currency,
+      "price": priceString,
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    },
+    ...(props.rating && {
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": props.rating,
+        "reviewCount": "24"
+      }
+    })
   }
 }
 

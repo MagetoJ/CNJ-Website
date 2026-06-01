@@ -2,13 +2,18 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { ShoppingBag, Camera, Shirt, Map, Gift, ShoppingCart, Loader2 } from 'lucide-react'
-import WhatsAppFooter from '@/components/WhatsAppFooter'
-import { getProducts } from '@/lib/api-client'
+import { ShoppingBag, Camera, Shirt, Map, Gift, ShoppingCart, Loader2, Star, ArrowRight, MessageCircle } from 'lucide-react'
+import Footer from '@/components/Footer'
+import { getProducts, submitInquiry } from '@/lib/api-client'
 
 export default function ShopPage() {
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  
+  // State for quick-order selections (normally handled in a Product Detail view, but here for the grid)
+  const [selections, setSelections] = useState<Record<string, { size: string, color: string, qty: number }>>({})
+  
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254700000000'
 
   const fallbackProducts = [
     { id: 1, name: 'Premium Safari Jacket', price: 129, category: 'Apparel', image_url: '/placeholder.jpg' },
@@ -23,6 +28,12 @@ export default function ShopPage() {
         const data = await getProducts()
         if (data && data.length > 0) {
           setProducts(data)
+          // Initialize selections
+          const initial: any = {}
+          data.forEach((p: any) => {
+            initial[p.id] = { size: 'Medium', color: 'Safari Khaki', qty: 1 }
+          })
+          setSelections(initial)
         } else {
           setProducts(fallbackProducts)
         }
@@ -36,72 +47,102 @@ export default function ShopPage() {
     fetchProducts()
   }, [])
 
-  const categories = [
-    { title: 'Apparel', icon: Shirt, items: 'Clothing & Footwear', image: '/Why you should visit Kenya — Style for Wanderlust.jpeg' },
-    { title: 'Photography', icon: Camera, items: 'Lenses & Accessories', image: '/safari-park-giraffe.jpeg' },
-    { title: 'Travel Gear', icon: ShoppingBag, items: 'Bags & Accessories', image: '/A Safari and Beach Getaway in One Perfect Itinerary.jpeg' }
+  const handleOrder = async (product: any) => {
+    const sel = selections[product.id] || { size: 'M', color: 'Default', qty: 1 };
+    
+    const message = `Hello CNJ Safaris,\n\nI would like to order:\n\nProduct: ${product.name}\nSize: ${sel.size}\nColor: ${sel.color}\nQuantity: ${sel.qty}\n\nPlease advise on availability and delivery options.\n\nThank you.`;
+
+    // Lead capture simulation (In a real app, this would open a small modal first)
+    await submitInquiry({
+      name: 'Website Visitor', // Ideally from a form
+      email: 'pending@whatsapp.com',
+      interestType: 'product',
+      details: `Ordering ${product.name}`,
+      whatsappMessage: message
+    });
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const updateSelection = (id: string, field: string, value: any) => {
+    setSelections(prev => ({
+      ...prev,
+      [id]: { ...prev[id], [field]: value }
+    }));
+  }
+
+  const collections = [
+    { title: 'Maasai Mara Collection', desc: 'Inspired by Kenya\'s heart', image: '/Why you should visit Kenya — Style for Wanderlust.jpeg' },
+    { title: 'Serengeti Collection', desc: 'The spirit of endless plains', image: '/📍Serengeti National Park on days 2 & 3 of the….jpeg' },
+    { title: 'Big Five Collection', desc: 'Icons of the wilderness', image: '/Experience an unforgettable Big 5 safari at….jpeg' },
+    { title: 'Limited Edition', desc: 'Exclusive heritage pieces', image: '/South African Safari _ GORAH ELEPHANT CAMP, Addo….jpeg' }
   ]
 
   return (
-    <main className="min-h-screen bg-transparent">
+    <main className="min-h-screen bg-[#1A1A1A]">
       {/* Immersive Dark Hero Overlay */}
-      <section className="relative h-[55vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <Image
-          src="/Experience an unforgettable Big 5 safari at….jpeg"
+          src="/Enjoying an evening cruise searching for hippos in….jpeg"
           alt="Safari Shop"
           fill
           priority
-          className="object-cover brightness-40"
+          className="object-cover brightness-[0.35]"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-transparent"></div>
         <div className="relative z-10 text-center px-4 max-w-4xl">
-          <h1 className="font-serif text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight uppercase">
-            Gear Up For The <span className="text-amber-500">Wild</span>
+          <span className="text-[#C19A6B] font-semibold uppercase tracking-[0.3em] text-sm mb-4 block">CNJ Safari Collection</span>
+          <h1 className="font-serif text-5xl md:text-8xl font-bold text-white mb-6 tracking-tight">
+            Take a Piece of <span className="text-[#C19A6B]">Africa</span> Home
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-xl mx-auto font-light tracking-wide">
-            Premium travel equipment and clothing explicitly curated for your East African journey.
+            Curated safari merchandise inspired by the world&apos;s most iconic wildlife destinations.
           </p>
+          <button className="mt-10 bg-[#C19A6B] hover:bg-[#D6C6A8] text-[#1A1A1A] font-bold uppercase tracking-widest text-xs px-10 py-5 rounded-full transition-all shadow-2xl">
+            Shop Collection
+          </button>
         </div>
       </section>
 
-      {/* Categories Layer */}
+      {/* Featured Collections */}
       <section className="py-20 max-w-7xl mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl font-black text-white uppercase tracking-tight">Browse By Category</h2>
-          <div className="w-16 h-1 bg-amber-500 mx-auto mt-4"></div>
+        <div className="mb-16">
+          <h2 className="font-serif text-4xl font-bold text-white tracking-tight">Featured Collections</h2>
+          <div className="w-20 h-1 bg-[#C19A6B] mt-4"></div>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8">
-          {categories.map((cat, i) => (
-            <div key={i} className="group relative h-80 rounded-2xl overflow-hidden cursor-pointer shadow-2xl border border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {collections.map((col, i) => (
+            <div key={i} className="group relative h-[450px] overflow-hidden cursor-pointer rounded-sm">
               <Image
-                src={cat.image}
-                alt={cat.title}
+                src={col.image}
+                alt={col.title}
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-75 group-hover:brightness-90"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent transition-opacity duration-300"></div>
-              <div className="absolute bottom-6 left-6 text-white z-10">
-                <cat.icon className="mb-2 text-amber-500" size={32} />
-                <h3 className="text-2xl font-bold tracking-tight">{cat.title}</h3>
-                <p className="text-gray-300 text-sm">{cat.items}</p>
+              <div className="absolute inset-0 bg-linear-to-t from-[#1A1A1A] via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity"></div>
+              <div className="absolute bottom-8 left-8 right-8 text-white z-10">
+                <h3 className="text-2xl font-serif font-bold mb-2">{col.title}</h3>
+                <p className="text-[#D6C6A8] text-sm font-light mb-4">{col.desc}</p>
+                <span className="flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C19A6B] group-hover:gap-4 transition-all">
+                  Explore <ArrowRight size={14} />
+                </span>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Featured Gear Section (Glassmorphism layout matching all subpages) */}
+      {/* Best Sellers Section */}
       <section className="py-20 relative z-10">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4">
             <div>
-              <h2 className="font-serif text-4xl font-bold text-white tracking-tight uppercase">Featured Equipment</h2>
-              <p className="text-gray-400 mt-1">Hand-picked essentials built to endure rugged safaris.</p>
+              <h2 className="font-serif text-4xl font-bold text-white tracking-tight uppercase">Best Sellers</h2>
+              <p className="text-gray-400 mt-2 font-light">The most loved pieces by our global community of explorers.</p>
             </div>
-            <button className="text-amber-500 font-bold flex items-center gap-2 hover:gap-3 transition-all uppercase tracking-wider text-sm bg-amber-500/10 px-4 py-2 rounded-xl border border-amber-500/20">
-              View All Catalog <ShoppingCart size={16} />
+            <button className="text-[#C19A6B] font-bold flex items-center gap-2 hover:gap-3 transition-all uppercase tracking-wider text-sm">
+              View Full Catalog <ArrowRight size={16} />
             </button>
           </div>
 
@@ -122,20 +163,56 @@ export default function ShopPage() {
                       className="object-cover group-hover:scale-102 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="bg-black/70 backdrop-blur-md text-amber-500 border border-amber-500/30 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
+                      <span className="bg-black/80 backdrop-blur-md text-[#C19A6B] border border-[#C19A6B]/30 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                         {product.category}
                       </span>
                     </div>
                   </div>
-                  <div className="p-6 bg-black/20">
-                    <h3 className="text-lg font-bold text-white tracking-tight mb-3 line-clamp-1">{product.name}</h3>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-serif font-black text-amber-500">${product.price}</span>
-                      <button 
-                        className="p-2.5 rounded-xl bg-white/5 text-amber-500 hover:bg-amber-500 hover:text-black transition-all border border-white/5"
-                        title={`Add ${product.name} to inquiry bag`}
+                  <div className="p-6 bg-black/40 border-t border-white/5">
+                    <h3 className="text-lg font-serif font-bold text-white tracking-tight mb-1 line-clamp-1">{product.name}</h3>
+                    <p className="text-[#C19A6B] text-xl font-bold mb-4">${product.price}</p>
+                    
+                    {/* Quick Selection Controls */}
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      <select 
+                        aria-label="Select size"
+                        title="Select size"
+                        value={selections[product.id]?.size || 'Medium'}
+                        onChange={(e) => updateSelection(product.id, 'size', e.target.value)}
+                        className="bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-gray-300 outline-hidden focus:border-[#C19A6B]"
                       >
-                        <ShoppingBag size={18} />
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                        <option>XL</option>
+                      </select>
+                      <select 
+                        aria-label="Select color"
+                        title="Select color"
+                        value={selections[product.id]?.color || 'Safari Khaki'}
+                        onChange={(e) => updateSelection(product.id, 'color', e.target.value)}
+                        className="bg-white/5 border border-white/10 rounded-lg px-2 py-2 text-xs text-gray-300 outline-hidden focus:border-[#C19A6B]"
+                      >
+                        <option>Safari Khaki</option>
+                        <option>Rich Black</option>
+                        <option>Sand Beige</option>
+                      </select>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <button 
+                        onClick={() => handleOrder(product)}
+                        className="flex-1 flex items-center justify-center gap-2 bg-[#C19A6B] hover:bg-[#D6C6A8] text-[#1A1A1A] font-bold uppercase tracking-widest text-[10px] py-3 rounded-lg transition-all"
+                      >
+                        Order via WhatsApp
+                        <MessageCircle size={14} className="fill-current" />
+                      </button>
+                      <button 
+                        aria-label="Add to cart"
+                        title="Add to cart"
+                        className="ml-2 p-3 rounded-lg bg-white/5 text-gray-400 hover:text-white transition-colors border border-white/10"
+                      >
+                        <ShoppingCart size={16} />
                       </button>
                     </div>
                   </div>
@@ -163,7 +240,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      <WhatsAppFooter />
+      <Footer />
     </main>
   )
 }

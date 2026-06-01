@@ -1,6 +1,6 @@
 'use client'
 
-import WhatsAppFooter from './WhatsAppFooter'
+import Footer from './Footer'
 import { BookOpen, Calendar, ShieldCheck, Map } from 'lucide-react'
 
 interface BlogPageProps {
@@ -105,8 +105,8 @@ export default function BlogPage({
           </div>
         </section>
       </article>
-
-      <WhatsAppFooter />
+      
+      <Footer />
     </main>
   )
 }

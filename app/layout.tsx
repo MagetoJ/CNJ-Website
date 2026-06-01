@@ -5,6 +5,7 @@ import { OrganizationSchema, LocalBusinessSchema } from '@/components/seo/JsonLd
 import Navbar from '@/components/Navbar'
 import { QuizProvider } from '@/context/QuizContext'
 import './globals.css'
+import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -53,6 +54,7 @@ export default function RootLayout({
           <div className="relative z-10 flex flex-col min-h-screen">
             {children}
           </div>
+          <FloatingWhatsAppButton />
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </QuizProvider>
       </body>

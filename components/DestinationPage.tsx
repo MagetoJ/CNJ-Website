@@ -1,8 +1,9 @@
 'use client'
 
-import WhatsAppFooter from './WhatsAppFooter'
 import Image from 'next/image'
-import { MapPin, Users, Clock, DollarSign, ChevronRight } from 'lucide-react'
+import { MapPin, Users, Clock, DollarSign, ChevronRight, MessageCircle, Facebook, Instagram, Twitter } from 'lucide-react'
+import Footer from './Footer'
+import { submitInquiry } from '@/lib/api-client'
 import { generateTouristTripSchema, SITE_CONFIG } from '@/lib/seo'
 
 interface Highlight {
@@ -64,6 +65,23 @@ export default function DestinationPage({
       currency: 'USD'
     }))
   })
+
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '254700000000'
+
+  const handlePackageInquiry = async (pkg: Package) => {
+    const message = `Hello CNJ Safaris,\n\nI am interested in the ${pkg.name} for ${title}.\n\nPackage Price: ${pkg.price}\nDuration: ${pkg.duration}\n\nPlease provide more details and availability.\n\nThank you.`;
+
+    // Pre-capture lead (Simplified: In real use, trigger a modal first)
+    await submitInquiry({
+      name: 'Tour Inquiry Visitor',
+      email: 'pending@whatsapp.com',
+      interestType: 'tour',
+      details: `${title} - ${pkg.name}`,
+      whatsappMessage: message
+    });
+
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  };
 
   return (
     <main className="min-h-screen bg-deep-black">
@@ -201,8 +219,12 @@ export default function DestinationPage({
                     </li>
                   ))}
                 </ul>
-                <button className="w-full px-6 py-3 bg-safari-gold text-white font-semibold rounded-lg hover:bg-olive-green transition">
-                  Book This Package
+                <button 
+                  onClick={() => handlePackageInquiry(pkg)}
+                  className="w-full px-6 py-3 bg-safari-gold text-white font-bold uppercase tracking-widest text-xs rounded-lg hover:bg-olive-green transition flex items-center justify-center gap-2"
+                >
+                  Book via WhatsApp
+                  <MessageCircle size={16} className="fill-current" />
                 </button>
               </div>
             ))}
@@ -230,7 +252,7 @@ export default function DestinationPage({
         </div>
       </section>
 
-      <WhatsAppFooter />
+      <Footer />
     </main>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
-import { Star, ExternalLink } from 'lucide-react'
+import { Star, ExternalLink, ShoppingBag } from 'lucide-react'
+import Link from 'next/link'
 
 const testimonials = [
   {
@@ -97,7 +98,7 @@ export default function TestimonialSection() {
             </div>
           </div>
 
-          <div className="mt-10 pt-8 border-t border-gray-100 text-center">
+          <div className="mt-10 pt-8 border-t border-white/10 text-center flex flex-col sm:flex-row justify-center gap-4">
             <a 
               href="https://g.page/r/YOUR_GOOGLE_REVIEW_ID/review" 
               target="_blank" 
@@ -107,6 +108,13 @@ export default function TestimonialSection() {
               See more on Google Reviews
               <ExternalLink size={18} className="group-hover:translate-x-1 transition-transform" />
             </a>
+            <Link 
+              href="/shop"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#C19A6B] text-[#1A1A1A] font-bold rounded-full hover:bg-[#D6C6A8] transition-all shadow-lg group"
+            >
+              Shop Safari Collection
+              <ShoppingBag size={18} className="group-hover:scale-110 transition-transform" />
+            </Link>
           </div>
         </div>
       </div>

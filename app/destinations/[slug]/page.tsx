@@ -4,6 +4,7 @@ import { useEffect, useState, use } from 'react'
 import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
 import { sanityFetch, urlFor } from '@/lib/sanity'
+import Footer from '@/components/Footer'
 import { notFound } from 'next/navigation'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { MapPin, Calendar, Compass, Star, Clock, ShieldCheck, ChevronRight } from 'lucide-react'
@@ -185,6 +186,7 @@ export default function IndividualDestinationPage({ params }: { params: Promise<
           </motion.div>
         </div>
       </section>
+      <Footer />
     </main>
   )
 }

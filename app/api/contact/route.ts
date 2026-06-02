@@ -6,10 +6,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message, interestType } = body;
+    const { name, email, phone, message, subject } = body;
 
-    if (!name || !email) {
-      return NextResponse.json({ error: 'Name and email are required.' }, { status: 400 });
+    if (!name || !email || !phone) {
+      return NextResponse.json({ error: 'Missing core contact elements' }, { status: 400 });
     }
 
     // 1. Send Email via Resend
@@ -17,13 +17,10 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from: 'Contact Form <website@cnjsafaris.com>',
         to: 'info@cnjsafaris.com',
-        subject: `New Inquiry: ${interestType || 'General'} from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message || 'No message provided.'}`,
+        subject: subject || `New Safari Route Inquiry from ${name}`,
+        text: `Client Details:\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nCustom Itinerary / Message:\n${message}`,
       });
     }
-
-    // 2. Note: You should also add your Sanity mutation logic here 
-    // to keep the client-side clean and the Write Token hidden.
 
     return NextResponse.json({ 
       success: true, 

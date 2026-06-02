@@ -3,7 +3,9 @@ import { Playfair_Display, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/seo/JsonLdSchemas'
 import Navbar from '@/components/Navbar'
-import AdventureQuiz from '@/components/AdventureQuiz' // 1. Added global popup modal import
+import AdventureQuiz from '@/components/AdventureQuiz'
+import PlanYourRoutePopup from '@/components/PlanYourRoutePopup'
+import { Toaster } from 'sonner'
 import { QuizProvider } from '@/context/QuizContext'
 import './globals.css'
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
@@ -60,6 +62,8 @@ export default function RootLayout({
           
           <FloatingWhatsAppButton />
 
+          <Toaster position="top-right" richColors />
+          <PlanYourRoutePopup />
           {/* 2. Global Portal Mount: Renders the modal smoothly over all page elements */}
           <AdventureQuiz />
           

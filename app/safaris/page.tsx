@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
+import ItineraryCatalog from '@/components/ItineraryCatalog'
+import AdventureQuiz from '@/components/AdventureQuiz'
 
 const collections = [
   { slug: 'luxury-safaris', title: 'Luxury Safaris', desc: 'Elite private charter flights and five-star wilderness villas.', img: '/kenya-welcome-safari.jpg' },
@@ -11,6 +13,8 @@ const collections = [
 export default function SafarisMasterPage() {
   return (
     <main className="min-h-screen bg-deep-black text-white pt-32 pb-24 px-4">
+      <AdventureQuiz />
+      
       <div className="max-w-7xl mx-auto">
         <div className="max-w-3xl mb-16 space-y-4">
           <span className="text-xs text-safari-gold font-bold tracking-[0.3em] uppercase">Expeditions Portfolio</span>
@@ -37,6 +41,10 @@ export default function SafarisMasterPage() {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-24">
+          <ItineraryCatalog />
         </div>
       </div>
     </main>

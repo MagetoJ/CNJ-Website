@@ -5,7 +5,6 @@ import * as React from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { useQuiz } from '@/context/QuizContext'
-// REMOVE THIS LINE: import AdventureQuiz from './AdventureQuiz'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -73,8 +72,6 @@ export default function Navbar() {
           </button>
         </div>
       )}
-
-      {/* REMOVE THIS LINE ENTIRELY: <AdventureQuiz /> */}
     </nav>
   )
 }

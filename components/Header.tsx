@@ -30,14 +30,17 @@ export default function Header() {
           <Link href="/#explore" className="text-white hover:text-leaf-green transition">
             Explore Safaris
           </Link>
+          <Link href="/services" className="text-white hover:text-leaf-green transition">
+            Services
+          </Link>
+          <Link href="/shop" className="text-white hover:text-leaf-green transition font-semibold">
+            Shop Gear
+          </Link>
           <Link href="/about" className="text-white hover:text-leaf-green transition">
             About Us
           </Link>
           <Link href="/partnerships" className="text-white hover:text-leaf-green transition">
             Partnerships
-          </Link>
-          <Link href="/shop" className="text-white hover:text-leaf-green transition font-semibold">
-            Shop Gear
           </Link>
           <Link href="/contact" className="text-white hover:text-leaf-green transition">
             Contact
@@ -63,19 +66,22 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-black/90 backdrop-blur-2xl border-t border-white/10 px-4 py-4 space-y-4 shadow-xl animate-in slide-in-from-top duration-300">
-          <Link href="/#explore" className="block text-white hover:text-leaf-green transition">
+          <Link href="/#explore" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition">
             Explore Safaris
           </Link>
-          <Link href="/about" className="block text-white hover:text-leaf-green transition">
-            About Us
-          </Link>
-          <Link href="/partnerships" className="block text-white hover:text-leaf-green transition">
-            Partnerships
+          <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition">
+            Services
           </Link>
           <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition font-semibold">
             Shop Gear
           </Link>
-          <Link href="/contact" className="block text-white hover:text-leaf-green transition">
+          <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition">
+            About Us
+          </Link>
+          <Link href="/partnerships" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition">
+            Partnerships
+          </Link>
+          <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="block text-white hover:text-leaf-green transition">
             Contact
           </Link>
           <button className="w-full px-6 py-2 bg-leaf-green text-white font-semibold rounded-lg hover:bg-green-600 transition">

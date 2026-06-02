@@ -20,12 +20,12 @@ export default function Navbar() {
           <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1">Luxury Safaris</span>
         </Link>
 
-        {/* Desktop Navigation Links map */}
+        {/* Desktop Navigation Links */}
         <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-gray-200">
           <Link href="/" className="hover:text-safari-gold transition-colors">Home</Link>
           <Link href="/safaris" className="hover:text-safari-gold transition-colors">Safaris</Link>
-          <Link href="/destinations" className="hover:text-safari-gold transition-colors">Destinations</Link>
-          <Link href="/experiences" className="hover:text-safari-gold transition-colors">Experiences</Link>
+          <Link href="/services" className="hover:text-safari-gold transition-colors">Services</Link>
+          <Link href="/shop" className="hover:text-safari-gold transition-colors">Shop</Link>
           <Link href="/about" className="hover:text-safari-gold transition-colors">About Us</Link>
           <Link href="/gallery" className="hover:text-safari-gold transition-colors">Gallery</Link>
           <Link href="/blog" className="hover:text-safari-gold transition-colors">Blog</Link>
@@ -55,8 +55,8 @@ export default function Navbar() {
         <div className="xl:hidden fixed inset-x-0 top-24 bg-black/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 text-center font-medium tracking-widest text-lg text-white">
           <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Home</Link>
           <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Safaris</Link>
-          <Link href="/destinations" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Destinations</Link>
-          <Link href="/experiences" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Experiences</Link>
+          <Link href="/services" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Services</Link>
+          <Link href="/shop" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Shop</Link>
           <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">About Us</Link>
           <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Gallery</Link>
           <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Blog</Link>

@@ -1,6 +1,7 @@
+// components/AdventureQuiz.tsx
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react' // Import useEffect
 import { X, ArrowLeft, ArrowRight } from 'lucide-react'
 import { useQuiz } from '@/context/QuizContext'
 import QuizStep1 from './quiz/QuizStep1'
@@ -13,22 +14,27 @@ export default function AdventureQuiz() {
   const { isOpen, closeQuiz, answers } = useQuiz()
   const [currentStep, setCurrentStep] = useState(1)
 
+  // CRITICAL FIX: Lock body scrolling when modal triggers active
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset' // Clean-up safeguard
+    }
+  }, [isOpen])
+
   if (!isOpen) return null
 
-  // Determine if the current step has a valid answer to enable the "Next" button
   const isStepValid = () => {
     switch (currentStep) {
-      case 1:
-        return !!answers?.destination
-      case 2:
-        return !!answers?.experience
-      case 3:
-        return !!answers?.budget
-      case 4:
-        // Adjust this depending on your date validations (e.g., checking if startDate exists)
-        return !!answers?.startDate
-      default:
-        return true
+      case 1: return !!answers?.destination
+      case 2: return !!answers?.experience
+      case 3: return !!answers?.budget
+      case 4: return !!answers?.startDate
+      default: return true
     }
   }
 
@@ -45,15 +51,17 @@ export default function AdventureQuiz() {
   }
 
   return (
+    // fixed inset-0 z-[100] captures the absolute viewport top to bottom safely
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
+      
       {/* Blurring Frosted Glass Overlay */}
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-xl transition-opacity animate-in fade-in duration-300"
+        className="absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
         onClick={closeQuiz} 
       />
 
       {/* Modal Content Window */}
-      <div className="relative w-full max-w-4xl bg-neutral-900 border border-white/10 rounded-none overflow-hidden shadow-2xl z-10 flex flex-col max-h-[90vh] animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-4xl bg-neutral-900 border border-white/10 rounded-none overflow-hidden shadow-2xl z-10 flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
         
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
@@ -92,7 +100,6 @@ export default function AdventureQuiz() {
         {/* Dynamic Footer Controls */}
         {currentStep < 5 && (
           <div className="flex items-center justify-between p-4 sm:p-6 border-t border-white/10 bg-black/40">
-            {/* Back Button */}
             <button
               onClick={handleBack}
               disabled={currentStep === 1}
@@ -106,12 +113,10 @@ export default function AdventureQuiz() {
               <span>Back</span>
             </button>
 
-            {/* Steps Visual Indicator */}
             <span className="text-xs text-gray-500 font-mono">
               Step {currentStep} of 4
             </span>
 
-            {/* Next / Submit Button */}
             <button
               onClick={handleNext}
               disabled={!isStepValid()}

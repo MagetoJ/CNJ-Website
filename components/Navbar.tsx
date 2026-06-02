@@ -1,10 +1,11 @@
+// components/Navbar.tsx
 'use client'
 
 import * as React from 'react'
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { useQuiz } from '@/context/QuizContext'
-import AdventureQuiz from './AdventureQuiz'
+// REMOVE THIS LINE: import AdventureQuiz from './AdventureQuiz'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -73,7 +74,7 @@ export default function Navbar() {
         </div>
       )}
 
-      <AdventureQuiz />
+      {/* REMOVE THIS LINE ENTIRELY: <AdventureQuiz /> */}
     </nav>
   )
 }

@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationSchema, LocalBusinessSchema } from '@/components/seo/JsonLdSchemas'
 import Navbar from '@/components/Navbar'
+import AdventureQuiz from '@/components/AdventureQuiz' // 1. Added global popup modal import
 import { QuizProvider } from '@/context/QuizContext'
 import './globals.css'
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const viewport = {
+export const viewport: Viewport = { // Fixed: Assigned explicit standard Viewport type matching next.js specs
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -50,11 +51,18 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-deep-black text-gray-100 min-h-screen" suppressHydrationWarning>
         <QuizProvider>
+          {/* Main Layout Stacking */}
           <Navbar />
+          
           <div className="relative z-10 flex flex-col min-h-screen">
             {children}
           </div>
+          
           <FloatingWhatsAppButton />
+
+          {/* 2. Global Portal Mount: Renders the modal smoothly over all page elements */}
+          <AdventureQuiz />
+          
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </QuizProvider>
       </body>

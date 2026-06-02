@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react'
 import Footer from '@/components/Footer'
+import { sendContactEmail } from './actions'
 
 export default function ContactPage() {
   const [loading, setLoading] = useState(false);
@@ -15,19 +16,15 @@ export default function ContactPage() {
 
     const formData = new FormData(e.currentTarget);
     const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      message: formData.get('message'),
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string,
     };
 
     try {
-      const response = await fetch('/contact/api', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      const result = await sendContactEmail(data);
 
-      if (response.ok) {
+      if (result.success) {
         setStatus('success');
         (e.target as HTMLFormElement).reset();
       } else {

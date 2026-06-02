@@ -307,33 +307,14 @@ export async function createBooking(bookingData: BookingData): Promise<BookingRe
  * Submit an inquiry lead to Sanity before redirecting to WhatsApp
  */
 export async function submitInquiry(data: InquiryLead): Promise<{ success: boolean }> {
-  // In production, this should be a Server Action to protect the SANITY_API_WRITE_TOKEN
-  if (!process.env.SANITY_API_WRITE_TOKEN) {
-    console.warn('Inquiry Lead captured locally (Token Missing). Redirecting to WhatsApp...');
-    return { success: true };
-  }
-
   try {
-    const mutations = [{
-      create: {
-        _type: 'inquiry',
-        ...data,
-        status: 'new',
-        createdAt: new Date().toISOString(),
-      }
-    }]
-
-    const response = await fetch(`https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-03-25/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json', 
-        Authorization: `Bearer ${process.env.SANITY_API_WRITE_TOKEN}` 
-      },
-      body: JSON.stringify({ mutations }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     })
 
-    if (!response.ok) throw new Error('Lead storage failed');
-    
+    if (!response.ok) console.error('Failed to store inquiry on server');
     return { success: true };
   } catch (error) {
     console.error('Lead storage error:', error);
@@ -404,31 +385,14 @@ export async function getGalleryImages(): Promise<any[]> {
  * Save a quiz result as an active lead within the CMS database ecosystem
  */
 export async function submitQuizLead(data: QuizAnswers & { customerEmail: string, customerName: string }): Promise<any> {
-  // SECURITY WARNING: This should be moved to a Server Action. Tokens starting with SANITY_... are NOT safe for the browser.
-  if (!process.env.SANITY_API_WRITE_TOKEN) {
-    console.error('SANITY_API_WRITE_TOKEN is not set. Cannot submit quiz lead to Sanity.');
-    return { success: false, trackingMode: "local_cache_fallback", error: "Sanity write token missing" };
-  }
-
   try {
-    const mutations = [{
-      create: {
-        _type: 'lead', // Ensure you have a 'lead' schema in sanity.config.ts
-        ...data,
-        createdAt: new Date().toISOString(),
-      }
-    }]
-
-    const response = await fetch(`https://${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}.api.sanity.io/v2021-03-25/data/mutate/${process.env.NEXT_PUBLIC_SANITY_DATASET}`, {
+    const response = await fetch('/api/quiz', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.SANITY_API_WRITE_TOKEN}` },
-      body: JSON.stringify({ mutations }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     })
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`Sanity lead submission failed: ${response.statusText} - ${JSON.stringify(errorData)}`);
-    }
+    if (!response.ok) throw new Error('Failed to submit quiz lead to server');
 
     const result = await response.json();
     return { success: true, trackingMode: "sanity_direct_submission", result };
@@ -484,10 +448,10 @@ export async function getCMSBlogPosts(): Promise<any[]> {
  */
 export async function getJobs(): Promise<any[]> {
   try {
-    const url = '/careers/api'; 
+    const url = '/api/careers'; 
     const response = await fetch(url);
     if (!response.ok) {
-      console.warn(`CMS Careers returned ${response.status}. Serving curated position fallbacks.`);
+      console.warn(`Careers API returned ${response.status}. Serving fallbacks.`);
       return PRESETS.careers;
     }
     const data = await response.json();

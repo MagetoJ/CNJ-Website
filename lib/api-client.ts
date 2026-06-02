@@ -28,6 +28,13 @@ export interface ItineraryResponse {
   }
 }
 
+export interface ProductReview {
+  reviewerName: string
+  rating: number
+  comment: string
+  reviewDate: string
+}
+
 export interface Product {
   id: string
   name: string
@@ -39,6 +46,7 @@ export interface Product {
   collection?: string
   rating?: number
   shortDescription?: string
+  reviews?: ProductReview[]
   sku?: string
 }
 
@@ -339,20 +347,56 @@ export async function submitInquiry(data: InquiryLead): Promise<{ success: boole
  */
 export async function getProducts(category?: string): Promise<Product[]> {
   try {
-    const url = category 
-      ? `/api/shop/products?category=${encodeURIComponent(category)}`
-      : `/api/shop/products`
-    
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.warn(`CMS Server returned ${response.status}. Deploying premium product mock fallback arrays.`);
-      return PRESETS.products;
-    }
-    const data = await response.json();
+    const query = category
+      ? `*[_type == "product" && category == $category] | order(_createdAt desc) {
+          "id": id.current,
+          name,
+          description,
+          shortDescription,
+          price,
+          category,
+          "image_url": image.asset->url,
+          reviews
+        }`
+      : `*[_type == "product"] | order(_createdAt desc) {
+          "id": id.current,
+          name,
+          description,
+          shortDescription,
+          price,
+          category,
+          "image_url": image.asset->url,
+          reviews
+        }`;
+
+    const data = await sanityFetch<Product[]>({ 
+      query, 
+      params: category ? { category } : {},
+      tags: ['product'] 
+    });
+
     return data && data.length > 0 ? data : PRESETS.products;
   } catch (error) {
     console.error('Database shop pipeline offline. Activating client safe-render state:', error);
     return PRESETS.products;
+  }
+}
+
+/**
+ * CMS: Fetch all gallery images from Sanity
+ */
+export async function getGalleryImages(): Promise<any[]> {
+  try {
+    const query = `*[_type == "galleryItem"] {
+      _id,
+      caption,
+      "src": image.asset->url
+    } | order(_createdAt desc)`;
+    const data = await sanityFetch<any[]>({ query, tags: ['galleryItem'] });
+    return data || [];
+  } catch (error) {
+    console.error('Error fetching gallery images from Sanity:', error);
+    return [];
   }
 }
 

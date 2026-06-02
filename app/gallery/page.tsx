@@ -1,45 +1,17 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import WhatsAppFooter from '@/components/WhatsAppFooter'
+import { getGalleryImages } from '@/lib/api-client' // Fetches the live data from Sanity
 
 export const metadata: Metadata = {
   title: 'Gallery | CNJ Safaris',
-  description: 'Explore our collection of tour images and safari packages. See the beauty of East Africa through our lens.',
+  description: 'Explore our collection of live tour images and safari packages. See the beauty of East Africa through our lens.',
 }
 
-export default function GalleryPage() {
-  const tourImages = [
-    {
-      src: '/📍Serengeti National Park on days 2 & 3 of the….jpeg',
-      alt: 'Serengeti National Park',
-      caption: 'Serengeti Wildlife',
-    },
-    {
-      src: '/A Safari and Beach Getaway in One Perfect Itinerary.jpeg',
-      alt: 'Safari and Beach',
-      caption: 'Luxury Getaway',
-    },
-    {
-      src: '/Experience an unforgettable Big 5 safari at….jpeg',
-      alt: 'Big 5 Safari',
-      caption: 'Big 5 Encounters',
-    },
-    {
-      src: '/gorilla.jpeg',
-      alt: 'Gorilla Trekking',
-      caption: 'Mountain Gorillas',
-    },
-    {
-      src: '/safari-park-giraffe.jpeg',
-      alt: 'Giraffe in Safari Park',
-      caption: 'Graceful Giraffes',
-    },
-    {
-      src: '/South African Safari _ GORAH ELEPHANT CAMP, Addo….jpeg',
-      alt: 'Gorah Elephant Camp',
-      caption: 'Elephant Camp',
-    },
-  ]
+// Changing the component to an async function allows server-side fetching from Sanity
+export default async function GalleryPage() {
+  // 1. Fetch live images uploaded from Sanity Studio (The old hardcoded tourImages list is now completely removed)
+  const tourImages = await getGalleryImages();
 
   const packages = [
     {
@@ -91,22 +63,34 @@ export default function GalleryPage() {
           <h2 className="font-serif text-4xl font-bold text-white mt-4">Tour Highlights</h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tourImages.map((img, i) => (
-            <div key={i} className="group relative h-80 rounded-2xl overflow-hidden shadow-md">
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-jungle-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                <p className="text-white font-medium text-lg">{img.caption}</p>
+        {/* If no images have been uploaded/published in Sanity yet, show a clean message */}
+        {tourImages.length === 0 ? (
+          <div className="text-center py-12 border border-dashed border-gray-700 rounded-2xl max-w-md mx-auto">
+            <p className="text-gray-400 font-medium mb-2">Your Gallery is empty</p>
+            <p className="text-sm text-gray-500 px-4">
+              Upload and click "Publish" on your image assets inside Sanity Studio to see them appear here instantly!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tourImages.map((img, i) => (
+              <div key={img._id || i} className="group relative h-80 rounded-2xl overflow-hidden shadow-md bg-zinc-900">
+                {img.src && (
+                  <Image
+                    src={img.src}
+                    alt={img.alt || img.caption || 'CNJ Safaris Gallery Asset'}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+                  <p className="text-white font-medium text-lg">{img.caption}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Packages Section */}

@@ -2,11 +2,10 @@ import { createClient } from 'next-sanity'
 import { createImageUrlBuilder } from '@sanity/image-url'
 
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'missing-project-id',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  apiVersion: '2026-05-30', // Use the current date to guarantee API version lock
-  useCdn: process.env.NODE_ENV === 'production',
-  token: process.env.SANITY_API_READ_TOKEN, // Use read token for public views
+  apiVersion: '2026-05-31', 
+  useCdn: true, // true enables faster, cached responses and avoids SSE timeout issues
 })
 
 /**

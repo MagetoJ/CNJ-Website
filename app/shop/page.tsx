@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ShoppingBag, Camera, Shirt, Map, Gift, ShoppingCart, Loader2, Star, ArrowRight, MessageCircle } from 'lucide-react'
 import Footer from '@/components/Footer'
 import { getProducts, submitInquiry } from '@/lib/api-client'
+import { getWhatsAppInquiryLink } from '@/lib/whatsapp'
 
 export default function ShopPage() {
   const [products, setProducts] = useState<any[]>([])
@@ -50,19 +51,24 @@ export default function ShopPage() {
   const handleOrder = async (product: any) => {
     const sel = selections[product.id] || { size: 'M', color: 'Default', qty: 1 };
     
-    const message = `Hello CNJ Safaris,\n\nI would like to order:\n\nProduct: ${product.name}\nSize: ${sel.size}\nColor: ${sel.color}\nQuantity: ${sel.qty}\n\nPlease advise on availability and delivery options.\n\nThank you.`;
+    const orderMessage = `Hello CNJ Safaris,\n\nI want to purchase the following marketplace item from your website:\n• *Product Name:* ${product.name}\n• *Price:* $${product.price}\n• *Size:* ${sel.size}\n• *Color:* ${sel.color}\n• *Quantity:* ${sel.qty}\n\nPlease assist me with processing my checkout order options!`;
 
-    // Lead capture simulation (In a real app, this would open a small modal first)
     await submitInquiry({
-      name: 'Website Visitor', // Ideally from a form
-      email: 'pending@whatsapp.com',
+      name: "Customer Order Inquiry",
+      email: "guest@cnjsafaris.com",
       interestType: 'product',
       details: `Ordering ${product.name}`,
-      whatsappMessage: message
+      whatsappMessage: orderMessage,
     });
 
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(getWhatsAppInquiryLink(orderMessage), '_blank');
   };
+
+  const getAverageRating = (reviews?: any[]) => {
+    if (!reviews || reviews.length === 0) return 5;
+    const sum = reviews.reduce((acc, r) => acc + (r.rating || 0), 0);
+    return Math.round(sum / reviews.length);
+  }
 
   const updateSelection = (id: string, field: string, value: any) => {
     setSelections(prev => ({
@@ -214,6 +220,17 @@ export default function ShopPage() {
                       >
                         <ShoppingCart size={16} />
                       </button>
+                    </div>
+                    
+                    <div className="mt-4 text-center">
+                      <a
+                        href={getWhatsAppInquiryLink(`Hello CNJ Safaris Customer Support,\n\nI want to submit a product review for the *${product.name}*:\n\n• *My Name:* [Your Name]\n• *Rating:* [Choose 1 to 5 Stars]\n• *Feedback:* [Write your review message here]`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[10px] text-zinc-500 underline hover:text-safari-gold transition"
+                      >
+                        Submit a Verified Review via WhatsApp
+                      </a>
                     </div>
                   </div>
                 </div>

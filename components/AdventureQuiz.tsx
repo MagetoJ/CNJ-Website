@@ -1,46 +1,62 @@
 // components/AdventureQuiz.tsx
+/* cspell:ignore Nakuru Tsavo Diani Tarangire Manyara Kibale Nyungwe Akagera Kivu */
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { X, ArrowLeft, ArrowRight, Compass, Send, MessageSquare } from 'lucide-react'
-import { useQuiz } from '@/context/QuizContext'
-import QuizStep1 from './quiz/QuizStep1'
-import QuizStep2 from './quiz/QuizStep2'
-import QuizStep3 from './quiz/QuizStep3'
-import QuizStep4 from './quiz/QuizStep4'
+import React, { useState, useEffect, useMemo } from 'react'
+import { X, ArrowLeft, ArrowRight, Check, Compass } from 'lucide-react'
 import QuizResults from './quiz/QuizResults'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from '@/components/ui/dialog'
-import { toast } from 'sonner'
+import { useQuiz } from '@/context/QuizContext'
 
-export default function AdventureQuiz() {
-  const { isOpen, closeQuiz, answers, resetQuiz } = useQuiz()
-  const [currentStep, setCurrentStep] = useState(1)
-  const [loading, setLoading] = useState(false)
-  const [isCustomModalOpen, setIsCustomModalOpen] = useState(false)
+interface AdventureQuizProps {
+  isOpen?: boolean
+  onClose?: () => void
+}
 
-  // Form State
-  const [contactInfo, setContactInfo] = useState({ name: '', email: '', phone: '' })
-  const [customItinerary, setCustomItinerary] = useState({
-    destinations: '',
-    duration: '',
-    activities: '',
-    specialRequests: '',
-    budget: ''
-  })
+const LOCATION_DATABASE = {
+  Kenya: [
+    'Masai Mara National Reserve',
+    'Amboseli National Park',
+    'Lake Nakuru National Park',
+    'Tsavo East & West',
+    'Diani Beach (Mombasa Coast)'
+  ],
+  Tanzania: [
+    'Serengeti National Park',
+    'Ngorongoro Conservation Area',
+    'Tarangire National Park',
+    'Lake Manyara',
+    'Zanzibar Archipelago'
+  ],
+  Uganda: [
+    'Bwindi Impenetrable Forest (Gorillas)',
+    'Queen Elizabeth National Park',
+    'Murchison Falls',
+    'Kibale National Park'
+  ],
+  Rwanda: [
+    'Volcanoes National Park',
+    'Nyungwe Forest',
+    'Akagera National Park',
+    'Lake Kivu'
+  ]
+}
 
-  // CRITICAL FIX: Lock body scrolling when modal triggers active
+export default function AdventureQuiz({ isOpen: propIsOpen, onClose: propOnClose }: AdventureQuizProps) {
+  const { isOpen: contextIsOpen, closeQuiz } = useQuiz()
+  
+  // Map props or context to unified variables to fix ReferenceErrors
+  const isOpen = propIsOpen ?? contextIsOpen
+  const onClose = propOnClose ?? closeQuiz
+
+  // 1. ALL HOOKS MUST LIVE UNCONDITIONALLY AT THE TOP
+  const [step, setStep] = useState(1)
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([])
+  const [duration, setDuration] = useState('')
+  const [luxuryLevel, setLuxuryLevel] = useState('')
+  const [travelersCount, setTravelersCount] = useState('')
+
+  // CRITICAL FIX: Declaring useEffect above early returns to comply with React hook rules
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -48,228 +64,244 @@ export default function AdventureQuiz() {
       document.body.style.overflow = 'unset'
     }
     return () => {
-      document.body.style.overflow = 'unset' // Clean-up safeguard
+      document.body.style.overflow = 'unset'
     }
   }, [isOpen])
 
-  if (!isOpen) return null
-
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1: return !!answers?.destination
-      case 2: return !!answers?.experience
-      case 3: return !!answers?.budget
-      case 4: return !!answers?.startDate
-      default: return true
-    }
+  // 2. NOW INDEPENDENT CONDITIONAL EARLY RETURNS CAN RUN SAFELY
+  if (!isOpen) {
+    return null
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setContactInfo({ ...contactInfo, [e.target.name]: e.target.value })
+  // Collect destinations matching all countries checked by the traveler
+  const getDynamicLocations = () => {
+    let combined: string[] = []
+    selectedCountries.forEach((country) => {
+      const paths = LOCATION_DATABASE[country as keyof typeof LOCATION_DATABASE]
+      if (paths) combined = [...combined, ...paths]
+    })
+    return combined
   }
 
-  const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setCustomItinerary({ ...customItinerary, [e.target.name]: e.target.value })
-  }
+  // Fix ReferenceError: dynamicLocations is used in JSX but was never declared
+  const dynamicLocations = getDynamicLocations()
 
-  const generateSummaryText = (isCustomRequest = false) => {
-    let summary = `*CNJ SAFARIS - NEW TRIP INQUIRY*\n\n`
-    summary += `👤 *Client Name:* ${contactInfo.name}\n`
-    summary += `📧 *Email:* ${contactInfo.email}\n`
-    summary += `📞 *Phone:* ${contactInfo.phone}\n\n`
-
-    if (isCustomRequest) {
-      summary += `🗺️ *Type:* Custom Suggestive Itinerary\n`
-      summary += `📍 *Destinations:* ${customItinerary.destinations || 'Not specified'}\n`
-      summary += `⏱️ *Duration:* ${customItinerary.duration || 'Not specified'}\n`
-      summary += `🦁 *Activities:* ${customItinerary.activities || 'Not specified'}\n`
-      summary += `💰 *Est. Budget:* ${customItinerary.budget || 'Not specified'}\n`
-      summary += `📝 *Notes:* ${customItinerary.specialRequests || 'None'}`
+  const toggleCountry = (country: string) => {
+    if (selectedCountries.includes(country)) {
+      setSelectedCountries(selectedCountries.filter((c) => c !== country))
+      const remainingLocations = selectedLocations.filter(
+        (loc) => !LOCATION_DATABASE[country as keyof typeof LOCATION_DATABASE]?.includes(loc)
+      )
+      setSelectedLocations(remainingLocations)
     } else {
-      summary += `🗺️ *Type:* Quiz Recommendation\n`
-      summary += `🌍 *Destination Preference:* ${answers.destination || 'Flexible'}\n`
-      summary += `🎒 *Experience Preference:* ${answers.experience || 'Flexible'}\n`
-      summary += `💰 *Budget Tier:* ${answers.budget || 'Flexible'}\n`
-    }
-    return summary
-  }
-
-  const handleFinalSubmit = async (e: React.FormEvent, isCustomRequest = false) => {
-    e.preventDefault()
-    if (!contactInfo.name || !contactInfo.email || !contactInfo.phone) {
-      toast.error("Please fill in all contact details.")
-      return
-    }
-
-    setLoading(true)
-    const rawSummary = generateSummaryText(isCustomRequest)
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: contactInfo.name,
-          email: contactInfo.email,
-          phone: contactInfo.phone,
-          message: rawSummary,
-          subject: isCustomRequest ? "New Custom Itinerary Request" : "New Quiz Trip Planning Inquiry"
-        })
-      })
-
-      if (!response.ok) throw new Error("Failed to send email.")
-      toast.success("Inquiry sent successfully!")
-
-      const encodedMessage = encodeURIComponent(rawSummary)
-      const whatsappUrl = `https://wa.me/254700000000?text=${encodedMessage}`
-      window.open(whatsappUrl, '_blank')
-
-      if (isCustomRequest) setIsCustomModalOpen(false)
-      resetQuiz()
-      setCurrentStep(1)
-    } catch (error) {
-      toast.error("An error occurred. Opening WhatsApp...")
-      window.open(`https://wa.me/254700000000?text=${encodeURIComponent(rawSummary)}`, '_blank')
-    } finally {
-      setLoading(false)
+      setSelectedCountries([...selectedCountries, country])
     }
   }
 
-  const handleNext = () => {
-    if (isStepValid() && currentStep < 4) {
-      setCurrentStep((prev) => prev + 1)
+  const toggleLocation = (location: string) => {
+    if (selectedLocations.includes(location)) {
+      setSelectedLocations(selectedLocations.filter((l) => l !== location))
+    } else {
+      setSelectedLocations([...selectedLocations, location])
     }
   }
 
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep((prev) => prev - 1)
-    }
-  }
+  const handleNext = () => setStep((p) => p + 1)
+  const handleBack = () => setStep((p) => p - 1)
 
   return (
-    // fixed inset-0 z-[100] captures the absolute viewport top to bottom safely
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
-      
-      {/* Blurring Frosted Glass Overlay */}
-      <div 
-        className="absolute inset-0 bg-black/70 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
-        onClick={closeQuiz} 
-      />
-
-      {/* Modal Content Window */}
-      <div className="relative w-full max-w-4xl bg-neutral-900 border border-white/10 rounded-none overflow-hidden shadow-2xl z-10 flex flex-col max-h-[85vh] animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
+      <div className="bg-[#1A1A1A] border border-white/10 w-full max-w-2xl rounded-2xl p-6 md:p-8 relative max-h-[90vh] overflow-y-auto text-gray-200">
         
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-white/10 bg-black/40">
-          <div>
-            <span className="text-[10px] uppercase font-bold tracking-[0.3em] text-safari-gold">CNJ Expedition Blueprint</span>
-            <h3 className="font-serif text-lg font-bold text-white uppercase tracking-wider">Plan Your Custom Route</h3>
-          </div>
-          <button
-            onClick={closeQuiz}
-            className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-all active:scale-90"
-            aria-label="Close Modal"
-          >
-            <X size={22} />
-          </button>
-        </div>
+        {/* Close Button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
+          aria-label="Close quiz"
+          title="Close quiz"
+        >
+          <X size={20} />
+        </button>
 
-        {/* Progress Bar indicator */}
-        {currentStep <= 4 && (
-          <div className="w-full h-1 bg-white/5">
-            <div 
-              className="h-full bg-safari-gold transition-all duration-300 ease-out" 
-              style={{ width: `${(currentStep / 4) * 100}%` }}
-            />
+        {/* Step Indicator Headers */}
+        {step <= 5 && (
+          <div className="mb-8">
+            <div className="flex justify-between text-xs uppercase tracking-widest text-gray-500 mb-2">
+              <span>Step {step} of 5</span>
+              <span>{Math.round((step / 5) * 100)}% Complete</span>
+            </div>
+            <div className="w-full bg-zinc-800 h-1.5 rounded-full overflow-hidden">
+              <div 
+                className={`bg-[#C19A6B] h-full transition-all duration-300 ${step === 1 ? 'w-1/5' : step === 2 ? 'w-2/5' : step === 3 ? 'w-3/5' : step === 4 ? 'w-4/5' : 'w-full'}`}
+              />
+            </div>
           </div>
         )}
 
-        {/* Content Body */}
-        <div className="p-6 md:p-8 overflow-y-auto custom-scrollbar bg-gradient-to-b from-neutral-900 via-neutral-900 to-black text-white flex-1">
-          {currentStep === 1 && <QuizStep1 />}
-          {currentStep === 2 && <QuizStep2 />}
-          {currentStep === 3 && <QuizStep3 />}
-          {currentStep === 4 && (
-            <div className="grid md:grid-cols-5 gap-8">
-              <div className="md:col-span-3">
-                <QuizResults userSelections={{
-                  destination: answers.destination,
-                  duration: (answers as any).duration,
-                  luxuryLevel: answers.budget,
-                  travelersCount: (answers as any).travelersCount
-                }} />
-              </div>
-              <div className="md:col-span-2">
-                <Card className="bg-white/5 border-white/10 text-white sticky top-0">
-                  <CardHeader>
-                    <CardTitle className="text-safari-gold text-lg">Secure Your Blueprint</CardTitle>
-                    <CardDescription className="text-gray-400 text-xs">
-                      Connect with our experts to finalize these details and receive your formal itinerary.
-                    </CardDescription>
-                  </CardHeader>
-                  <form onSubmit={(e) => handleFinalSubmit(e, false)}>
-                    <CardContent className="space-y-4">
-                      <div className="space-y-1">
-                        <Label className="text-xs">Full Name *</Label>
-                        <Input name="name" required value={contactInfo.name} onChange={handleInputChange} className="bg-black/20 border-white/10 h-9" />
-                      </div>
-                      <div className="space-y-1">
-                        <Label className="text-xs">Email Address *</Label>
-                        <Input name="email" required type="email" value={contactInfo.email} onChange={handleInputChange} className="bg-black/20 border-white/10 h-9" />
-                      </div>
-                      <div className="space-y-1">
-                        <Label className="text-xs">WhatsApp Number *</Label>
-                        <Input name="phone" required type="tel" value={contactInfo.phone} onChange={handleInputChange} className="bg-black/20 border-white/10 h-9" />
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button type="submit" disabled={loading} className="w-full bg-safari-gold hover:bg-safari-gold/90 text-black font-bold h-11">
-                        <Send size={16} className="mr-2" />
-                        {loading ? 'Sending...' : 'Connect to Expert'}
-                      </Button>
-                    </CardFooter>
-                  </form>
-                </Card>
-              </div>
+        {/* STEP 1: Multiple Country Picker */}
+        {step === 1 && (
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white mb-2">Which countries are on your bucket list?</h2>
+            <p className="text-sm text-gray-400 mb-6">Select all destinations you wish to include in this custom crossing itinerary.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {Object.keys(LOCATION_DATABASE).map((country) => {
+                const isChecked = selectedCountries.includes(country)
+                return (
+                  <button
+                    key={country}
+                    onClick={() => toggleCountry(country)}
+                    className={`p-5 text-left border rounded-xl flex items-center justify-between transition-all ${
+                      isChecked 
+                        ? 'border-[#C19A6B] bg-[#C19A6B]/10 text-white shadow-lg' 
+                        : 'border-white/5 bg-zinc-900/50 text-gray-300 hover:border-white/20'
+                    }`}
+                  >
+                    <span className="font-medium tracking-wide">{country}</span>
+                    <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors ${
+                      isChecked ? 'bg-[#C19A6B] border-[#C19A6B]' : 'border-gray-600'
+                    }`}>
+                      {isChecked && <Check size={12} className="text-black stroke-[3]" />}
+                    </div>
+                  </button>
+                )
+              })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {/* Dynamic Footer Controls */}
-        {currentStep < 4 && (
-          <div className="flex items-center justify-between p-4 sm:p-6 border-t border-white/10 bg-black/40">
+        {/* STEP 2: Multi-Select Locations */}
+        {step === 2 && (
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white mb-2">Select your ideal parks & landmarks</h2>
+            <p className="text-sm text-gray-400 mb-6">Showing premium reserves available across: {selectedCountries.join(', ') || 'East Africa'}</p>
+            
+            {dynamicLocations.length === 0 ? (
+              <div className="text-center py-8 text-gray-500 text-sm">
+                Please go back and select at least one country to populate regional routes.
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+                {dynamicLocations.map((loc) => {
+                  const isChecked = selectedLocations.includes(loc)
+                  return (
+                    <button
+                      key={loc}
+                      onClick={() => toggleLocation(loc)}
+                      className={`p-4 text-left border rounded-xl flex items-center justify-between text-xs transition-all ${
+                        isChecked 
+                          ? 'border-[#C19A6B] bg-[#C19A6B]/10 text-white' 
+                          : 'border-white/5 bg-zinc-900/50 text-gray-300 hover:border-white/10'
+                      }`}
+                    >
+                      <span className="font-medium leading-tight">{loc}</span>
+                      <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ml-3 ${
+                        isChecked ? 'bg-[#C19A6B] border-[#C19A6B]' : 'border-gray-600'
+                      }`}>
+                        {isChecked && <Check size={10} className="text-black stroke-[3]" />}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* STEP 3: Duration Selection */}
+        {step === 3 && (
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white mb-6">What is your ideal window of travel?</h2>
+            <div className="space-y-3">
+              {['4-7 Days (Express Safari)', '8-11 Days (Classic Explorer)', '12-15 Days (Grand Rift Crossing)', '16+ Days (In-Depth Expedition)'].map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => { setDuration(opt); handleNext(); }}
+                  className={`w-full p-4 text-left border rounded-xl transition-all ${
+                    duration === opt ? 'border-[#C19A6B] bg-[#C19A6B]/10 text-white' : 'border-white/5 bg-zinc-900/50 text-gray-400 hover:text-white hover:border-white/10'
+                  }`}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4: Luxury Tier Selection */}
+        {step === 4 && (
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white mb-6">Select your accommodation standard</h2>
+            <div className="space-y-3">
+              {['Ultra-Luxury Lodges & Villas', 'Premium Classic Tented Camps', 'Comfort Boutique Retreats'].map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => { setLuxuryLevel(opt); handleNext(); }}
+                  className={`w-full p-4 text-left border rounded-xl transition-all ${
+                    luxuryLevel === opt ? 'border-[#C19A6B] bg-[#C19A6B]/10 text-white' : 'border-white/5 bg-zinc-900/50 text-gray-400 hover:text-white hover:border-white/10'
+                  }`}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 5: Travel Configuration */}
+        {step === 5 && (
+          <div>
+            <h2 className="text-2xl font-serif font-bold text-white mb-6">Who is traveling?</h2>
+            <div className="space-y-3 mb-6">
+              {['Solo Adventurer', 'Honeymoon Couple', 'Family with Children', 'Private Group / Friends'].map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => { setTravelersCount(opt); handleNext(); }}
+                  className={`w-full p-4 text-left border rounded-xl transition-all ${
+                    travelersCount === opt ? 'border-[#C19A6B] bg-[#C19A6B]/10 text-white' : 'border-white/5 bg-zinc-900/50 text-gray-400 hover:text-white hover:border-white/10'
+                  }`}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* STEP 6: Final Dynamic PDF Stage */}
+        {step === 6 && (
+          <QuizResults 
+            userSelections={{
+              destination: selectedLocations.length > 0 ? selectedLocations.slice(0, 3).join(', ') : selectedCountries.join(' & '),
+              duration,
+              luxuryLevel,
+              travelersCount
+            }} 
+          />
+        )}
+
+        {/* Navigation Control Footer Bar */}
+        {step <= 5 && (
+          <div className="flex justify-between items-center mt-8 pt-4 border-t border-white/5">
             <button
               onClick={handleBack}
-              disabled={currentStep === 1}
-              className={`flex items-center gap-2 px-4 py-2 text-sm font-semibold transition-all rounded-md ${
-                currentStep === 1
-                  ? 'text-gray-600 cursor-not-allowed opacity-30'
-                  : 'text-gray-300 hover:text-white hover:bg-white/5 active:scale-95'
-              }`}
+              disabled={step === 1}
+              className="flex items-center gap-2 text-xs uppercase tracking-widest text-gray-500 hover:text-white disabled:opacity-0 transition-all"
             >
-              <ArrowLeft size={16} />
-              <span>Back</span>
+              <ArrowLeft size={14} /> Back
             </button>
-
-            <span className="text-xs text-gray-500 font-mono">
-              Step {currentStep} of 3
-            </span>
-
-            <button
-              onClick={handleNext}
-              disabled={!isStepValid()}
-              className={`flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white uppercase tracking-wider transition-all bg-safari-gold hover:bg-safari-gold/90 active:scale-95 ${
-                !isStepValid()
-                  ? 'opacity-40 cursor-not-allowed bg-neutral-700 hover:bg-neutral-700 text-gray-400'
-                  : ''
-              }`}
-            >
-              <span>{currentStep === 3 ? 'Generate Blueprint' : 'Next'}</span>
-              <ArrowRight size={16} />
-            </button>
+            
+            {step < 3 && (
+              <button
+                onClick={handleNext}
+                disabled={(step === 1 && selectedCountries.length === 0) || (step === 2 && selectedLocations.length === 0)}
+                className="flex items-center gap-2 px-6 py-2.5 bg-[#C19A6B] disabled:bg-zinc-800 disabled:text-gray-600 text-black text-xs font-bold uppercase tracking-widest transition-all"
+              >
+                Continue <ArrowRight size={14} />
+              </button>
+            )}
           </div>
         )}
+
       </div>
     </div>
   )

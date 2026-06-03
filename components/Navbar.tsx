@@ -85,7 +85,7 @@ export default function Navbar() {
         {/* Cinematic Call To Action Button trigger */}
         <div className="flex items-center gap-4">
           <button 
-            onClick={openQuiz}
+            onClick={() => { console.log('Navbar: Plan Your Route button clicked, calling openQuiz()'); openQuiz(); }}
             className="px-8 py-3 bg-safari-gold text-white text-xs font-bold tracking-widest uppercase rounded-none hover:bg-olive-green transition-all shadow-lg active:scale-95"
           >
             Plan Your Route
@@ -156,7 +156,8 @@ export default function Navbar() {
           <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Blog</Link>
           <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Contact</Link>
           <button 
-            onClick={() => {
+            onClick={() => { // Mobile menu button
+              console.log('Navbar (Mobile): Plan Your Route button clicked, calling openQuiz()');
               openQuiz();
               setIsOpen(false);
             }}

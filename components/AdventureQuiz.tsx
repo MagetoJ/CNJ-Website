@@ -193,7 +193,12 @@ export default function AdventureQuiz() {
           {currentStep === 4 && (
             <div className="grid md:grid-cols-5 gap-8">
               <div className="md:col-span-3">
-                <QuizResults />
+                <QuizResults userSelections={{
+                  destination: answers.destination,
+                  duration: (answers as any).duration,
+                  luxuryLevel: answers.budget,
+                  travelersCount: (answers as any).travelersCount
+                }} />
               </div>
               <div className="md:col-span-2">
                 <Card className="bg-white/5 border-white/10 text-white sticky top-0">

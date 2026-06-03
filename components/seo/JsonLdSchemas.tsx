@@ -19,7 +19,7 @@ export function OrganizationSchema() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'Customer Service',
-      telephone: '+254-712-345-678',
+      telephone: '+254-721 214 414',
       email: 'info@cnjsafaris.com',
     },
   }
@@ -41,13 +41,13 @@ export function LocalBusinessSchema() {
     description: 'East African safari tour operator based in Nairobi, Kenya',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Nairobi Safari Plaza',
+      streetAddress: 'Parklands, Nairobi',
       addressLocality: 'Nairobi',
       addressRegion: 'Nairobi County',
       postalCode: '00100',
       addressCountry: 'KE',
     },
-    telephone: '+254-712-345-678',
+    telephone: '+254-721 214 414',
     email: 'info@cnjsafaris.com',
     priceRange: '$1200-$5000',
     areaServed: ['KE', 'TZ', 'UG', 'RW'],

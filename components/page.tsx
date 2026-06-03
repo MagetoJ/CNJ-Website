@@ -4,9 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { ShoppingBag, MessageCircle, ShieldCheck, Truck, Sparkles } from 'lucide-react'
 import { ProductSchema } from '@/components/seo/JsonLdSchemas'
-import Footer from '@/components/Footer'
 
-// Seed collection of premium authentic East African items
 const SOUVENIR_PRODUCTS = [
   {
     id: 'sov-001',
@@ -14,7 +12,7 @@ const SOUVENIR_PRODUCTS = [
     description: 'Masterfully detailed wildlife sculpture sculpted from sustainable native Tanzanian Ebony hardwood by local Akamba artisans.',
     price: 85,
     category: 'Carvings & Sculptures',
-    image: '/Fabriqué à la main aux États-Unis_ Les options de….jpeg', // Leveraging your asset portfolio
+    image: '/Fabriqué à la main aux États-Unis_ Les options de….jpeg',
   },
   {
     id: 'sov-002',
@@ -59,15 +57,14 @@ export default function SouvenirsShopPage() {
     ? SOUVENIR_PRODUCTS
     : SOUVENIR_PRODUCTS.filter(p => p.category === selectedCategory)
 
-  // Handshake routing directly to WhatsApp business agent
   const generateWhatsAppLink = (itemName: string, itemPrice: number) => {
-    const baseMessage = `Jambo CNJ Safaris! I am looking to purchase the authentic "${itemName}" ($${itemPrice}) from your Souvenirs Shop collection. Could you assist me with availability and international shipping configurations?`
+    const baseMessage = `Jambo CNJ Safaris! I am looking to purchase the authentic "${itemName}" ($${itemPrice}) from your Souvenirs Shop collection. Could you assist me with availability and international shipping?`
     return `https://wa.me/254712345678?text=${encodeURIComponent(baseMessage)}`
   }
 
   return (
-    <main className="bg-deep-black text-white min-h-screen pt-24 pb-16">
-      {/* Dynamic SEO Product Injector loop */}
+    <main className="bg-[#1A1A1A] text-gray-300 min-h-screen pt-28 pb-16">
+      {/* Search Engine Optimization Injectors Loop */}
       {SOUVENIR_PRODUCTS.map((product) => (
         <ProductSchema
           key={product.id}
@@ -80,46 +77,46 @@ export default function SouvenirsShopPage() {
       ))}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
+        {/* Header Hero Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-sm mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C19A6B]/10 border border-[#C19A6B]/20 text-[#C19A6B] text-sm mb-4">
             <Sparkles className="w-4 h-4" />
             <span>Supporting Native Artisans & Fair Trade</span>
           </div>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-zinc-100 mb-4">
-            The East African <span className="text-amber-500">Souvenir Collection</span>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-white mb-4 font-serif">
+            The East African <span className="text-[#C19A6B]">Souvenir Collection</span>
           </h1>
-          <p className="text-zinc-400 text-lg leading-relaxed">
+          <p className="text-gray-400 text-base leading-relaxed">
             Bring home a piece of your wild adventure. We partner directly with indigenous craft communities across Kenya and Tanzania to bring you authentic, meticulously selected hand-made memorabilia.
           </p>
         </div>
 
-        {/* Value Props Bar */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 border-y border-zinc-800 py-8 text-center sm:text-left">
+        {/* Brand Value Propositions Row */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16 border-y border-white/10 py-8 text-center sm:text-left">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="p-3 bg-zinc-900 rounded-lg border border-zinc-800 text-amber-500"><ShieldCheck className="w-6 h-6" /></div>
+            <div className="p-3 bg-zinc-900 rounded-lg border border-white/5 text-[#C19A6B]"><ShieldCheck className="w-6 h-6" /></div>
             <div>
-              <h3 className="font-semibold text-zinc-200 text-sm">100% Authentic Provenance</h3>
-              <p className="text-xs text-zinc-500">Ethically sourced, verified artisan pieces.</p>
+              <h3 className="font-semibold text-white text-sm">100% Authentic Provenance</h3>
+              <p className="text-xs text-gray-500">Ethically sourced, verified artisan pieces.</p>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="p-3 bg-zinc-900 rounded-lg border border-zinc-800 text-amber-500"><Truck className="w-6 h-6" /></div>
+            <div className="p-3 bg-zinc-900 rounded-lg border border-white/5 text-[#C19A6B]"><Truck className="w-6 h-6" /></div>
             <div>
-              <h3 className="font-semibold text-zinc-200 text-sm">Global Doorstep Shipping</h3>
-              <p className="text-xs text-zinc-500">Insured international parcel delivery tracking.</p>
+              <h3 className="font-semibold text-white text-sm">Global Doorstep Shipping</h3>
+              <p className="text-xs text-gray-500">Insured international parcel delivery tracking.</p>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="p-3 bg-zinc-900 rounded-lg border border-zinc-800 text-amber-500"><ShoppingBag className="w-6 h-6" /></div>
+            <div className="p-3 bg-zinc-900 rounded-lg border border-white/5 text-[#C19A6B]"><ShoppingBag className="w-6 h-6" /></div>
             <div>
-              <h3 className="font-semibold text-zinc-200 text-sm">Empowerment Initiatives</h3>
-              <p className="text-xs text-zinc-500">Direct splits fund localized bush communities.</p>
+              <h3 className="font-semibold text-white text-sm">Empowerment Initiatives</h3>
+              <p className="text-xs text-gray-500">Direct splits fund localized bush communities.</p>
             </div>
           </div>
         </div>
 
-        {/* Categories Tab Layout */}
+        {/* Tab Filters Component */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {CATEGORIES.map((cat) => (
             <button
@@ -127,8 +124,8 @@ export default function SouvenirsShopPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide border transition-all ${
                 selectedCategory === cat
-                  ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
-                  : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:border-zinc-700 hover:text-white'
+                  ? 'bg-[#C19A6B] text-black border-[#C19A6B] shadow-lg shadow-[#C19A6B]/20'
+                  : 'bg-zinc-900 text-gray-400 border-white/5 hover:border-white/20 hover:text-white'
               }`}
             >
               {cat}
@@ -136,35 +133,36 @@ export default function SouvenirsShopPage() {
           ))}
         </div>
 
-        {/* Product Catalog Display Grid */}
+        {/* Product Grid Mapping */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
             <div 
               key={product.id}
-              className="bg-zinc-900/40 rounded-2xl border border-zinc-800 p-5 flex flex-col group hover:border-zinc-700 transition-all duration-300"
+              className="bg-[#222222] rounded-2xl border border-white/5 p-5 flex flex-col group hover:border-white/10 transition-all duration-300"
             >
-              <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-zinc-950 border border-zinc-800 mb-4">
+              <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-black mb-4">
                 <Image 
                   src={product.image}
                   alt={product.name}
                   fill
+                  sizes="(max-w-7xl) 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
                 />
-                <span className="absolute top-3 left-3 bg-zinc-900/90 border border-zinc-800 text-amber-500 text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-md">
+                <span className="absolute top-3 left-3 bg-[#1A1A1A]/90 border border-white/5 text-[#C19A6B] text-[10px] uppercase tracking-widest font-bold px-2.5 py-1 rounded-md">
                   {product.category}
                 </span>
               </div>
 
               <div className="flex justify-between items-start gap-4 mb-2">
-                <h3 className="font-bold text-lg text-zinc-200 group-hover:text-amber-500 transition-colors">
+                <h3 className="font-bold text-base text-white group-hover:text-[#C19A6B] transition-colors">
                   {product.name}
                 </h3>
-                <span className="text-amber-500 font-extrabold text-lg">
+                <span className="text-[#C19A6B] font-extrabold text-base">
                   ${product.price}
                 </span>
               </div>
 
-              <p className="text-zinc-400 text-sm leading-relaxed mb-6 flex-grow">
+              <p className="text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
                 {product.description}
               </p>
 
@@ -172,16 +170,15 @@ export default function SouvenirsShopPage() {
                 href={generateWhatsAppLink(product.name, product.price)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 bg-zinc-950 border border-zinc-800 text-zinc-200 hover:bg-amber-500 hover:text-black hover:border-amber-500 font-medium py-3 rounded-xl transition-all duration-300 group/btn"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#1A1A1A] border border-white/5 text-gray-300 hover:bg-[#C19A6B] hover:text-black hover:border-[#C19A6B] font-medium py-3 rounded-xl transition-all duration-300"
               >
-                <MessageCircle className="w-4 h-4 fill-current stroke-none group-hover/btn:animate-pulse" />
+                <MessageCircle className="w-4 h-4 fill-current stroke-none" />
                 <span className="text-sm tracking-wide">Inquire via WhatsApp</span>
               </a>
             </div>
           ))}
         </div>
       </div>
-      <Footer />
     </main>
   )
 }

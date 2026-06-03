@@ -1,45 +1,81 @@
 'use client'
 
-import { useQuiz } from '@/context/QuizContext'
-import { CheckCircle2 } from 'lucide-react'
+import React, { useState } from 'react'
+import { FileDown, Loader2 } from 'lucide-react'
+import { generateCustomSafariPDF } from '@/lib/itinerary-generator'
 
-export default function QuizResults() {
-  const { answers, closeQuiz } = useQuiz()
+interface QuizResultsProps {
+  userSelections?: {
+    destination?: string
+    duration?: string
+    luxuryLevel?: string
+    travelersCount?: string
+  }
+}
+
+export default function QuizResults({ userSelections = {} }: QuizResultsProps) {
+  const [isCompiling, setIsCompiling] = useState(false)
+
+  // Provide robust safe fallback variables if context values are undefined
+  const destination = userSelections?.destination || 'East Africa'
+  const duration = userSelections?.duration || 'Bespoke Duration'
+  const luxuryLevel = userSelections?.luxuryLevel || 'Premium Luxury'
+  const travelersCount = userSelections?.travelersCount || 'Private Group'
+
+  const handleDownload = async () => {
+    setIsCompiling(true)
+    try {
+      // Build a verified clean payload for our itinerary engine safely
+      await generateCustomSafariPDF({
+        destination,
+        duration,
+        luxuryLevel,
+        travelersCount
+      })
+    } catch (error) {
+      console.error('PDF Trigger Failure:', error)
+    } finally {
+      setIsCompiling(false)
+    }
+  }
 
   return (
-    <div className="text-center py-8 max-w-xl mx-auto space-y-6 animate-in fade-in duration-500">
-      <div className="flex justify-center">
-        <CheckCircle2 size={64} className="text-safari-gold" />
-      </div>
-      
-      <div>
-        <h3 className="font-serif text-3xl font-bold text-white mb-2">
-          Blueprint Generated!
-        </h3>
-        <p className="text-gray-400">
-          Your tailored East African expedition template has been generated successfully.
-        </p>
+    <div className="bg-zinc-900 border border-white/10 rounded-2xl p-8 max-w-xl mx-auto text-center text-white my-8">
+      <h3 className="text-xl font-serif font-bold text-safari-gold mb-2">
+        Your Dream Safari Route is Ready!
+      </h3>
+      <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+        We have customized a premium itinerary matching your criteria details for a{' '}
+        <span className="text-safari-gold font-semibold">{duration}</span> stay in{' '}
+        <span className="text-safari-gold font-semibold">{destination}</span>.
+      </p>
+
+      <div className="bg-black/40 border border-white/5 rounded-xl p-4 text-left text-xs space-y-2 text-gray-400 mb-6">
+        <div>
+          <span className="text-white font-medium">Accommodation Tier:</span> {luxuryLevel}
+        </div>
+        <div>
+          <span className="text-white font-medium">Traveler Setup:</span> {travelersCount}
+        </div>
       </div>
 
-      {/* Selected Summary Details */}
-      <div className="p-6 bg-white/5 border border-white/10 text-left rounded-xl space-y-3">
-        <h4 className="text-xs uppercase font-bold text-safari-gold tracking-widest border-b border-white/10 pb-2 mb-2">
-          Submission Review
-        </h4>
-        <p className="text-sm text-gray-300"><span className="text-gray-500">Destination:</span> <span className="capitalize font-medium text-white">{answers?.destination || 'Not Specified'}</span></p>
-        <p className="text-sm text-gray-300"><span className="text-gray-500">Travel Style:</span> <span className="capitalize font-medium text-white">{answers?.experience?.replace('-', ' ') || 'Not Specified'}</span></p>
-        <p className="text-sm text-gray-300"><span className="text-gray-500">Comfort Level:</span> <span className="capitalize font-medium text-white">{answers?.budget || 'Not Specified'}</span></p>
-        <p className="text-sm text-gray-300"><span className="text-gray-500">Target Launch:</span> <span className="font-medium text-white">{answers?.startDate || 'Not Specified'}</span></p>
-      </div>
-
-      <div className="pt-4">
-        <button
-          onClick={closeQuiz}
-          className="w-full sm:w-auto px-8 py-3 bg-safari-gold hover:bg-safari-gold/90 text-white font-semibold transition-all uppercase tracking-wider text-sm rounded-none"
-        >
-          Close and View Custom Dashboard
-        </button>
-      </div>
+      <button
+        onClick={handleDownload}
+        disabled={isCompiling}
+        className="w-full inline-flex items-center justify-center gap-3 bg-safari-gold hover:bg-opacity-90 disabled:bg-zinc-800 text-white font-bold uppercase tracking-widest text-xs py-4 px-6 transition-all active:scale-[0.98]"
+      >
+        {isCompiling ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span>Compiling High-Res PDF Assets...</span>
+          </>
+        ) : (
+          <>
+            <FileDown className="w-4 h-4" />
+            <span>Download PDF Itinerary</span>
+          </>
+        )}
+      </button>
     </div>
   )
 }

@@ -7,11 +7,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
 export const SITE_CONFIG = {
   name: 'CNJ Safaris',
-  description: 'Premium East African Safari Tours. Best Kenya safaris, Nairobi family safari, and affordable Maasai Mara tours for international travelers. Award-winning custom itineraries to Kenya, Tanzania, & Uganda.',
+  description: 'Luxury & Private East African Safari Tours. Expert-led Maasai Mara, Serengeti, and Gorilla Trekking expeditions. Award-winning custom itineraries trusted by travelers from USA, UK, and Europe.',
   url: siteUrl,
   image: `${siteUrl}/Cnj%20new%20logo.jpg`, // Ensure this matches your production logo path
   twitterHandle: '@cnjsafaris',
   shop: `${siteUrl}/shop`,
+  address: 'Nairobi, Kenya',
+  email: 'info@cnjsafaris.com',
+  phone: '+254 700 000000', // Update with real office number
 }
 
 export interface Destination {
@@ -123,6 +126,40 @@ export function generateMetaTags(props: {
       images: [props.image || SITE_CONFIG.image],
       creator: SITE_CONFIG.twitterHandle,
     },
+  }
+}
+
+/**
+ * Generate Organization/LocalBusiness JSON-LD for Trust
+ */
+export function generateOrganizationSchema(): Record<string, any> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": SITE_CONFIG.name,
+    "url": SITE_CONFIG.url,
+    "logo": SITE_CONFIG.image,
+    "image": SITE_CONFIG.image,
+    "description": SITE_CONFIG.description,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Nairobi National Park Area",
+      "addressLocality": "Nairobi",
+      "addressCountry": "KE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -1.2921,
+      "longitude": 36.8219
+    },
+    "telephone": SITE_CONFIG.phone,
+    "priceRange": "$$$",
+    "sameAs": [
+      "https://www.facebook.com/cnjsafaris",
+      "https://www.instagram.com/cnjsafaris",
+      `https://www.tripadvisor.com/Search?q=${encodeURIComponent(SITE_CONFIG.name)}`,
+      "https://www.safaribookings.com"
+    ]
   }
 }
 

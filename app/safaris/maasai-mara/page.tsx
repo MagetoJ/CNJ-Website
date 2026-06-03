@@ -4,9 +4,9 @@ import { Zap, Eye, Compass } from 'lucide-react'
 import AnimatedSection from '@/components/AnimatedSection'
 
 export const metadata: Metadata = {
-  title: 'Affordable Maasai Mara Tours | Big Five Safari Kenya | CNJ Safaris',
-  description: 'Experience Kenya\'s iconic Maasai Mara with our affordable Maasai Mara tours. See the Big Five, witness the wildebeest migration, and immerse yourself in Maasai culture. Book your adventure today.',
-  keywords: 'Affordable Maasai Mara tours, Maasai Mara safari, Big Five Kenya, safari tour, Kenya wildlife, Nairobi family safari',
+  title: 'Maasai Mara Safari Packages 2026 | Private & Luxury Kenya Tours',
+  description: 'Witness the Great Migration and the Big Five with our premier Maasai Mara safari packages. Expert native guides, luxury tented camps, and custom itineraries for US & UK travelers.',
+  keywords: 'Maasai Mara safari, Kenya safari packages, Great Migration 2026, luxury safari Kenya, private Maasai Mara tour',
 }
 
 export default function MaasaiMaraPage() {

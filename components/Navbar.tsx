@@ -103,7 +103,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer Overlay navigation */}
       {isOpen && (
-        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 bg-black/95 backdrop-blur-2xl border-t border-white/10 p-6 flex flex-col gap-3 overflow-y-auto font-medium tracking-widest text-lg text-white">
+        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 bg-black/95 backdrop-blur-2xl border-t border-white/10 p-6 flex flex-col gap-3 overflow-y-auto custom-scrollbar max-h-[calc(100vh-6rem)] font-medium tracking-widest text-lg text-white">
           <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Home</Link>
           <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Safaris</Link>
           <Link href="/services" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Services</Link>
@@ -156,7 +156,7 @@ export default function Navbar() {
           <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Blog</Link>
           <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Contact</Link>
           <button 
-            onClick={() => { // Mobile menu button
+            onClick={() => {
               console.log('Navbar (Mobile): Plan Your Route button clicked, calling openQuiz()');
               openQuiz();
               setIsOpen(false);

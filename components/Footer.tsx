@@ -147,7 +147,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="tel:+254712345678" className="flex items-center gap-2 text-gray-400 hover:text-[#C19A6B] transition-colors text-sm">
-                  <Phone size={16} /> +254 712 345 678
+                  <Phone size={16} /> +254 768 396 296
                 </a>
               </li>
               {/* Add physical address if applicable */}

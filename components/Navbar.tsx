@@ -91,6 +91,7 @@ export default function Navbar() {
           <Link href="/about" className="hover:text-safari-gold transition-colors duration-200">About Us</Link>
           <Link href="/gallery" className="hover:text-safari-gold transition-colors duration-200">Gallery</Link>
           <Link href="/blog" className="hover:text-safari-gold transition-colors duration-200">Blog</Link>
+          <Link href="/faq" className="hover:text-safari-gold transition-colors duration-200">FAQ</Link>
           <Link href="/contact" className="hover:text-safari-gold transition-colors duration-200">Contact</Link>
         </div>
 
@@ -162,6 +163,7 @@ export default function Navbar() {
             <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">About Us</Link>
             <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Gallery</Link>
             <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Blog</Link>
+            <Link href="/faq" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">FAQ</Link>
             <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Contact</Link>
           </div>
           

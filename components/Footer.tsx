@@ -104,39 +104,46 @@ export default function Footer() {
           )}
 
           {/* Shop Column */}
-          <div>
-            <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider mb-4">
-              CNJ Safari Shop
-            </h3>
-            <ul className="space-y-2.5">
-              <li>
-                <Link 
-                  href="/shop/souvenirs" 
-                  className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
-                >
-                  Authentic Souvenirs
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/safaris/luxury-safaris" 
-                  className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
-                >
-                  Premium Safari Packages
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/destinations" 
-                  className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
-                >
-                  Travel Gear & Guide Maps
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Info (Static for now, could be dynamic) */}
+         <div>
+  <h3 className="text-sm font-semibold text-zinc-200 uppercase tracking-wider mb-4">
+    CNJ Safari Shop
+  </h3>
+  <ul className="space-y-2.5">
+    <li>
+      <Link 
+        href="/shop/souvenirs" 
+        className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
+      >
+        Authentic Souvenirs
+      </Link>
+    </li>
+    <li>
+      <Link 
+        href="/safaris/luxury-safaris" 
+        className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
+      >
+        Premium Safari Packages
+      </Link>
+    </li>
+    <li>
+      <Link 
+        href="/faq" 
+        className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2 font-medium"
+      >
+        Help & Safari FAQs
+      </Link>
+    </li>
+    <li>
+      <Link 
+        href="/destinations" 
+        className="text-sm text-zinc-400 hover:text-amber-500 transition-colors flex items-center gap-2"
+      >
+        Travel Gear & Guide Maps
+      </Link>
+    </li>
+  </ul>
+</div>
+      git ad    {/* Contact Info (Static for now, could be dynamic) */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
             <ul className="space-y-2">

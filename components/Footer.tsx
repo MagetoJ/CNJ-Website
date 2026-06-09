@@ -143,7 +143,7 @@ export default function Footer() {
     </li>
   </ul>
 </div>
-      git ad    {/* Contact Info (Static for now, could be dynamic) */}
+          {/* Contact Info (Static for now, could be dynamic) */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
             <ul className="space-y-2">

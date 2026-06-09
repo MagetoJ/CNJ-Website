@@ -9,7 +9,11 @@ import { useQuiz } from '@/context/QuizContext'
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
   const [isDesktopShopOpen, setIsDesktopShopOpen] = React.useState(false)
+  const [isDesktopAboutOpen, setIsDesktopAboutOpen] = React.useState(false)
+  const [isDesktopResourcesOpen, setIsDesktopResourcesOpen] = React.useState(false)
   const [isMobileShopOpen, setIsMobileShopOpen] = React.useState(false)
+  const [isMobileAboutOpen, setIsMobileAboutOpen] = React.useState(false)
+  const [isMobileResourcesOpen, setIsMobileResourcesOpen] = React.useState(false)
   const { openQuiz } = useQuiz()
 
   // Pre-configured global routing tree array matching your website paths
@@ -18,6 +22,18 @@ export default function Navbar() {
     { name: 'Apparel', href: '/shop/apparel' },
     { name: 'Accessories', href: '/shop/accessories' },
     { name: 'Luxury Accommodations', href: '/destinations/accommodations' },
+  ]
+
+  const aboutLinks = [
+    { name: 'Our Story', href: '/about' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'Partnerships', href: '/partnerships' },
+  ]
+
+  const resourceLinks = [
+    { name: 'Services', href: '/services' },
+    { name: 'Safari Blog', href: '/blog' },
+    { name: 'Help & FAQ', href: '/faq' },
   ]
 
   // Prevent background body bouncing loops while mobile menu drawer is open
@@ -44,9 +60,7 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-zinc-300">
-          <Link href="/" className="hover:text-safari-gold transition-colors duration-200">Home</Link>
           <Link href="/safaris" className="hover:text-safari-gold transition-colors duration-200">Safaris</Link>
-          <Link href="/services" className="hover:text-safari-gold transition-colors duration-200">Services</Link>
           
           {/* Desktop Shop Dropdown Trigger */}
           <div 
@@ -88,10 +102,66 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/about" className="hover:text-safari-gold transition-colors duration-200">About Us</Link>
-          <Link href="/gallery" className="hover:text-safari-gold transition-colors duration-200">Gallery</Link>
-          <Link href="/blog" className="hover:text-safari-gold transition-colors duration-200">Blog</Link>
-          <Link href="/faq" className="hover:text-safari-gold transition-colors duration-200">FAQ</Link>
+          {/* Desktop About Dropdown */}
+          <div 
+            className="relative h-24 flex items-center"
+            onMouseEnter={() => setIsDesktopAboutOpen(true)}
+            onMouseLeave={() => setIsDesktopAboutOpen(false)}
+          >
+            <button className="hover:text-safari-gold transition-colors flex items-center gap-1.5 uppercase font-semibold tracking-widest outline-none">
+              <span>About</span>
+              <ChevronDown 
+                size={14} 
+                className={`transition-transform duration-300 ${isDesktopAboutOpen ? 'rotate-180 text-safari-gold' : ''}`} 
+              />
+            </button>
+
+            {isDesktopAboutOpen && (
+              <div className="absolute top-[88px] left-1/2 -translate-x-1/2 w-48 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 p-2 flex flex-col shadow-2xl rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                {aboutLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsDesktopAboutOpen(false)}
+                    className="px-4 py-3 text-xs tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 transition-colors rounded-lg"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Resources Dropdown */}
+          <div 
+            className="relative h-24 flex items-center"
+            onMouseEnter={() => setIsDesktopResourcesOpen(true)}
+            onMouseLeave={() => setIsDesktopResourcesOpen(false)}
+          >
+            <button className="hover:text-safari-gold transition-colors flex items-center gap-1.5 uppercase font-semibold tracking-widest outline-none">
+              <span>Resources</span>
+              <ChevronDown 
+                size={14} 
+                className={`transition-transform duration-300 ${isDesktopResourcesOpen ? 'rotate-180 text-safari-gold' : ''}`} 
+              />
+            </button>
+
+            {isDesktopResourcesOpen && (
+              <div className="absolute top-[88px] left-1/2 -translate-x-1/2 w-52 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 p-2 flex flex-col shadow-2xl rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                {resourceLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsDesktopResourcesOpen(false)}
+                    className="px-4 py-3 text-xs tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 transition-colors rounded-lg"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
           <Link href="/contact" className="hover:text-safari-gold transition-colors duration-200">Contact</Link>
         </div>
 
@@ -116,13 +186,11 @@ export default function Navbar() {
 
       {/* 📱 OPTIMIZED HIGH CONTRAST MOBILE NAVIGATION MENU */}
       {isOpen && (
-        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 z-50 bg-zinc-950/98 backdrop-blur-3xl px-6 py-8 flex flex-col justify-between max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 z-50 bg-zinc-950/98 backdrop-blur-3xl px-6 py-8 flex flex-col max-h-[calc(100vh-6rem)] overflow-y-auto">
           
           {/* Main Links Container Section */}
           <div className="flex flex-col text-zinc-200 font-serif font-medium tracking-[0.15em] text-xl divide-y divide-white/5">
-            <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Home</Link>
             <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Safaris</Link>
-            <Link href="/services" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Services</Link>
             
             {/* Mobile Expandable Category Accordion block */}
             <div className="py-2 w-full">
@@ -160,10 +228,64 @@ export default function Navbar() {
               )}
             </div>
 
-            <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">About Us</Link>
-            <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Gallery</Link>
-            <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Blog</Link>
-            <Link href="/faq" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">FAQ</Link>
+            {/* Mobile About Accordion */}
+            <div className="py-2 w-full">
+              <button
+                onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+                className="w-full py-2 flex items-center justify-center gap-2 hover:text-safari-gold font-serif text-center font-medium tracking-[0.15em] transition-colors"
+              >
+                <span>About</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform duration-300 text-zinc-400 ${isMobileAboutOpen ? 'rotate-180 text-safari-gold' : ''}`} 
+                />
+              </button>
+              
+              {isMobileAboutOpen && (
+                <div className="bg-white/5 rounded-xl my-2 p-2 flex flex-col gap-1 border border-white/5 animate-in fade-in slide-in-from-top-1 duration-200 font-sans tracking-widest text-sm">
+                  {aboutLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="py-3 text-zinc-300 hover:text-white text-center transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Resources Accordion */}
+            <div className="py-2 w-full">
+              <button
+                onClick={() => setIsMobileResourcesOpen(!isMobileResourcesOpen)}
+                className="w-full py-2 flex items-center justify-center gap-2 hover:text-safari-gold font-serif text-center font-medium tracking-[0.15em] transition-colors"
+              >
+                <span>Resources</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform duration-300 text-zinc-400 ${isMobileResourcesOpen ? 'rotate-180 text-safari-gold' : ''}`} 
+                />
+              </button>
+              
+              {isMobileResourcesOpen && (
+                <div className="bg-white/5 rounded-xl my-2 p-2 flex flex-col gap-1 border border-white/5 animate-in fade-in slide-in-from-top-1 duration-200 font-sans tracking-widest text-sm">
+                  {resourceLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setIsOpen(false)}
+                      className="py-3 text-zinc-300 hover:text-white text-center transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Contact</Link>
           </div>
           

@@ -12,30 +12,43 @@ export default function Navbar() {
   const [isMobileShopOpen, setIsMobileShopOpen] = React.useState(false)
   const { openQuiz } = useQuiz()
 
-  // Pre-configured shop sub-routes mapping exactly to your application's pages
+  // Pre-configured global routing tree array matching your website paths
   const shopLinks = [
     { name: 'Souvenirs', href: '/shop/souvenirs' },
     { name: 'Apparel', href: '/shop/apparel' },
     { name: 'Accessories', href: '/shop/accessories' },
+    { name: 'Luxury Accommodations', href: '/destinations/accommodations' },
   ]
 
+  // Prevent background body bouncing loops while mobile menu drawer is open
+  React.useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
   return (
-    <nav className="sticky top-0 z-50 w-full bg-black/30 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
+    <nav className="sticky top-0 z-50 w-full bg-black/50 backdrop-blur-xl border-b border-white/10 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
         
         {/* Luxury Brand Typography Logo */}
-        <Link href="/" className="flex flex-col text-white tracking-wider">
-          <span className="font-serif font-black text-2xl uppercase tracking-[0.2em]">CNJ</span>
-          <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1">Luxury Safaris</span>
+        <Link href="/" className="flex flex-col text-white tracking-wider animate-fade-in" onClick={() => setIsOpen(false)}>
+          <span className="font-serif font-black text-2xl uppercase tracking-[0.2em] text-white">CNJ</span>
+          <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1 font-semibold">Luxury Safaris</span>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-gray-200">
-          <Link href="/" className="hover:text-safari-gold transition-colors">Home</Link>
-          <Link href="/safaris" className="hover:text-safari-gold transition-colors">Safaris</Link>
-          <Link href="/services" className="hover:text-safari-gold transition-colors">Services</Link>
+        <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-zinc-300">
+          <Link href="/" className="hover:text-safari-gold transition-colors duration-200">Home</Link>
+          <Link href="/safaris" className="hover:text-safari-gold transition-colors duration-200">Safaris</Link>
+          <Link href="/services" className="hover:text-safari-gold transition-colors duration-200">Services</Link>
           
-          {/* Shop Hover/Click Dropdown Container */}
+          {/* Desktop Shop Dropdown Trigger */}
           <div 
             className="relative h-24 flex items-center"
             onMouseEnter={() => setIsDesktopShopOpen(true)}
@@ -48,17 +61,16 @@ export default function Navbar() {
               <span>Shop</span>
               <ChevronDown 
                 size={14} 
-                className={`transition-transform duration-300 ${isDesktopShopOpen ? 'rotate-180' : ''}`} 
+                className={`transition-transform duration-300 ${isDesktopShopOpen ? 'rotate-180 text-safari-gold' : ''}`} 
               />
             </button>
 
-            {/* Desktop Dropdown Flyout Menu */}
             {isDesktopShopOpen && (
-              <div className="absolute top-[88px] left-1/2 -translate-x-1/2 w-48 bg-black/95 backdrop-blur-2xl border border-white/10 p-2 flex flex-col shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="absolute top-[88px] left-1/2 -translate-x-1/2 w-52 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 p-2 flex flex-col shadow-2xl rounded-xl animate-in fade-in slide-in-from-top-2 duration-200">
                 <Link 
                   href="/shop"
                   onClick={() => setIsDesktopShopOpen(false)}
-                  className="px-4 py-2 text-xs font-bold tracking-widest border-b border-white/5 text-safari-gold hover:bg-white/5 transition-colors"
+                  className="px-4 py-2.5 text-xs font-bold tracking-widest border-b border-white/5 text-safari-gold hover:bg-white/5 transition-colors rounded-t-lg"
                 >
                   All Collections
                 </Link>
@@ -67,7 +79,7 @@ export default function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsDesktopShopOpen(false)}
-                    className="px-4 py-3 text-xs tracking-widest text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                    className="px-4 py-3 text-xs tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 transition-colors last:rounded-b-lg"
                   >
                     {item.name}
                   </Link>
@@ -76,95 +88,93 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/about" className="hover:text-safari-gold transition-colors">About Us</Link>
-          <Link href="/gallery" className="hover:text-safari-gold transition-colors">Gallery</Link>
-          <Link href="/blog" className="hover:text-safari-gold transition-colors">Blog</Link>
-          <Link href="/contact" className="hover:text-safari-gold transition-colors">Contact</Link>
+          <Link href="/about" className="hover:text-safari-gold transition-colors duration-200">About Us</Link>
+          <Link href="/gallery" className="hover:text-safari-gold transition-colors duration-200">Gallery</Link>
+          <Link href="/blog" className="hover:text-safari-gold transition-colors duration-200">Blog</Link>
+          <Link href="/contact" className="hover:text-safari-gold transition-colors duration-200">Contact</Link>
         </div>
 
-        {/* Cinematic Call To Action Button trigger */}
+        {/* Dynamic Action Buttons Trigger wrappers */}
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => { console.log('Navbar: Plan Your Route button clicked, calling openQuiz()'); openQuiz(); }}
-            className="px-8 py-3 bg-safari-gold text-white text-xs font-bold tracking-widest uppercase rounded-none hover:bg-olive-green transition-all shadow-lg active:scale-95"
+            onClick={openQuiz}
+            className="px-6 sm:px-8 py-3 bg-safari-gold text-white text-xs font-bold tracking-widest uppercase hover:bg-zinc-900 border border-safari-gold hover:border-white/20 transition-all duration-300 shadow-lg shadow-safari-gold/10 active:scale-95"
           >
             Plan Your Route
           </button>
 
           <button
-            className="xl:hidden p-2 text-white"
+            className="xl:hidden p-2 text-zinc-300 hover:text-safari-gold transition-colors duration-200 outline-none"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle structural layout navigation menu"
+            aria-label="Toggle structural layout navigation drawer panel context"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Overlay navigation */}
+      {/* 📱 OPTIMIZED HIGH CONTRAST MOBILE NAVIGATION MENU */}
       {isOpen && (
-        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 bg-black/95 backdrop-blur-2xl border-t border-white/10 p-6 flex flex-col gap-3 overflow-y-auto custom-scrollbar max-h-[calc(100vh-6rem)] font-medium tracking-widest text-lg text-white">
-          <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Home</Link>
-          <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Safaris</Link>
-          <Link href="/services" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Services</Link>
+        <div className="xl:hidden fixed inset-x-0 top-24 bottom-0 z-50 bg-zinc-950/98 backdrop-blur-3xl px-6 py-8 flex flex-col justify-between max-h-[calc(100vh-6rem)] overflow-y-auto">
           
-          {/* Mobile Accordion Shop Navigation Control */}
-          <div className="w-full border-y border-white/5 py-1">
-            <button
-              onClick={() => setIsMobileShopOpen(!isMobileShopOpen)}
-              className="w-full py-2 flex items-center justify-center gap-2 hover:text-safari-gold text-center font-medium tracking-widest"
-            >
-              <span>Shop</span>
-              <ChevronDown 
-                size={16} 
-                className={`transition-transform duration-300 ${isMobileShopOpen ? 'rotate-180 text-safari-gold' : ''}`} 
-              />
-            </button>
+          {/* Main Links Container Section */}
+          <div className="flex flex-col text-zinc-200 font-serif font-medium tracking-[0.15em] text-xl divide-y divide-white/5">
+            <Link href="/" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Home</Link>
+            <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Safaris</Link>
+            <Link href="/services" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Services</Link>
             
-            {/* Mobile Dropdown Sub-Links Tree */}
-            {isMobileShopOpen && (
-              <div className="bg-white/5 rounded-none my-1 py-1 flex flex-col gap-1 animate-in fade-in slide-in-from-top-1 duration-200">
-                <Link 
-                  href="/shop"
-                  onClick={() => {
-                    setIsMobileShopOpen(false);
-                    setIsOpen(false);
-                  }}
-                  className="py-2.5 text-sm tracking-widest text-safari-gold text-center font-bold"
-                >
-                  View All Shop
-                </Link>
-                {shopLinks.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => {
-                      setIsMobileShopOpen(false);
-                      setIsOpen(false);
-                    }}
-                    className="py-2.5 text-sm tracking-widest text-gray-300 hover:text-white text-center"
+            {/* Mobile Expandable Category Accordion block */}
+            <div className="py-2 w-full">
+              <button
+                onClick={() => setIsMobileShopOpen(!isMobileShopOpen)}
+                className="w-full py-2 flex items-center justify-center gap-2 hover:text-safari-gold font-serif text-center font-medium tracking-[0.15em] transition-colors"
+              >
+                <span>Shop</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform duration-300 text-zinc-400 ${isMobileShopOpen ? 'rotate-180 text-safari-gold' : ''}`} 
+                />
+              </button>
+              
+              {isMobileShopOpen && (
+                <div className="bg-white/5 rounded-xl my-2 p-2 flex flex-col gap-1 border border-white/5 animate-in fade-in slide-in-from-top-1 duration-200 font-sans tracking-widest">
+                  <Link 
+                    href="/shop"
+                    onClick={() => { setIsMobileShopOpen(false); setIsOpen(false); }}
+                    className="py-2.5 text-xs uppercase font-bold text-safari-gold text-center border-b border-white/5"
                   >
-                    {item.name}
+                    View All Shop
                   </Link>
-                ))}
-              </div>
-            )}
+                  {shopLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => { setIsMobileShopOpen(false); setIsOpen(false); }}
+                      className="py-3 text-sm text-zinc-300 hover:text-white text-center transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">About Us</Link>
+            <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Gallery</Link>
+            <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Blog</Link>
+            <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 text-center transition-colors">Contact</Link>
+          </div>
+          
+          {/* Action Trigger in Drawer Footer block */}
+          <div className="pt-8 border-t border-white/5 mt-auto">
+            <button 
+              onClick={() => { openQuiz(); setIsOpen(false); }}
+              className="w-full py-4.5 bg-safari-gold text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-300 shadow-xl shadow-safari-gold/10"
+            >
+              Plan Your Route
+            </button>
           </div>
 
-          <Link href="/about" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">About Us</Link>
-          <Link href="/gallery" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Gallery</Link>
-          <Link href="/blog" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Blog</Link>
-          <Link href="/contact" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-2">Contact</Link>
-          <button 
-            onClick={() => {
-              console.log('Navbar (Mobile): Plan Your Route button clicked, calling openQuiz()');
-              openQuiz();
-              setIsOpen(false);
-            }}
-            className="w-full mt-4 py-4 bg-safari-gold text-white text-xs font-bold uppercase tracking-widest"
-          >
-            Plan Your Route
-          </button>
         </div>
       )}
     </nav>

@@ -1,10 +1,12 @@
 // components/Navbar.tsx
 'use client'
 
-import * as React from 'react'
+import * as React from 'react';
 import Link from 'next/link'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, HelpCircle, BookOpen, Layers, Image as ImageIcon, Users2, ShoppingBag } from 'lucide-react';
 import { useQuiz } from '@/context/QuizContext'
+import { motion, AnimatePresence } from 'framer-motion';
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)

@@ -1,6 +1,5 @@
 'use client'
 
-import Footer from './Footer'
 import { BookOpen, Calendar, ShieldCheck, Map } from 'lucide-react'
 
 interface BlogPageProps {
@@ -105,8 +104,6 @@ export default function BlogPage({
           </div>
         </section>
       </article>
-      
-      <Footer />
     </main>
   )
 }

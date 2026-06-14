@@ -9,6 +9,8 @@ import { Toaster } from 'sonner'
 import { QuizProvider } from '@/context/QuizContext'
 import './globals.css'
 import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
+import Footer from '@/components/Footer'
+import { getFooterLinks } from '@/lib/api-client'
 
 const playfair = Playfair_Display({ 
   subsets: ["latin"],
@@ -40,11 +42,13 @@ export const viewport: Viewport = { // Fixed: Assigned explicit standard Viewpor
   themeColor: '#000000',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const footerLinks = await getFooterLinks()
+
   return (
     <html lang="en" className={`${playfair.variable} ${montserrat.variable} dark`} suppressHydrationWarning>
       <head>
@@ -66,6 +70,8 @@ export default function RootLayout({
           <PlanYourRoutePopup />
           {/* 2. Global Portal Mount: Renders the modal smoothly over all page elements */}
           <AdventureQuiz />
+
+          <Footer initialLinks={footerLinks} />
           
           {process.env.NODE_ENV === 'production' && <Analytics />}
         </QuizProvider>

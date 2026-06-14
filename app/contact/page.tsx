@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react'
-import Footer from '@/components/Footer'
 import { sendContactEmail } from './actions'
 
 export default function ContactPage() {
@@ -120,7 +119,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-      <Footer />
     </main>
   )
 }

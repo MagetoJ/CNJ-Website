@@ -114,8 +114,6 @@ export default function FAQClient({ faqs }: FAQClientProps) {
           </button>
           </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

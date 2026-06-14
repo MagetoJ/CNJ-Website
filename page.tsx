@@ -3,7 +3,6 @@
 import HeroSection from '@/components/HeroSection'
 import QuickLinks from '@/components/QuickLinks'
 import TestimonialSection from '@/components/TestimonialSection'
-import Footer from '@/components/Footer'
 import { useQuiz } from '@/context/QuizContext'
 
 export default function HomePage() {
@@ -14,7 +13,6 @@ export default function HomePage() {
       <HeroSection onStartQuiz={openQuiz} />
       <QuickLinks />
       <TestimonialSection />
-      <Footer />
     </main>
   )
 }

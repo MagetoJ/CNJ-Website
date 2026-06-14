@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { MapPin, Users, Clock, DollarSign, ChevronRight, MessageCircle, Facebook, Instagram, Twitter } from 'lucide-react'
-import Footer from './Footer'
 import { submitInquiry } from '@/lib/api-client'
 import { generateTouristTripSchema, SITE_CONFIG } from '@/lib/seo'
 
@@ -251,8 +250,6 @@ export default function DestinationPage({
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }

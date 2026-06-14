@@ -1,7 +1,6 @@
 'use client'
 
 import { motion, Variants } from 'framer-motion'
-import Footer from './Footer'
 import BlogCard from './BlogCard'
 
 interface BlogClientLayoutProps {
@@ -58,7 +57,6 @@ export default function BlogClientLayout({ posts }: BlogClientLayoutProps) {
           ))}
         </div>
       </main>
-      <Footer />
     </div>
   )
 }

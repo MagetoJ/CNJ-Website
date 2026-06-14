@@ -1,10 +1,10 @@
+// app/destinations/[slug]/page.tsx
 'use client'
 
 import { useEffect, useState, use } from 'react'
 import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
 import { sanityFetch, urlFor } from '@/lib/sanity'
-import Footer from '@/components/Footer'
 import { notFound } from 'next/navigation'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { MapPin, Calendar, Star, Clock, ChevronRight } from 'lucide-react'
@@ -56,7 +56,7 @@ export default function IndividualDestinationPage({ params }: { params: Promise<
           {destination.mainImage && (
             <Image
               src={urlFor(destination.mainImage).url()}
-              alt={destination.title}
+              alt={destination.title || "CNJ Safaris Destination Canvas Portfolio"}
               fill
               priority
               className="object-cover brightness-50"
@@ -159,7 +159,7 @@ export default function IndividualDestinationPage({ params }: { params: Promise<
         </aside>
       </section>
 
-      {/* Classy CTA Section */}
+      {/* Classy Book Optimization CTA Section */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto rounded-[3rem] bg-safari-gold p-12 md:p-24 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
@@ -187,7 +187,6 @@ export default function IndividualDestinationPage({ params }: { params: Promise<
           </motion.div>
         </div>
       </section>
-      <Footer />
     </main>
   )
 }

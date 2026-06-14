@@ -165,7 +165,7 @@ export default function DestinationClientPage({ destination }: { destination: De
           </motion.div>
         </div>
       </section>
-      <Footer />
+      
     </main>
   )
 }

@@ -1,23 +1,33 @@
-// components/Navbar.tsx
 'use client'
 
 import * as React from 'react';
 import Link from 'next/link'
-import { Menu, X, ChevronDown, HelpCircle, BookOpen, Layers, Image as ImageIcon, Users2, ShoppingBag } from 'lucide-react';
+import { Menu, X, ChevronDown, HelpCircle, BookOpen, Layers, Image as ImageIcon, Users2, ShoppingBag, Compass } from 'lucide-react';
 import { useQuiz } from '@/context/QuizContext'
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [isDesktopSafarisOpen, setIsDesktopSafarisOpen] = React.useState(false)
   const [isDesktopShopOpen, setIsDesktopShopOpen] = React.useState(false)
   const [isDesktopAboutOpen, setIsDesktopAboutOpen] = React.useState(false)
   const [isDesktopResourcesOpen, setIsDesktopResourcesOpen] = React.useState(false)
   
+  const [isMobileSafarisOpen, setIsMobileSafarisOpen] = React.useState(false)
   const [isMobileShopOpen, setIsMobileShopOpen] = React.useState(false)
   const [isMobileAboutOpen, setIsMobileAboutOpen] = React.useState(false)
   const [isMobileResourcesOpen, setIsMobileResourcesOpen] = React.useState(false)
   
   const { openQuiz } = useQuiz()
+
+  // Dynamic Safari Packages Dropdown Array
+  const safariLinks = [
+    { name: 'Affordable Safaris', href: '/affordable-safaris' },
+    { name: 'Luxury Safaris', href: '/safaris/luxury-safaris' },
+    { name: 'Family Safaris', href: '/safaris/family-safaris' },
+    { name: 'Gorilla Trekking', href: '/safaris/gorilla-trekking' },
+    { name: 'Migration Safaris', href: '/safaris/migration-safaris' },
+  ]
 
   const shopLinks = [
     { name: 'Souvenirs', href: '/shop/souvenirs' },
@@ -55,15 +65,48 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
         
         {/* Luxury Brand Typography Logo */}
-        <Link href="/" className="flex flex-col text-white tracking-wider animate-fade-in" onClick={() => setIsOpen(false)}>
-          <span className="font-serif font-black text-2xl uppercase tracking-[0.2em] text-white">CNJ</span>
-          <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1 font-semibold">Luxury Safaris</span>
+        <Link href="/" className="group block" onClick={() => setIsOpen(false)}>
+          <div className="flex flex-col text-white tracking-wider animate-in fade-in duration-700">
+            <span className="font-serif font-black text-2xl uppercase tracking-[0.2em]">CNJ</span>
+            <span className="text-[9px] uppercase tracking-[0.45em] text-safari-gold -mt-1 font-semibold">Luxury Safaris</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden xl:flex items-center gap-8 text-sm uppercase font-semibold tracking-widest text-zinc-300">
-          <Link href="/safaris" className="hover:text-safari-gold transition-colors duration-200">Safaris</Link>
           
+          {/* Desktop Safaris Dropdown Trigger */}
+          <div 
+            className="relative h-24 flex items-center"
+            onMouseEnter={() => setIsDesktopSafarisOpen(true)}
+            onMouseLeave={() => setIsDesktopSafarisOpen(false)}
+          >
+            <button className="hover:text-safari-gold transition-colors flex items-center gap-1.5 uppercase font-semibold tracking-widest outline-none">
+              <span>Safaris</span>
+              <ChevronDown size={14} className={`transition-transform duration-300 ${isDesktopSafarisOpen ? 'rotate-180 text-safari-gold' : ''}`} />
+            </button>
+
+            <AnimatePresence>
+              {isDesktopSafarisOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  className="absolute top-[84px] left-1/2 -translate-x-1/2 w-56 bg-zinc-950/95 backdrop-blur-2xl border border-white/10 p-2 flex flex-col shadow-2xl rounded-xl"
+                >
+                  <Link href="/safaris" onClick={() => setIsDesktopSafarisOpen(false)} className="px-4 py-2.5 text-xs font-bold tracking-widest border-b border-white/5 text-safari-gold hover:bg-white/5 transition-colors rounded-t-lg">
+                    All Itineraries
+                  </Link>
+                  {safariLinks.map((item) => (
+                    <Link key={item.href} href={item.href} onClick={() => setIsDesktopSafarisOpen(false)} className="px-4 py-3 text-xs tracking-widest text-zinc-300 hover:text-white hover:bg-white/5 transition-colors last:rounded-b-lg normal-case font-normal">
+                      {item.name}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {/* Desktop Shop Dropdown Trigger */}
           <div 
             className="relative h-24 flex items-center"
@@ -159,7 +202,7 @@ export default function Navbar() {
           <Link href="/contact" className="hover:text-safari-gold transition-colors duration-200">Contact</Link>
         </div>
 
-        {/* Dynamic Action Buttons Trigger wrappers */}
+        {/* Action Buttons Trigger */}
         <div className="flex items-center gap-4">
           <button 
             onClick={openQuiz}
@@ -178,7 +221,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 📱 TRUE SLIDE-OUT SIDEBAR SIDE DRAWER FOR MOBILE & TABLETS */}
+      {/* 📱 SIDEBAR SIDE DRAWER FOR MOBILE & TABLETS */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -191,7 +234,7 @@ export default function Navbar() {
               className="xl:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
             />
 
-            {/* Right-Side Elegant Sidebar Panel */}
+            {/* Right-Side Panel */}
             <motion.div 
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -199,11 +242,31 @@ export default function Navbar() {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
               className="xl:hidden fixed right-0 top-0 bottom-0 w-full max-w-sm sm:max-w-md bg-zinc-950 border-l border-white/10 z-50 p-6 pt-28 flex flex-col justify-between shadow-2xl overflow-y-auto h-screen"
             >
-              {/* Main Links List Navigation Container */}
+              {/* Main Links Accordion Navigation Container */}
               <div className="flex flex-col text-zinc-200 font-serif font-medium tracking-[0.12em] text-xl divide-y divide-white/5">
-                <Link href="/safaris" onClick={() => setIsOpen(false)} className="hover:text-safari-gold py-4 block transition-colors">
-                  Safaris
-                </Link>
+                
+                {/* Mobile Accordion Component: Safaris */}
+                <div className="py-2">
+                  <button
+                    onClick={() => setIsMobileSafarisOpen(!isMobileSafarisOpen)}
+                    className="w-full py-3 flex items-center justify-between text-left hover:text-safari-gold transition-colors"
+                  >
+                    <span>Safaris</span>
+                    <ChevronDown size={18} className={`transition-transform duration-300 text-zinc-400 ${isMobileSafarisOpen ? 'rotate-180 text-safari-gold' : ''}`} />
+                  </button>
+                  {isMobileSafarisOpen && (
+                    <div className="bg-white/5 rounded-xl my-2 p-2 flex flex-col gap-1 border border-white/5 font-sans text-sm tracking-wider">
+                      <Link href="/safaris" onClick={() => setIsOpen(false)} className="py-2.5 text-xs uppercase font-bold text-safari-gold border-b border-white/5 flex items-center gap-2">
+                        <Compass size={14} /> View All Safaris
+                      </Link>
+                      {safariLinks.map((item) => (
+                        <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className="py-3 pl-2 text-zinc-400 hover:text-white transition-colors">
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 
                 {/* Mobile Accordion Component: Shop */}
                 <div className="py-2">
@@ -275,7 +338,6 @@ export default function Navbar() {
                 </Link>
               </div>
               
-              {/* Drawer Footer CTA */}
               <div className="pt-8 border-t border-white/5 mt-auto">
                 <button 
                   onClick={() => { openQuiz(); setIsOpen(false); }}

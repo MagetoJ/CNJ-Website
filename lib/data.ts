@@ -36,3 +36,115 @@ export const faqData = [
   { question: "Are safari packages all-inclusive?", answer: "Most packages are fundamentally all-inclusive covering your domestic park transit, professional guide-tracker services, entry permits, and specified full-board accommodation meals." },
   { question: "What animals can I see on safari?", answer: "You stand excellent chances to encounter Africa's legendary Big Five (Lions, Leopards, Elephants, Rhinos, Buffalos), alongside Cheetahs, Giraffes, Zebras, Hippos, and millions of Wildebeest during migration cycles." }
 ];
+
+export const affordableSafariPackages = [
+  {
+    _id: "aff-pkg-001",
+    title: "3-Day Maasai Mara Budget Explorer",
+    slug: "3-day-maasai-mara-budget-explorer",
+    durationDays: 3,
+    basePrice: 350,
+    destinationName: "Maasai Mara",
+    category: "Budget-Friendly",
+    image: "/A Safari and Beach Getaway in One Perfect Itinerary.jpeg",
+    highlights: ["Big Five Opportunities", "Maasai Mara Wildlife Experience", "Great Migration Tracking"],
+    accommodations: [{ name: "Standard Tented Bush Camp", type: "Budget Tented Camp" }],
+    days: [
+      {
+        dayNumber: 1,
+        title: "Nairobi to Maasai Mara Reserve",
+        description: "Depart from Nairobi in a shared custom 4x4 safari vehicle. Journey down the Great Rift Valley escarpment into the legendary Maasai Mara. Enjoy an introductory afternoon game drive.",
+        activities: ["Scenic Rift Valley Drive", "Sunset Game Tracking"]
+      },
+      {
+        dayNumber: 2,
+        title: "Full Day Savanna Expedition",
+        description: "Spend a comprehensive full day tracking the Big Five across the endless plains. Picnic lunch served under a classic acacia tree near the Mara River.",
+        activities: ["Full-Day Game Drive", "Mara River Hippo Observation"]
+      },
+      {
+        dayNumber: 3,
+        title: "Morning Tracking & Return Transit",
+        description: "Conduct an early dawn predator tracking session, eat a hearty bush breakfast, and return back to Nairobi arriving by late afternoon.",
+        activities: ["Dawn Predator Drive", "Transit to Nairobi"]
+      }
+    ]
+  },
+  {
+    _id: "aff-pkg-002",
+    title: "4-Day Amboseli Value Safari",
+    slug: "4-day-amboseli-value-safari",
+    durationDays: 4,
+    basePrice: 550,
+    destinationName: "Amboseli",
+    category: "Value Safari Tours",
+    image: "/Experience an unforgettable Big 5 safari at .jpeg",
+    highlights: ["Mount Kilimanjaro Views", "Giant Elephant Herds", "Exceptional Photography"],
+    accommodations: [{ name: "Amboseli Wilderness Camp", type: "Boutique Bush Camp" }],
+    days: [
+      {
+        dayNumber: 1,
+        title: "Arrival under Kilimanjaro",
+        description: "Drive south from Nairobi arriving at Amboseli in time for lunch. Embark on a game drive against the backdrop of Africa's highest peak.",
+        activities: ["Ecosystem Orientation Drive"]
+      },
+      {
+        dayNumber: 2,
+        title: "Swamps & Elephant Pathways",
+        description: "Full day tracking the massive elephant bulls of Amboseli as they traverse the central marshes and dry dust plains.",
+        activities: ["Elephant Tracking", "Observation Hill Viewpoint"]
+      },
+      {
+        dayNumber: 3,
+        title: "Cultural Interaction & Big Cats",
+        description: "Combine an authentic morning visit to a traditional Maasai community homestead with an afternoon big cat tracking route.",
+        activities: ["Maasai Village Tour", "Evening Predator Patrol"]
+      },
+      {
+        dayNumber: 4,
+        title: "Dawn Vista & Departure",
+        description: "Capture the clear morning silhouette of Mount Kilimanjaro during breakfast before checking out for your return transit.",
+        activities: ["Sunrise Photography"]
+      }
+    ]
+  },
+  {
+    _id: "aff-pkg-003",
+    title: "5-Day Classic Kenya Wildlife Adventure",
+    slug: "5-day-kenya-wildlife-adventure",
+    durationDays: 5,
+    basePrice: 850,
+    destinationName: "Multi-Destination",
+    category: "Cost-Effective Adventures",
+    image: "/Why you should visit Kenya   Style for Wanderlust.jpeg",
+    highlights: ["Rhino Sanctuary Sightings", "Flamingo Flocks", "Amboseli Elephants"],
+    accommodations: [{ name: "Econest Safari Lodges", type: "Boutique Bush Camp" }],
+    days: [
+      { dayNumber: 1, title: "Nairobi to Lake Nakuru Sanctuary", description: "Drive to Lake Nakuru National Park, famous for its black and white rhino sanctuaries.", activities: ["Rhino Tracking"] },
+      { dayNumber: 2, title: "Lake Nakuru to Maasai Mara", description: "Transit to the magnificent Mara ecosystem with an evening game route.", activities: ["Savanna Transit Drive"] },
+      { dayNumber: 3, title: "The Ultimate Mara Plains Tracker", description: "Full day charting migration paths and open grassland hunting patterns.", activities: ["Migration Scouting"] },
+      { dayNumber: 4, title: "Maasai Mara to Amboseli Plains", description: "Scenic transfer toward the southern dynamic elephant corridors.", activities: ["Ecosystem Crossing Route"] },
+      { dayNumber: 5, title: "Amboseli Checkout to Nairobi", description: "Conclude with an early morning game drive before driving back to Nairobi.", activities: ["Final Savanna Tracking"] }
+    ]
+  },
+  {
+    _id: "aff-pkg-004",
+    title: "6-Day Tanzania Budget-Friendly Circuit",
+    slug: "6-day-tanzania-budget-safari",
+    durationDays: 6,
+    basePrice: 1250,
+    destinationName: "Serengeti & Ngorongoro",
+    category: "Budget-Friendly",
+    image: "/Serengeti National Park on days 2 & 3 of the .jpeg",
+    highlights: ["Serengeti Plains Tracking", "Ngorongoro Crater Floor", "Tarangire Baobabs"],
+    accommodations: [{ name: "Ngorongoro Eco-Lodge", type: "Luxury Tented Camp" }],
+    days: [
+      { dayNumber: 1, title: "Arusha to Tarangire National Park", description: "Explore Tarangire's ancient baobab landscapes and large herds of elephants.", activities: ["Baobab Route Tracking"] },
+      { dayNumber: 2, title: "Tarangire to Central Serengeti", description: "Journey into the heart of Africa's most famous wildlife arena.", activities: ["Endless Plains Game Drive"] },
+      { dayNumber: 3, title: "Serengeti Migration Search", description: "Track massive herds of wildebeest and zebras followed by large prides of lions.", activities: ["Predator-Prey Tracking"] },
+      { dayNumber: 4, title: "Serengeti to Ngorongoro Highlands", description: "Enjoy a morning game drive out of Serengeti, moving into the volcanic crater highlands.", activities: ["Caldera Escarpment Drive"] },
+      { dayNumber: 5, title: "Ngorongoro Crater Floor Extraction", description: "Descend 600 meters into the crater floor for an exceptional wildlife viewing experience inside a natural caldera.", activities: ["Crater Floor Exploration"] },
+      { dayNumber: 6, title: "Highlands Transfer back to Arusha", description: "Enjoy a relaxed breakfast before returning to Arusha for your onward international flight.", activities: ["Transit Journey"] }
+    ]
+  }
+];

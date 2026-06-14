@@ -181,7 +181,6 @@ export default function SouvenirsShopPage() {
           ))}
         </div>
       </div>
-      <Footer />
     </main>
   )
 }

@@ -3,7 +3,6 @@
 import HeroSection from '@/components/HeroSection'
 import QuickLinks from '@/components/QuickLinks'
 import TestimonialSection from '@/components/TestimonialSection'
-import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { useQuiz } from '@/context/QuizContext'
 import { faqData } from '@/lib/data'
@@ -118,8 +117,6 @@ export default function HomePage() {
           ))}
         </Accordion>
       </section>
-
-      <Footer />
     </main>
   )
 }
